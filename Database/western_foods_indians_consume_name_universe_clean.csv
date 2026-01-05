@@ -1,0 +1,409 @@
+food_id,canonical_name,primary_category,gi,gi_evidence,gl_median,gl_min,gl_max,gl_category,confidence_score,serving_size_g,available_carbs_g,notes
+WEST_0001,Pizza (cheese) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0002,Pizza (cheese) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0003,Pizza (cheese) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0004,Pizza (cheese) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0005,Pizza (cheese) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0006,Pizza (cheese) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0007,Pizza (cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0008,Pizza (cheese) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0009,Pizza (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0010,Pizza (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0011,Pizza (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0012,Pizza (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0013,Pizza (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0014,Pizza (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0015,Pizza,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0016,Pizza (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0017,Pizza (chicken) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0018,Pizza (chicken) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0019,Pizza (chicken) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0020,Pizza (chicken) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0021,Pizza (chicken) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0022,Pizza (chicken) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0023,Pizza (chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0024,Pizza (chicken) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0025,Lasagne (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0026,Lasagne (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0027,Lasagne (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0028,Lasagne (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0029,Lasagne (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0030,Lasagne (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0031,Lasagne,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0032,Lasagne (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0033,Lasagne (chicken) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0034,Lasagne (chicken) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0035,Lasagne (chicken) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0036,Lasagne (chicken) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0037,Lasagne (chicken) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0038,Lasagne (chicken) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0039,Lasagne (chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0040,Lasagne (chicken) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0041,Pasta (white sauce) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0042,Pasta (white sauce) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0043,Pasta (white sauce) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0044,Pasta (white sauce) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0045,Pasta (white sauce) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0046,Pasta (white sauce) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0047,Pasta (white sauce),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0048,Pasta (white sauce) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0049,Pasta (red sauce) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0050,Pasta (red sauce) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0051,Pasta (red sauce) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0052,Pasta (red sauce) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0053,Pasta (red sauce) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0054,Pasta (red sauce) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0055,Pasta (red sauce),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0056,Pasta (red sauce) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0057,Pasta (cheese) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0058,Pasta (cheese) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0059,Pasta (cheese) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0060,Pasta (cheese) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0061,Pasta (cheese) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0062,Pasta (cheese) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0063,Pasta (cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0064,Pasta (cheese) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0065,Mac and cheese (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0066,Mac and cheese (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0067,Mac and cheese (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0068,Mac and cheese (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0069,Mac and cheese (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0070,Mac and cheese (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0071,Mac and cheese,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0072,Mac and cheese (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0073,Spaghetti (tomato sauce) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0074,Spaghetti (tomato sauce) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0075,Spaghetti (tomato sauce) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0076,Spaghetti (tomato sauce) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0077,Spaghetti (tomato sauce) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0078,Spaghetti (tomato sauce) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0079,Spaghetti (tomato sauce),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0080,Spaghetti (tomato sauce) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0081,Spaghetti (cheese) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0082,Spaghetti (cheese) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0083,Spaghetti (cheese) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0084,Spaghetti (cheese) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0085,Spaghetti (cheese) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0086,Spaghetti (cheese) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0087,Spaghetti (cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0088,Spaghetti (cheese) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0089,Veg burger (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0090,Veg burger (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0091,Veg burger (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0092,Veg burger (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0093,Veg burger (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0094,Veg burger (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0095,Veg burger,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0096,Veg burger (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0097,Chicken burger (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0098,Chicken burger (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0099,Chicken burger (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0100,Chicken burger (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0101,Chicken burger (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0102,Chicken burger (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0103,Chicken burger,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0104,Chicken burger (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0105,Cheese burger (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0106,Cheese burger (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0107,Cheese burger (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0108,Cheese burger (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0109,Cheese burger (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0110,Cheese burger (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0111,Cheese burger,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0112,Cheese burger (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0113,Grilled veg sandwich (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0114,Grilled veg sandwich (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0115,Grilled veg sandwich (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0116,Grilled veg sandwich (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0117,Grilled veg sandwich (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0118,Grilled veg sandwich (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0119,Grilled veg sandwich,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0120,Grilled veg sandwich (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0121,Grilled cheese sandwich (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0122,Grilled cheese sandwich (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0123,Grilled cheese sandwich (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0124,Grilled cheese sandwich (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0125,Grilled cheese sandwich (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0126,Grilled cheese sandwich (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0127,Grilled cheese sandwich,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0128,Grilled cheese sandwich (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0129,Chicken sandwich (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0130,Chicken sandwich (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0131,Chicken sandwich (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0132,Chicken sandwich (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0133,Chicken sandwich (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0134,Chicken sandwich (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0135,Chicken sandwich,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0136,Chicken sandwich (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0137,Sub sandwich (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0138,Sub sandwich (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0139,Sub sandwich (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0140,Sub sandwich (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0141,Sub sandwich (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0142,Sub sandwich (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0143,Sub sandwich,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0144,Sub sandwich (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0145,Sub sandwich (chicken) (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0146,Sub sandwich (chicken) (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0147,Sub sandwich (chicken) (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0148,Sub sandwich (chicken) (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0149,Sub sandwich (chicken) (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0150,Sub sandwich (chicken) (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0151,Sub sandwich (chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0152,Sub sandwich (chicken) (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0153,Garlic bread (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0154,Garlic bread (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0155,Garlic bread (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0156,Garlic bread (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0157,Garlic bread (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0158,Garlic bread (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0159,Garlic bread,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0160,Garlic bread (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0161,Cheese garlic bread (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0162,Cheese garlic bread (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0163,Cheese garlic bread (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0164,Cheese garlic bread (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0165,Cheese garlic bread (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0166,Cheese garlic bread (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0167,Cheese garlic bread,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0168,Cheese garlic bread (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0169,Breadsticks (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0170,Breadsticks (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0171,Breadsticks (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0172,Breadsticks (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0173,Breadsticks (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0174,Breadsticks (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0175,Breadsticks,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0176,Breadsticks (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0177,Croissant (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0178,Croissant (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0179,Croissant (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0180,Croissant (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0181,Croissant (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0182,Croissant (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0183,Croissant,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0184,Croissant (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0185,Muffin (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0186,Muffin (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0187,Muffin (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0188,Muffin (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0189,Muffin (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0190,Muffin (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0191,Muffin,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0192,Muffin (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0193,Cupcake (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0194,Cupcake (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0195,Cupcake (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0196,Cupcake (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0197,Cupcake (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0198,Cupcake (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0199,Cupcake,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0200,Cupcake (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0201,Brownie (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0202,Brownie (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0203,Brownie (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0204,Brownie (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0205,Brownie (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0206,Brownie (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0207,Brownie,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0208,Brownie (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0209,Donut (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0210,Donut (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0211,Donut (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0212,Donut (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0213,Donut (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0214,Donut (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0215,Donut,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0216,Donut (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0217,French fries (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0218,French fries (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0219,French fries (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0220,French fries (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0221,French fries (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0222,French fries (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0223,French fries,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0224,French fries (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0225,Cheese fries (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0226,Cheese fries (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0227,Cheese fries (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0228,Cheese fries (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0229,Cheese fries (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0230,Cheese fries (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0231,Cheese fries,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0232,Cheese fries (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0233,Potato wedges (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0234,Potato wedges (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0235,Potato wedges (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0236,Potato wedges (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0237,Potato wedges (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0238,Potato wedges (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0239,Potato wedges,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0240,Potato wedges (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0241,Chicken nuggets (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0242,Chicken nuggets (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0243,Chicken nuggets (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0244,Chicken nuggets (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0245,Chicken nuggets (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0246,Chicken nuggets (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0247,Chicken nuggets,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0248,Chicken nuggets (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0249,Veg nuggets (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0250,Veg nuggets (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0251,Veg nuggets (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0252,Veg nuggets (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0253,Veg nuggets (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0254,Veg nuggets (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0255,Veg nuggets,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0256,Veg nuggets (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0257,Fish fingers (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0258,Fish fingers (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0259,Fish fingers (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0260,Fish fingers (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0261,Fish fingers (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0262,Fish fingers (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0263,Fish fingers,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0264,Fish fingers (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0265,Corn flakes (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0266,Corn flakes (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0267,Corn flakes (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0268,Corn flakes (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0269,Corn flakes (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0270,Corn flakes (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0271,Corn flakes,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0272,Corn flakes (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0273,Sweetened breakfast cereal (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0274,Sweetened breakfast cereal (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0275,Sweetened breakfast cereal (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0276,Sweetened breakfast cereal (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0277,Sweetened breakfast cereal (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0278,Sweetened breakfast cereal (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0279,Sweetened breakfast cereal,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0280,Sweetened breakfast cereal (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0281,Chocolate cereal (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0282,Chocolate cereal (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0283,Chocolate cereal (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0284,Chocolate cereal (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0285,Chocolate cereal (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0286,Chocolate cereal (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0287,Chocolate cereal,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0288,Chocolate cereal (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0289,Oats porridge (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0290,Oats porridge (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0291,Oats porridge (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0292,Oats porridge (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0293,Oats porridge (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0294,Oats porridge (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0295,Oats porridge,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0296,Oats porridge (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0297,Flavoured oats (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0298,Flavoured oats (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0299,Flavoured oats (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0300,Flavoured oats (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0301,Flavoured oats (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0302,Flavoured oats (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0303,Flavoured oats,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0304,Flavoured oats (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0305,Ice cream (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0306,Ice cream (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0307,Ice cream (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0308,Ice cream (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0309,Ice cream (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0310,Ice cream (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0311,Ice cream,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0312,Ice cream (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0313,Chocolate ice cream (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0314,Chocolate ice cream (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0315,Chocolate ice cream (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0316,Chocolate ice cream (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0317,Chocolate ice cream (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0318,Chocolate ice cream (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0319,Chocolate ice cream,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0320,Chocolate ice cream (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0321,Vanilla ice cream (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0322,Vanilla ice cream (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0323,Vanilla ice cream (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0324,Vanilla ice cream (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0325,Vanilla ice cream (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0326,Vanilla ice cream (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0327,Vanilla ice cream,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0328,Vanilla ice cream (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0329,Chocolate cake (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0330,Chocolate cake (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0331,Chocolate cake (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0332,Chocolate cake (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0333,Chocolate cake (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0334,Chocolate cake (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0335,Chocolate cake,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0336,Chocolate cake (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0337,Pastry (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0338,Pastry (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0339,Pastry (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0340,Pastry (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0341,Pastry (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0342,Pastry (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0343,Pastry,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0344,Pastry (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0345,Waffle (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0346,Waffle (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0347,Waffle (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0348,Waffle (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0349,Waffle (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0350,Waffle (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0351,Waffle,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0352,Waffle (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0353,Pancake (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0354,Pancake (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0355,Pancake (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0356,Pancake (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0357,Pancake (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0358,Pancake (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0359,Pancake,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0360,Pancake (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0361,Soft drink (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0362,Soft drink (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0363,Soft drink (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0364,Soft drink (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0365,Soft drink (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0366,Soft drink (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0367,Soft drink,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0368,Soft drink (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0369,Cola drink (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0370,Cola drink (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0371,Cola drink (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0372,Cola drink (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0373,Cola drink (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0374,Cola drink (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0375,Cola drink,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0376,Cola drink (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0377,Flavoured soda (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0378,Flavoured soda (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0379,Flavoured soda (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0380,Flavoured soda (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0381,Flavoured soda (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0382,Flavoured soda (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0383,Flavoured soda,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0384,Flavoured soda (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0385,Cold coffee (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0386,Cold coffee (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0387,Cold coffee (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0388,Cold coffee (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0389,Cold coffee (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0390,Cold coffee (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0391,Cold coffee,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0392,Cold coffee (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0393,Milkshake (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0394,Milkshake (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0395,Milkshake (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0396,Milkshake (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0397,Milkshake (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0398,Milkshake (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0399,Milkshake,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0400,Milkshake (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0401,Chocolate milk (plain),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0402,Chocolate milk (extra cheese),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0403,Chocolate milk (thin crust),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0404,Chocolate milk (pan style),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0405,Chocolate milk (baked),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0406,Chocolate milk (fried),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0407,Chocolate milk,Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped
+WEST_0408,Chocolate milk (with chicken),Western foods (Indian consumption),,Western food category; GI varies by recipe,,,,,0.55,100,,Name normalized for Indian audience; GI/GL to be inferred or mapped

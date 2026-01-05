@@ -1,0 +1,16 @@
+food_id,canonical_name,primary_category,gi,gl_median,gl_min,gl_max,gl_category,confidence_score,serving_size_g,available_carbs_g,notes
+GNS_001,White rice (boiled),Grains & staples,73,16.0,16.0,16.0,Medium,0.92,150.0,23.0,Plain cooked white rice
+GNS_002,Brown rice (boiled),Grains & staples,68,16.0,16.0,16.0,Medium,0.92,150.0,24.0,"Brown rice, cooked"
+GNS_003,Parboiled rice (boiled),Grains & staples,48,18.0,18.0,18.0,Medium,0.92,150.0,37.0,Parboiled rice (ukda style)
+GNS_004,Rice flakes (poha),Grains & staples,38,12.0,12.0,12.0,Medium,0.92,30.0,32.0,Flattened rice (dry serving)
+GNS_005,Rice porridge (kanji),Grains & staples,78,12.0,12.0,12.0,Medium,0.92,250.0,16.0,Rice porridge
+GNS_006,Wheat chapati (roti),Breads & flatbreads,62,17.0,17.0,17.0,Medium,0.92,60.0,27.0,Whole wheat chapati
+GNS_007,Chapati (mixed wheat–moth bean),Breads & flatbreads,63,,,,,0.92,,,GI measured; GL not reported
+PLS_001,Chana dal (boiled),Pulses & legumes,33,7.0,7.0,7.0,Low,0.92,150.0,21.0,Boiled Bengal gram dal
+PLS_002,Rajma (boiled),Pulses & legumes,23,6.0,6.0,6.0,Low,0.9,150.0,25.0,Boiled kidney beans
+PLS_003,Moong dal (boiled),Pulses & legumes,21,4.0,4.0,4.0,Low,0.9,150.0,18.0,Boiled moong dal
+VEG_001,Potato (boiled),Starchy vegetables,74,21.0,21.0,21.0,High,0.92,150.0,28.0,Boiled potato
+VEG_002,Sweet potato (boiled),Starchy vegetables,61,11.0,11.0,11.0,Medium,0.92,150.0,18.0,Boiled sweet potato
+FRT_001,Apple,Fruits,39,6.0,6.0,6.0,Low,0.92,120.0,16.0,Raw apple
+FRT_002,Banana (ripe),Fruits,52,11.0,11.0,11.0,Medium,0.92,120.0,22.0,Raw ripe banana
+FRT_003,Mango,Fruits,51,8.0,8.0,8.0,Low,0.92,120.0,16.0,Raw mango

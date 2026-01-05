@@ -1,0 +1,308 @@
+Category,S.No.,Food Item,EGL(Per 100G of uncooked food)
+Vegetables,1,Raddish Leaves (Mooli Patta),0.36
+Vegetables,2,Lettuce (Salad Patta),0.37
+Vegetables,3,Cucumber (Kheera),0.37
+Vegetables,4,Zuchini (Torai),0.45
+Vegetables,5,Ridge Gourd (Torai),0.51
+Vegetables,6,Tinda,0.51
+Vegetables,7,Brinjal (Baigan),0.6
+Vegetables,8,Bottle Gourd (Louki),0.63
+Vegetables,9,Carissa (Karonda),0.87
+Vegetables,10,Chenopodium Album(Bathua),0.92
+Vegetables,11,Spinach (Palak),0.92
+Vegetables,12,Pointed Gourd (Parwal),1.02
+Vegetables,13,Mustard Leaves (Sarso ki Patti),1.02
+Vegetables,14,Radish (Mooli),1.02
+Vegetables,15,Mushroom,1.03
+Vegetables,16,Drumsticks (Saijan),1.1
+Vegetables,17,Cauliflower (Phoolgobhi),1.2
+Vegetables,18,Amaranth Leaves (Choulai ka Saag),1.21
+Vegetables,19,Bitter Gourd (Karela),1.34
+Vegetables,20,Capsicum (Shimla Mirch),1.34
+Vegetables,21,Tomato (Tamatar),1.36
+Vegetables,22,French Been (Sem),1.44
+Vegetables,23,Mint (Pudina),1.85
+Vegetables,24,Methi Leaf,1.85
+Vegetables,25,Onion (pyaz),1.89
+Vegetables,26,Knol Khol (Ganth Gobhi),1.9
+Vegetables,27,Kheksa,1.92
+Vegetables,28,Dhania Leaf,2.01
+Vegetables,29,Lady Finger (Bhindi),2.04
+Vegetables,30,Cabbage (Patta Gobhi),2.07
+Vegetables,31,Beet Green (Chukandar ke Patte),2.08
+Vegetables,32,Broccoli,2.11
+Vegetables,33,Colocasia Leaves (Aalo ki Pattiyan),2.17
+Vegetables,34,Brussels Sprout,2.27
+Vegetables,35,Papaya Green,2.28
+Vegetables,36,Broad Bean (Baakla),2.3
+Vegetables,37,Onion Stalk,2.84
+Vegetables,38,Pumpkin (kaddu),3.45
+Vegetables,39,Jack Fruit (Kathal),3.76
+Vegetables,40,Mango Green,4
+Vegetables,41,Carrot (Gajar),4
+Vegetables,42,Turnip (Saljam),4.46
+Vegetables,43,Plantain (Banana Green),4.48
+Vegetables,44,Green Peas (Hari matar),5.08
+Vegetables,45,Beetroot (Chukandar),5.63
+Vegetables,46,Ash gourd (Green Pumpkin),5.7
+Vegetables,47,Sweet Potato (Shakarkand),11.28
+Vegetables,48,Sweet Corns,11.4
+Vegetables,49,Yam,13
+Vegetables,50,Potato (Aaloo),13.56
+Vegetables,51,Colocasia (Arbi),16.8
+Vegetables,52,Water Chestnut (Singhada),19.8
+Vegetables,53,Lotus Stem - Dry,28.27
+Fruits,1,Gooseberry (Amla),2.05
+Fruits,2,Muskmelon (Kharbooja),2.1
+Fruits,3,Lemon,2.22
+Fruits,4,Watermelon (Tarbooj),2.47
+Fruits,5,Raspberry,2.92
+Fruits,6,Cherie (Red),3.03
+Fruits,7,Apricot Fresh (Khumani),3.48
+Fruits,8,Phalsa,3.67
+Fruits,9,Indian Blackberry (Jamun),4.08
+Fruits,10,Papaya,4.17
+Fruits,11,Plum (Aloo Bukhara),4.21
+Fruits,12,Peach (Aaroo),4.41
+Fruits,13,Indian Plum (Ber),4.44
+Fruits,14,Pear (Nashpati),4.52
+Fruits,15,Fig (Anjeer),4.63
+Fruits,16,Apple,4.69
+Fruits,17,Mosambi (Sweet lime),4.73
+Fruits,18,Lichi,4.76
+Fruits,19,Strawberry,4.9
+Fruits,20,Orange,5.23
+Fruits,21,Pineapple,6.37
+Fruits,22,Guava (Amrood),7.28
+Fruits,23,Grapes,7.42
+Fruits,24,Kiwi,7.79
+Fruits,25,Custard Apple (Shareefa),8.82
+Fruits,26,Mango (Ripe),9.29
+Fruits,27,Pomegranate (Anaar),9.71
+Fruits,28,Sapota (Chiku),11.77
+Fruits,29,Dates (Khajoor) - Fresh,12.09
+Fruits,30,Banana,14.14
+Fruits,31,Loquat,14.8
+Fruits,32,Ripe Jackfruit (Paka Kathal),14.85
+Fruits,33,Wood Apple (Bael),20.67
+Milk Product & Fat,1,Desi Ghee,0
+Milk Product & Fat,2,"Any Oil (Olive, Canola etc.)",0
+Milk Product & Fat,3,Butter,0
+Milk Product & Fat,4,Nutrilite Butter,0
+Milk Product & Fat,5,Paneer,0.54
+Milk Product & Fat,6,Soya Paneer,0.6
+Milk Product & Fat,7,Cream,0.75
+Milk Product & Fat,8,Butter Milk,0.9
+Milk Product & Fat,9,Cottage Cheese,1.62
+Milk Product & Fat,10,Cheese Slice,1.7
+Milk Product & Fat,11,Cheese block,1.7
+Milk Product & Fat,12,Mozzarella Cheese,1.7
+Milk Product & Fat,13,Curd,1.8
+Milk Product & Fat,14,Milk Full Cream,1.9
+Milk Product & Fat,15,Toned Milk,1.9
+Milk Product & Fat,16,Cow's Milk,1.9
+Milk Product & Fat,17,Double Toned Milk,1.9
+Milk Product & Fat,18,Cheese Spread,3.51
+Milk Product & Fat,19,Soya Milk,5.6
+Milk Product & Fat,20,Khoya,12
+Milk Product & Fat,21,Milk Powder Whole,22.8
+Milk Product & Fat,22,Milk Powder Skimmed,30
+Nuts & Dry Fruits,1,WaterMelon Seeds,0.45
+Nuts & Dry Fruits,2,Coconut Water,0.88
+Nuts & Dry Fruits,3,Almonds (Badaam),1.05
+Nuts & Dry Fruits,4,Charoli (Chirongi),1.2
+Nuts & Dry Fruits,5,Walnut (Akhrot),1.6
+Nuts & Dry Fruits,6,Coconut Dry,1.84
+Nuts & Dry Fruits,7,Peanut,2.15
+Nuts & Dry Fruits,8,Niger Seeds (Ramtil),2.55
+Nuts & Dry Fruits,9,Coconut Fresh,2.6
+Nuts & Dry Fruits,10,Flax Seeds,2.8
+Nuts & Dry Fruits,11,Pistachio Nuts (pista),2.88
+Nuts & Dry Fruits,12,Sunflower Seeds,3.6
+Nuts & Dry Fruits,13,Mustard Seeds,4.75
+Nuts & Dry Fruits,14,Cashew Nut (kaju),4.84
+Nuts & Dry Fruits,15,Pumpkin seeds,5.37
+Nuts & Dry Fruits,16,Kinnow (Mandrain),5.46
+Nuts & Dry Fruits,17,Gingelly Seeds (Till),5.75
+Nuts & Dry Fruits,18,Garden Cress (Chandrashoor),9.9
+Nuts & Dry Fruits,19,Pine Nut (Chilgoza),10.15
+Nuts & Dry Fruits,20,Blueberries,11.3
+Nuts & Dry Fruits,21,Safflower seeds (Kusum Beej),15.3
+Nuts & Dry Fruits,22,Areca nuts (Supari),21.15
+Nuts & Dry Fruits,23,Apricot (Khumani) - Dry,21.9
+Nuts & Dry Fruits,24,Lotus Seeds (Makhana),28.16
+Nuts & Dry Fruits,25,Dried Dates (Chuara),29.25
+Nuts & Dry Fruits,26,Raisin (Khishmish),51.35
+Nuts & Dry Fruits,27,Sultana Currant (Munakka),55.5
+Cereals & Pulses,1,Soyabean,3.13
+Cereals & Pulses,2,Diabexy Sugar Control Atta,7
+Cereals & Pulses,3,Chole (Chickpeas),12
+Cereals & Pulses,4,Kale Channa,12
+Cereals & Pulses,5,Pea (Matar) - Dry,16.95
+Cereals & Pulses,6,Lentil (Masoor),17.7
+Cereals & Pulses,7,Oats,19.86
+Cereals & Pulses,8,Quinoa,20
+Cereals & Pulses,9,Cow Pea (Lobhia),21.8
+Cereals & Pulses,10,Moth Beans,22.6
+Cereals & Pulses,11,Horse Gram(Kulthi Dal),22.64
+Cereals & Pulses,12,Green Gram (Mung Dal),22.76
+Cereals & Pulses,13,Kidney Beans (Rajma),23.02
+Cereals & Pulses,14,Red Gram (Arhar Dal),23.04
+Cereals & Pulses,15,Bengal Gram (Chana Dal),23.92
+Cereals & Pulses,16,Barley (Jau),24.46
+Cereals & Pulses,17,Water chestnut (Singhada) Flour,25
+Cereals & Pulses,18,Black Gram (Urad Dal),25
+Cereals & Pulses,19,Field Beans (Sem),25
+Cereals & Pulses,20,Amaranth Grain (Chaulai),26
+Cereals & Pulses,21,Samai (Kutki),26.8
+Cereals & Pulses,22,Channa Sprouts,32
+Cereals & Pulses,23,Kodo Millet (Kodra),38
+Cereals & Pulses,24,Jowar,39.5
+Cereals & Pulses,25,Mung Sprouts,40
+Cereals & Pulses,26,Bajra,40.5
+Cereals & Pulses,27,Brown Rice,41.68
+Cereals & Pulses,28,Buck Wheat (Kuttu),42.9
+Cereals & Pulses,29,Ragi,43.2
+Cereals & Pulses,30,White Rice Flour,45
+Cereals & Pulses,31,Corn Flour (Maize),49.6
+Cereals & Pulses,32,Wheat Flour,49.96
+Cereals & Pulses,33,Rice,58.65
+Cereals & Pulses,34,Semolina (sooji),63.5
+Processed Non Veg,1,Sausage,0
+Processed Non Veg,2,Bacon,0.4
+Processed Non Veg,3,Salami,0.67
+Processed Non Veg,4,KFC Chicken 1 Pc,3.6
+Processed Non Veg,5,Chicken Nuggets,6
+Processed Non Veg,6,Kabab,6
+Ready Made Cereal,1,Soya Nuggets,5.25
+Ready Made Cereal,2,Besan,18
+Ready Made Cereal,3,Italian Pasta,27.5
+Ready Made Cereal,4,Pasta,29
+Ready Made Cereal,5,Moong Daal Vadi,29.25
+Ready Made Cereal,6,Noodles Maggi type,32.5
+Ready Made Cereal,7,Macaroni,35.25
+Ready Made Cereal,8,Chowmin,39.6
+Ready Made Cereal,9,Atta Noodles,42.25
+Ready Made Cereal,10,Spaghetti,43.5
+Ready Made Cereal,11,Museli,43.56
+Ready Made Cereal,12,Sooji,44.4
+Ready Made Cereal,13,Porridges,45.78
+Ready Made Cereal,14,Oats,47.25
+Ready Made Cereal,15,Vermicelli,49.2
+Ready Made Cereal,16,Multigrain Atta,50.4
+Ready Made Cereal,17,Dalia,50.7
+Ready Made Cereal,18,Museli Dry Fruit Mix,50.7
+Ready Made Cereal,19,Museli Fruit Mix,51.48
+Ready Made Cereal,20,Atta,52.5
+Ready Made Cereal,21,Maida,56.25
+Ready Made Cereal,22,Wheat Flakes,60
+Ready Made Cereal,23,Sabudana,76.5
+Ready Made Cereal,24,Poha,79.2
+Ready Made Cereal,25,Corn Flakes,79.98
+Non Alcoholic Beverages,1,Cold Drink Sugar Free,1
+Non Alcoholic Beverages,2,Cold Drink,7.56
+Non Alcoholic Beverages,3,Flavoured Milk,7.8
+Non Alcoholic Beverages,4,Cold Drink Nimbu Flavour,8.16
+Non Alcoholic Beverages,5,Cold Drink Mango Flavour,11.2
+Non Alcoholic Beverages,6,Tomato Soup Powder,43.8
+Non Alcoholic Beverages,7,Corn Soup Powder,47.6
+Non Alcoholic Beverages,8,Protein Drink Like Horliks Type,56.7
+Non Alcoholic Beverages,9,Ice Tea Premix,78.4
+Non Alcoholic Beverages,10,Concentrated Syrup like Rohafza,80
+Non Alcoholic Beverages,11,Glucose Drink like GluconD,100
+Biscuits,1,Diabexy Coconut Cookies,4
+Biscuits,2,Diabexy Peanut Butter Cookies,4.5
+Biscuits,3,Diabexy Almond Cookies,5
+Biscuits,4,Diabexy Chocolate Cookies,4.5
+Biscuits,4,Diabexy Breakfast Bar,4
+Biscuits,6,Diabexy Diabetic Dry Fruit Biscotti,4
+Biscuits,7,Salty Biscuits,49
+Biscuits,8,Digestive Biscuits,49.7
+Biscuits,9,Sugar Free Biscuits,49.7
+Biscuits,10,Cream Biscuits,51.8
+Biscuits,11,Sweet Biscuits,54.6
+Biscuits,12,Rusk,56.6
+Non Veg,1,Egg,0
+Non Veg,2,Fish,0
+Non Veg,3,Chicken,0
+Non Veg,4,Lamb,0
+Non Veg,5,Beef,0
+Non Veg,6,Pork,0
+Non Veg,7,Prawns,0
+Non Veg,8,Lobsters,0
+Spices,1,Green Chilli,0.96
+Spices,2,Garlic (Lehsun),1.49
+Spices,3,Cumin seeds (Jeera),1.83
+Spices,4,Ginger (Adrak) fresh,1.84
+Spices,5,Poppy Seeds (khus khus),1.84
+Spices,6,Coriander Leaves fresh,2.01
+Spices,7,Cardemom (Ilaychi),2.1
+Spices,8,Fenugreek Seeds (Methi),2.2
+Spices,9,Cloves (Laung),2.3
+Spices,10,Black Pepper (Kali Mirch),2.46
+Spices,11,Turmeric (Haldi),3.4
+Spices,12,Cinnamon,4.05
+Spices,13,Dania Seeds (Coriander),6.91
+Spices,14,Red Chilli -Dry,14.22
+Spices,15,Mango Powder,35.2
+Spices,16,Asafoetida (Hing),36.9
+Spices,17,Tamarind Pulp (Imli),43.55
+Breads,1,Multi Grain Bread,31.5
+Breads,2,White Bread,34.3
+Breads,3,Brown Bread,35
+Breads,4,Whole Wheat Bread,35
+Breads,5,Burger Bread,39.9
+Breads,6,Fruit Bun,39.9
+Breads,7,Pizza Base,42
+Snacks,1,Diabexy Cheese Crackers Sugar Control,4.5
+Snacks,2,Diabexy Nachous Sugar Control,4.8
+Snacks,3,Diabexy Matthi Sugar Control,4.5
+Snacks,4,Soya Chips,11.31
+Snacks,4,Maida Matthi,30
+Snacks,5,Nachous made with corn,31
+Snacks,6,Cheese crackers made with corn,32
+Sweets,1,Diabexy Diabetic Burfi Coconut,1
+Sweets,2,Diabexy Diabetic Burfi Chocolate,1
+Sweets,3,Diabexy Diabetic Burfi Kaju,1
+Sweets,4,Ice-Cream,10
+Sweets,5,Gulab Jamun,25
+Sweets,6,Rasgulla,28
+Sweets,7,Besan Laddoo,30
+Sweets,8,Atta Laddoo,36
+Sugars,1,Erythritol,0
+Sugars,2,Fructooligosaccharide,0
+Sugars,3,Curculin,0
+Sugars,4,Inulin,0
+Sugars,5,Oligofructose,0
+Sugars,6,Polydextrose,0
+Sugars,7,Stevia,0
+Sugars,8,Tagatose,0
+Sugars,9,Xylitol,0
+Sugars,10,Aspartame,0
+Sugars,11,Sucralose,0
+Sugars,12,Isomalto-Oligosaccharide,1
+Sugars,13,Mannitol,2
+Sugars,14,Sorbitol,5
+Sugars,15,Yacon Syrup,16
+Sugars,16,Galactose,23
+Sugars,17,Agave Syrup,27
+Sugars,18,Fructose,30
+Sugars,19,Coconut Palm Sugar,35
+Sugars,20,Maltitol,35
+Sugars,21,Palm Sugar,35
+Sugars,22,Birch Syrup,40
+Sugars,23,Blackstrap Molasses,40
+Sugars,24,Maple Syrup,40
+Sugars,25,Inverted Sugar,50
+Sugars,26,Sorghum Syrup,50
+Sugars,27,Honey,52
+Sugars,28,High Fructose Corn Syrup(Corn Sugar),55
+Sugars,29,Barley Malt Syrup,60
+Sugars,30,Lactose,62
+Sugars,31,Golden Syrup,65
+Sugars,32,Sucrose (White Sugar),65
+Sugars,33,Brown Sugar,65
+Sugars,34,High Maltose Corn Syrup,72
+Sugars,35,Glucose,100
+Sugars,36,Maltose,100
+Sugars,37,Maltodextrin,110

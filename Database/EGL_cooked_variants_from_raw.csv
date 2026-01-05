@@ -1,0 +1,446 @@
+"Food Item (Raw, IFCT-style name)",Category,Cooking Method Variant,EGL (per 100g raw/uncooked),EGL Cooked Range Low (per 100g cooked),EGL Cooked Range High (per 100g cooked),EGL Cooked Range Median (per 100g cooked),Conversion Basis (yield range source),Confidence (0-1)
+Raddish Leaves (Mooli Patta),Vegetables,Raw,0.36,0.36,0.36,0.36,No cooking,0.92
+Raddish Leaves (Mooli Patta),Vegetables,Boiled / Steamed,0.36,0.33,0.42,0.37,Typical veg yield close to 1,0.88
+Raddish Leaves (Mooli Patta),Vegetables,Stir-fried / Roasted,0.36,0.38,0.6,0.46,Veg moisture loss,0.92
+Lettuce (Salad Patta),Vegetables,Raw,0.37,0.37,0.37,0.37,No cooking,0.92
+Lettuce (Salad Patta),Vegetables,Boiled / Steamed,0.37,0.34,0.44,0.38,Typical veg yield close to 1,0.88
+Lettuce (Salad Patta),Vegetables,Stir-fried / Roasted,0.37,0.39,0.62,0.48,Veg moisture loss,0.92
+Cucumber (Kheera),Vegetables,Raw,0.37,0.37,0.37,0.37,No cooking,0.92
+Cucumber (Kheera),Vegetables,Boiled / Steamed,0.37,0.34,0.44,0.38,Typical veg yield close to 1,0.88
+Cucumber (Kheera),Vegetables,Stir-fried / Roasted,0.37,0.39,0.62,0.48,Veg moisture loss,0.92
+Zuchini (Torai),Vegetables,Raw,0.45,0.45,0.45,0.45,No cooking,0.92
+Zuchini (Torai),Vegetables,Boiled / Steamed,0.45,0.41,0.53,0.46,Typical veg yield close to 1,0.88
+Zuchini (Torai),Vegetables,Stir-fried / Roasted,0.45,0.47,0.75,0.58,Veg moisture loss,0.92
+Ridge Gourd (Torai),Vegetables,Raw,0.51,0.51,0.51,0.51,No cooking,0.92
+Ridge Gourd (Torai),Vegetables,Boiled / Steamed,0.51,0.46,0.6,0.52,Typical veg yield close to 1,0.88
+Ridge Gourd (Torai),Vegetables,Stir-fried / Roasted,0.51,0.54,0.85,0.66,Veg moisture loss,0.92
+Tinda,Vegetables,Raw,0.51,0.51,0.51,0.51,No cooking,0.92
+Tinda,Vegetables,Boiled / Steamed,0.51,0.46,0.6,0.52,Typical veg yield close to 1,0.88
+Tinda,Vegetables,Stir-fried / Roasted,0.51,0.54,0.85,0.66,Veg moisture loss,0.92
+Brinjal (Baigan),Vegetables,Raw,0.6,0.6,0.6,0.6,No cooking,0.92
+Brinjal (Baigan),Vegetables,Boiled / Steamed,0.6,0.55,0.71,0.62,Typical veg yield close to 1,0.88
+Brinjal (Baigan),Vegetables,Stir-fried / Roasted,0.6,0.63,1.0,0.77,Veg moisture loss,0.92
+Bottle Gourd (Louki),Vegetables,Raw,0.63,0.63,0.63,0.63,No cooking,0.92
+Bottle Gourd (Louki),Vegetables,Boiled / Steamed,0.63,0.57,0.74,0.65,Typical veg yield close to 1,0.88
+Bottle Gourd (Louki),Vegetables,Stir-fried / Roasted,0.63,0.66,1.05,0.81,Veg moisture loss,0.92
+Carissa (Karonda),Vegetables,Raw,0.87,0.87,0.87,0.87,No cooking,0.92
+Carissa (Karonda),Vegetables,Boiled / Steamed,0.87,0.79,1.02,0.89,Typical veg yield close to 1,0.88
+Carissa (Karonda),Vegetables,Stir-fried / Roasted,0.87,0.92,1.45,1.12,Veg moisture loss,0.92
+Chenopodium Album(Bathua),Vegetables,Raw,0.92,0.92,0.92,0.92,No cooking,0.92
+Chenopodium Album(Bathua),Vegetables,Boiled / Steamed,0.92,0.84,1.08,0.94,Typical veg yield close to 1,0.88
+Chenopodium Album(Bathua),Vegetables,Stir-fried / Roasted,0.92,0.97,1.53,1.19,Veg moisture loss,0.92
+Spinach (Palak),Vegetables,Raw,0.92,0.92,0.92,0.92,No cooking,0.92
+Spinach (Palak),Vegetables,Boiled / Steamed,0.92,0.84,1.08,0.94,Typical veg yield close to 1,0.88
+Spinach (Palak),Vegetables,Stir-fried / Roasted,0.92,0.97,1.53,1.19,Veg moisture loss,0.92
+Pointed Gourd (Parwal),Vegetables,Raw,1.02,1.02,1.02,1.02,No cooking,0.92
+Pointed Gourd (Parwal),Vegetables,Boiled / Steamed,1.02,0.93,1.2,1.05,Typical veg yield close to 1,0.88
+Pointed Gourd (Parwal),Vegetables,Stir-fried / Roasted,1.02,1.07,1.7,1.32,Veg moisture loss,0.92
+Mustard Leaves (Sarso ki Patti),Vegetables,Raw,1.02,1.02,1.02,1.02,No cooking,0.92
+Mustard Leaves (Sarso ki Patti),Vegetables,Boiled / Steamed,1.02,0.93,1.2,1.05,Typical veg yield close to 1,0.88
+Mustard Leaves (Sarso ki Patti),Vegetables,Stir-fried / Roasted,1.02,1.07,1.7,1.32,Veg moisture loss,0.92
+Radish (Mooli),Vegetables,Raw,1.02,1.02,1.02,1.02,No cooking,0.92
+Radish (Mooli),Vegetables,Boiled / Steamed,1.02,0.93,1.2,1.05,Typical veg yield close to 1,0.88
+Radish (Mooli),Vegetables,Stir-fried / Roasted,1.02,1.07,1.7,1.32,Veg moisture loss,0.92
+Mushroom,Vegetables,Raw,1.03,1.03,1.03,1.03,No cooking,0.92
+Mushroom,Vegetables,Boiled / Steamed,1.03,0.94,1.21,1.06,Typical veg yield close to 1,0.88
+Mushroom,Vegetables,Stir-fried / Roasted,1.03,1.08,1.72,1.33,Veg moisture loss,0.92
+Drumsticks (Saijan),Vegetables,Raw,1.1,1.1,1.1,1.1,No cooking,0.92
+Drumsticks (Saijan),Vegetables,Boiled / Steamed,1.1,1.0,1.29,1.13,Typical veg yield close to 1,0.88
+Drumsticks (Saijan),Vegetables,Stir-fried / Roasted,1.1,1.16,1.83,1.42,Veg moisture loss,0.92
+Cauliflower (Phoolgobhi),Vegetables,Raw,1.2,1.2,1.2,1.2,No cooking,0.92
+Cauliflower (Phoolgobhi),Vegetables,Boiled / Steamed,1.2,1.09,1.41,1.23,Typical veg yield close to 1,0.88
+Cauliflower (Phoolgobhi),Vegetables,Stir-fried / Roasted,1.2,1.26,2.0,1.55,Veg moisture loss,0.92
+Amaranth Leaves (Choulai ka Saag),Vegetables,Raw,1.21,1.21,1.21,1.21,No cooking,0.92
+Amaranth Leaves (Choulai ka Saag),Vegetables,Boiled / Steamed,1.21,1.1,1.42,1.24,Typical veg yield close to 1,0.88
+Amaranth Leaves (Choulai ka Saag),Vegetables,Stir-fried / Roasted,1.21,1.27,2.02,1.56,Veg moisture loss,0.92
+Bitter Gourd (Karela),Vegetables,Raw,1.34,1.34,1.34,1.34,No cooking,0.92
+Bitter Gourd (Karela),Vegetables,Boiled / Steamed,1.34,1.22,1.58,1.37,Typical veg yield close to 1,0.88
+Bitter Gourd (Karela),Vegetables,Stir-fried / Roasted,1.34,1.41,2.23,1.73,Veg moisture loss,0.92
+Capsicum (Shimla Mirch),Vegetables,Raw,1.34,1.34,1.34,1.34,No cooking,0.92
+Capsicum (Shimla Mirch),Vegetables,Boiled / Steamed,1.34,1.22,1.58,1.37,Typical veg yield close to 1,0.88
+Capsicum (Shimla Mirch),Vegetables,Stir-fried / Roasted,1.34,1.41,2.23,1.73,Veg moisture loss,0.92
+Tomato (Tamatar),Vegetables,Raw,1.36,1.36,1.36,1.36,No cooking,0.92
+Tomato (Tamatar),Vegetables,Boiled / Steamed,1.36,1.24,1.6,1.39,Typical veg yield close to 1,0.88
+Tomato (Tamatar),Vegetables,Stir-fried / Roasted,1.36,1.43,2.27,1.75,Veg moisture loss,0.92
+French Been (Sem),Vegetables,Raw,1.44,1.44,1.44,1.44,No cooking,0.92
+French Been (Sem),Vegetables,Boiled / Steamed,1.44,1.31,1.69,1.48,Typical veg yield close to 1,0.88
+French Been (Sem),Vegetables,Stir-fried / Roasted,1.44,1.52,2.4,1.86,Veg moisture loss,0.92
+Mint (Pudina),Vegetables,Raw,1.85,1.85,1.85,1.85,No cooking,0.92
+Mint (Pudina),Vegetables,Boiled / Steamed,1.85,1.68,2.18,1.9,Typical veg yield close to 1,0.88
+Mint (Pudina),Vegetables,Stir-fried / Roasted,1.85,1.95,3.08,2.39,Veg moisture loss,0.92
+Methi Leaf,Vegetables,Raw,1.85,1.85,1.85,1.85,No cooking,0.92
+Methi Leaf,Vegetables,Boiled / Steamed,1.85,1.68,2.18,1.9,Typical veg yield close to 1,0.88
+Methi Leaf,Vegetables,Stir-fried / Roasted,1.85,1.95,3.08,2.39,Veg moisture loss,0.92
+Onion (pyaz),Vegetables,Raw,1.89,1.89,1.89,1.89,No cooking,0.92
+Onion (pyaz),Vegetables,Boiled / Steamed,1.89,1.72,2.22,1.94,Typical veg yield close to 1,0.88
+Onion (pyaz),Vegetables,Stir-fried / Roasted,1.89,1.99,3.15,2.44,Veg moisture loss,0.92
+Knol Khol (Ganth Gobhi),Vegetables,Raw,1.9,1.9,1.9,1.9,No cooking,0.92
+Knol Khol (Ganth Gobhi),Vegetables,Boiled / Steamed,1.9,1.73,2.24,1.95,Typical veg yield close to 1,0.88
+Knol Khol (Ganth Gobhi),Vegetables,Stir-fried / Roasted,1.9,2.0,3.17,2.45,Veg moisture loss,0.92
+Kheksa,Vegetables,Raw,1.92,1.92,1.92,1.92,No cooking,0.92
+Kheksa,Vegetables,Boiled / Steamed,1.92,1.75,2.26,1.97,Typical veg yield close to 1,0.88
+Kheksa,Vegetables,Stir-fried / Roasted,1.92,2.02,3.2,2.48,Veg moisture loss,0.92
+Dhania Leaf,Vegetables,Raw,2.01,2.01,2.01,2.01,No cooking,0.92
+Dhania Leaf,Vegetables,Boiled / Steamed,2.01,1.83,2.36,2.06,Typical veg yield close to 1,0.88
+Dhania Leaf,Vegetables,Stir-fried / Roasted,2.01,2.12,3.35,2.59,Veg moisture loss,0.92
+Lady Finger (Bhindi),Vegetables,Raw,2.04,2.04,2.04,2.04,No cooking,0.92
+Lady Finger (Bhindi),Vegetables,Boiled / Steamed,2.04,1.85,2.4,2.09,Typical veg yield close to 1,0.88
+Lady Finger (Bhindi),Vegetables,Stir-fried / Roasted,2.04,2.15,3.4,2.63,Veg moisture loss,0.92
+Cabbage (Patta Gobhi),Vegetables,Raw,2.07,2.07,2.07,2.07,No cooking,0.92
+Cabbage (Patta Gobhi),Vegetables,Boiled / Steamed,2.07,1.88,2.44,2.12,Typical veg yield close to 1,0.88
+Cabbage (Patta Gobhi),Vegetables,Stir-fried / Roasted,2.07,2.18,3.45,2.67,Veg moisture loss,0.92
+Beet Green (Chukandar ke Patte),Vegetables,Raw,2.08,2.08,2.08,2.08,No cooking,0.92
+Beet Green (Chukandar ke Patte),Vegetables,Boiled / Steamed,2.08,1.89,2.45,2.13,Typical veg yield close to 1,0.88
+Beet Green (Chukandar ke Patte),Vegetables,Stir-fried / Roasted,2.08,2.19,3.47,2.68,Veg moisture loss,0.92
+Broccoli,Vegetables,Raw,2.11,2.11,2.11,2.11,No cooking,0.92
+Broccoli,Vegetables,Boiled / Steamed,2.11,1.92,2.48,2.16,Typical veg yield close to 1,0.88
+Broccoli,Vegetables,Stir-fried / Roasted,2.11,2.22,3.52,2.72,Veg moisture loss,0.92
+Colocasia Leaves (Aalo ki Pattiyan),Vegetables,Raw,2.17,2.17,2.17,2.17,No cooking,0.92
+Colocasia Leaves (Aalo ki Pattiyan),Vegetables,Boiled / Steamed,2.17,1.97,2.55,2.23,Typical veg yield close to 1,0.88
+Colocasia Leaves (Aalo ki Pattiyan),Vegetables,Stir-fried / Roasted,2.17,2.28,3.62,2.8,Veg moisture loss,0.92
+Brussels Sprout,Vegetables,Raw,2.27,2.27,2.27,2.27,No cooking,0.92
+Brussels Sprout,Vegetables,Boiled / Steamed,2.27,2.06,2.67,2.33,Typical veg yield close to 1,0.88
+Brussels Sprout,Vegetables,Stir-fried / Roasted,2.27,2.39,3.78,2.93,Veg moisture loss,0.92
+Papaya Green,Vegetables,Raw,2.28,2.28,2.28,2.28,No cooking,0.92
+Papaya Green,Vegetables,Boiled / Steamed,2.28,2.07,2.68,2.34,Typical veg yield close to 1,0.88
+Papaya Green,Vegetables,Stir-fried / Roasted,2.28,2.4,3.8,2.94,Veg moisture loss,0.92
+Broad Bean (Baakla),Vegetables,Boiled / Pressure-cooked,2.3,0.77,1.15,0.92,Dry beans yield 2.0-3.0x cooked,0.9
+Onion Stalk,Vegetables,Raw,2.84,2.84,2.84,2.84,No cooking,0.92
+Onion Stalk,Vegetables,Boiled / Steamed,2.84,2.58,3.34,2.91,Typical veg yield close to 1,0.88
+Onion Stalk,Vegetables,Stir-fried / Roasted,2.84,2.99,4.73,3.66,Veg moisture loss,0.92
+Pumpkin (kaddu),Vegetables,Raw,3.45,3.45,3.45,3.45,No cooking,0.92
+Pumpkin (kaddu),Vegetables,Boiled / Steamed,3.45,3.14,4.06,3.54,Typical veg yield close to 1,0.88
+Pumpkin (kaddu),Vegetables,Stir-fried / Roasted,3.45,3.63,5.75,4.45,Veg moisture loss,0.92
+Jack Fruit (Kathal),Vegetables,Raw,3.76,3.76,3.76,3.76,No cooking,0.92
+Jack Fruit (Kathal),Vegetables,Boiled / Steamed,3.76,3.42,4.42,3.86,Typical veg yield close to 1,0.88
+Jack Fruit (Kathal),Vegetables,Stir-fried / Roasted,3.76,3.96,6.27,4.85,Veg moisture loss,0.92
+Mango Green,Vegetables,Raw,4.0,4.0,4.0,4.0,No cooking,0.92
+Mango Green,Vegetables,Boiled / Steamed,4.0,3.64,4.71,4.1,Typical veg yield close to 1,0.88
+Mango Green,Vegetables,Stir-fried / Roasted,4.0,4.21,6.67,5.16,Veg moisture loss,0.92
+Carrot (Gajar),Vegetables,Raw,4.0,4.0,4.0,4.0,No cooking,0.92
+Carrot (Gajar),Vegetables,Boiled / Steamed,4.0,3.64,4.71,4.1,Typical veg yield close to 1,0.88
+Carrot (Gajar),Vegetables,Stir-fried / Roasted,4.0,4.21,6.67,5.16,Veg moisture loss,0.92
+Turnip (Saljam),Vegetables,Raw,4.46,4.46,4.46,4.46,No cooking,0.92
+Turnip (Saljam),Vegetables,Boiled / Steamed,4.46,4.05,5.25,4.57,Typical veg yield close to 1,0.88
+Turnip (Saljam),Vegetables,Stir-fried / Roasted,4.46,4.69,7.43,5.75,Veg moisture loss,0.92
+Plantain (Banana Green),Vegetables,Raw,4.48,4.48,4.48,4.48,No cooking,0.92
+Plantain (Banana Green),Vegetables,Boiled / Steamed,4.48,4.07,5.27,4.59,Typical veg yield close to 1,0.88
+Plantain (Banana Green),Vegetables,Stir-fried / Roasted,4.48,4.72,7.47,5.78,Veg moisture loss,0.92
+Green Peas (Hari matar),Vegetables,Raw,5.08,5.08,5.08,5.08,No cooking,0.92
+Green Peas (Hari matar),Vegetables,Boiled / Steamed,5.08,4.62,5.98,5.21,Typical veg yield close to 1,0.88
+Green Peas (Hari matar),Vegetables,Stir-fried / Roasted,5.08,5.35,8.47,6.55,Veg moisture loss,0.92
+Beetroot (Chukandar),Vegetables,Raw,5.63,5.63,5.63,5.63,No cooking,0.92
+Beetroot (Chukandar),Vegetables,Boiled / Steamed,5.63,5.12,6.62,5.77,Typical veg yield close to 1,0.88
+Beetroot (Chukandar),Vegetables,Stir-fried / Roasted,5.63,5.93,9.38,7.26,Veg moisture loss,0.92
+Ash gourd (Green Pumpkin),Vegetables,Raw,5.7,5.7,5.7,5.7,No cooking,0.92
+Ash gourd (Green Pumpkin),Vegetables,Boiled / Steamed,5.7,5.18,6.71,5.85,Typical veg yield close to 1,0.88
+Ash gourd (Green Pumpkin),Vegetables,Stir-fried / Roasted,5.7,6.0,9.5,7.35,Veg moisture loss,0.92
+Sweet Potato (Shakarkand),Vegetables,Raw,11.28,11.28,11.28,11.28,No cooking,0.92
+Sweet Potato (Shakarkand),Vegetables,Boiled / Steamed,11.28,10.25,13.27,11.57,Typical veg yield close to 1,0.88
+Sweet Potato (Shakarkand),Vegetables,Stir-fried / Roasted,11.28,11.87,18.8,14.55,Veg moisture loss,0.92
+Sweet Corns,Vegetables,Raw,11.4,11.4,11.4,11.4,No cooking,0.92
+Sweet Corns,Vegetables,Boiled / Steamed,11.4,10.36,13.41,11.69,Typical veg yield close to 1,0.88
+Sweet Corns,Vegetables,Stir-fried / Roasted,11.4,12.0,19.0,14.71,Veg moisture loss,0.92
+Yam,Vegetables,Raw,13.0,13.0,13.0,13.0,No cooking,0.92
+Yam,Vegetables,Boiled / Steamed,13.0,11.82,15.29,13.33,Typical veg yield close to 1,0.88
+Yam,Vegetables,Stir-fried / Roasted,13.0,13.68,21.67,16.77,Veg moisture loss,0.92
+Potato (Aaloo),Vegetables,Raw,13.56,13.56,13.56,13.56,No cooking,0.92
+Potato (Aaloo),Vegetables,Boiled / Steamed,13.56,12.33,15.95,13.91,Typical veg yield close to 1,0.88
+Potato (Aaloo),Vegetables,Stir-fried / Roasted,13.56,14.27,22.6,17.5,Veg moisture loss,0.92
+Colocasia (Arbi),Vegetables,Raw,16.8,16.8,16.8,16.8,No cooking,0.92
+Colocasia (Arbi),Vegetables,Boiled / Steamed,16.8,15.27,19.76,17.23,Typical veg yield close to 1,0.88
+Colocasia (Arbi),Vegetables,Stir-fried / Roasted,16.8,17.68,28.0,21.68,Veg moisture loss,0.92
+Water Chestnut (Singhada),Vegetables,Raw,19.8,19.8,19.8,19.8,No cooking,0.92
+Water Chestnut (Singhada),Vegetables,Boiled / Steamed,19.8,18.0,23.29,20.31,Typical veg yield close to 1,0.88
+Water Chestnut (Singhada),Vegetables,Stir-fried / Roasted,19.8,20.84,33.0,25.55,Veg moisture loss,0.92
+Lotus Stem - Dry,Vegetables,Raw,28.27,28.27,28.27,28.27,No cooking,0.92
+Lotus Stem - Dry,Vegetables,Boiled / Steamed,28.27,25.7,33.26,28.99,Typical veg yield close to 1,0.88
+Lotus Stem - Dry,Vegetables,Stir-fried / Roasted,28.27,29.76,47.12,36.48,Veg moisture loss,0.92
+Gooseberry (Amla),Fruits,Raw,2.05,2.05,2.05,2.05,No cooking,0.92
+Muskmelon (Kharbooja),Fruits,Raw,2.1,2.1,2.1,2.1,No cooking,0.92
+Lemon,Fruits,Raw,2.22,2.22,2.22,2.22,No cooking,0.92
+Watermelon (Tarbooj),Fruits,Raw,2.47,2.47,2.47,2.47,No cooking,0.92
+Raspberry,Fruits,Raw,2.92,2.92,2.92,2.92,No cooking,0.92
+Cherie (Red),Fruits,Raw,3.03,3.03,3.03,3.03,No cooking,0.92
+Apricot Fresh (Khumani),Fruits,Raw,3.48,3.48,3.48,3.48,No cooking,0.92
+Phalsa,Fruits,Raw,3.67,3.67,3.67,3.67,No cooking,0.92
+Indian Blackberry (Jamun),Fruits,Raw,4.08,4.08,4.08,4.08,No cooking,0.92
+Papaya,Fruits,Raw,4.17,4.17,4.17,4.17,No cooking,0.92
+Plum (Aloo Bukhara),Fruits,Raw,4.21,4.21,4.21,4.21,No cooking,0.92
+Peach (Aaroo),Fruits,Raw,4.41,4.41,4.41,4.41,No cooking,0.92
+Indian Plum (Ber),Fruits,Raw,4.44,4.44,4.44,4.44,No cooking,0.92
+Pear (Nashpati),Fruits,Raw,4.52,4.52,4.52,4.52,No cooking,0.92
+Fig (Anjeer),Fruits,Raw,4.63,4.63,4.63,4.63,No cooking,0.92
+Apple,Fruits,Raw,4.69,4.69,4.69,4.69,No cooking,0.92
+Mosambi (Sweet lime),Fruits,Raw,4.73,4.73,4.73,4.73,No cooking,0.92
+Lichi,Fruits,Raw,4.76,4.76,4.76,4.76,No cooking,0.92
+Strawberry,Fruits,Raw,4.9,4.9,4.9,4.9,No cooking,0.92
+Orange,Fruits,Raw,5.23,5.23,5.23,5.23,No cooking,0.92
+Pineapple,Fruits,Raw,6.37,6.37,6.37,6.37,No cooking,0.92
+Guava (Amrood),Fruits,Raw,7.28,7.28,7.28,7.28,No cooking,0.92
+Grapes,Fruits,Raw,7.42,7.42,7.42,7.42,No cooking,0.92
+Kiwi,Fruits,Raw,7.79,7.79,7.79,7.79,No cooking,0.92
+Custard Apple (Shareefa),Fruits,Raw,8.82,8.82,8.82,8.82,No cooking,0.92
+Mango (Ripe),Fruits,Raw,9.29,9.29,9.29,9.29,No cooking,0.92
+Pomegranate (Anaar),Fruits,Raw,9.71,9.71,9.71,9.71,No cooking,0.92
+Sapota (Chiku),Fruits,Raw,11.77,11.77,11.77,11.77,No cooking,0.92
+Dates (Khajoor) - Fresh,Fruits,Raw,12.09,12.09,12.09,12.09,No cooking,0.92
+Banana,Fruits,Raw,14.14,14.14,14.14,14.14,No cooking,0.92
+Loquat,Fruits,Raw,14.8,14.8,14.8,14.8,No cooking,0.92
+Ripe Jackfruit (Paka Kathal),Fruits,Raw,14.85,14.85,14.85,14.85,No cooking,0.92
+Wood Apple (Bael),Fruits,Raw,20.67,20.67,20.67,20.67,No cooking,0.92
+Desi Ghee,Milk Product & Fat,As consumed (no cooking),0.0,0.0,0.0,0.0,No cooking,0.92
+"Any Oil (Olive, Canola etc.)",Milk Product & Fat,As consumed (no cooking),0.0,0.0,0.0,0.0,No cooking,0.92
+Butter,Milk Product & Fat,As consumed (no cooking),0.0,0.0,0.0,0.0,No cooking,0.92
+Nutrilite Butter,Milk Product & Fat,As consumed (no cooking),0.0,0.0,0.0,0.0,No cooking,0.92
+Paneer,Milk Product & Fat,As consumed (no cooking),0.54,0.54,0.54,0.54,No cooking,0.92
+Soya Paneer,Milk Product & Fat,As consumed (no cooking),0.6,0.6,0.6,0.6,No cooking,0.92
+Cream,Milk Product & Fat,As consumed (no cooking),0.75,0.75,0.75,0.75,No cooking,0.92
+Butter Milk,Milk Product & Fat,As consumed (no cooking),0.9,0.9,0.9,0.9,No cooking,0.92
+Cottage Cheese,Milk Product & Fat,As consumed (no cooking),1.62,1.62,1.62,1.62,No cooking,0.92
+Cheese Slice,Milk Product & Fat,As consumed (no cooking),1.7,1.7,1.7,1.7,No cooking,0.92
+Cheese block,Milk Product & Fat,As consumed (no cooking),1.7,1.7,1.7,1.7,No cooking,0.92
+Mozzarella Cheese,Milk Product & Fat,As consumed (no cooking),1.7,1.7,1.7,1.7,No cooking,0.92
+Curd,Milk Product & Fat,As consumed (no cooking),1.8,1.8,1.8,1.8,No cooking,0.92
+Milk Full Cream,Milk Product & Fat,As consumed (no cooking),1.9,1.9,1.9,1.9,No cooking,0.92
+Toned Milk,Milk Product & Fat,As consumed (no cooking),1.9,1.9,1.9,1.9,No cooking,0.92
+Cow's Milk,Milk Product & Fat,As consumed (no cooking),1.9,1.9,1.9,1.9,No cooking,0.92
+Double Toned Milk,Milk Product & Fat,As consumed (no cooking),1.9,1.9,1.9,1.9,No cooking,0.92
+Cheese Spread,Milk Product & Fat,As consumed (no cooking),3.51,3.51,3.51,3.51,No cooking,0.92
+Soya Milk,Milk Product & Fat,As consumed (no cooking),5.6,5.6,5.6,5.6,No cooking,0.92
+Khoya,Milk Product & Fat,As consumed (no cooking),12.0,12.0,12.0,12.0,No cooking,0.92
+Milk Powder Whole,Milk Product & Fat,As consumed (no cooking),22.8,22.8,22.8,22.8,No cooking,0.92
+Milk Powder Skimmed,Milk Product & Fat,As consumed (no cooking),30.0,30.0,30.0,30.0,No cooking,0.92
+WaterMelon Seeds,Nuts & Dry Fruits,Raw,0.45,0.45,0.45,0.45,No cooking,0.92
+Coconut Water,Nuts & Dry Fruits,As consumed / dry,0.88,0.88,0.88,0.88,No cooking,0.92
+Almonds (Badaam),Nuts & Dry Fruits,As consumed / dry,1.05,1.05,1.05,1.05,No cooking,0.92
+Charoli (Chirongi),Nuts & Dry Fruits,As consumed / dry,1.2,1.2,1.2,1.2,No cooking,0.92
+Walnut (Akhrot),Nuts & Dry Fruits,As consumed / dry,1.6,1.6,1.6,1.6,No cooking,0.92
+Coconut Dry,Nuts & Dry Fruits,As consumed / dry,1.84,1.84,1.84,1.84,No cooking,0.92
+Peanut,Nuts & Dry Fruits,As consumed / dry,2.15,2.15,2.15,2.15,No cooking,0.92
+Niger Seeds (Ramtil),Nuts & Dry Fruits,As consumed / dry,2.55,2.55,2.55,2.55,No cooking,0.92
+Coconut Fresh,Nuts & Dry Fruits,As consumed / dry,2.6,2.6,2.6,2.6,No cooking,0.92
+Flax Seeds,Nuts & Dry Fruits,As consumed / dry,2.8,2.8,2.8,2.8,No cooking,0.92
+Pistachio Nuts (pista),Nuts & Dry Fruits,As consumed / dry,2.88,2.88,2.88,2.88,No cooking,0.92
+Sunflower Seeds,Nuts & Dry Fruits,As consumed / dry,3.6,3.6,3.6,3.6,No cooking,0.92
+Mustard Seeds,Nuts & Dry Fruits,As consumed / dry,4.75,4.75,4.75,4.75,No cooking,0.92
+Cashew Nut (kaju),Nuts & Dry Fruits,As consumed / dry,4.84,4.84,4.84,4.84,No cooking,0.92
+Pumpkin seeds,Nuts & Dry Fruits,Raw,5.37,5.37,5.37,5.37,No cooking,0.92
+Pumpkin seeds,Nuts & Dry Fruits,Boiled / Steamed,5.37,4.88,6.32,5.51,Typical veg yield close to 1,0.88
+Pumpkin seeds,Nuts & Dry Fruits,Stir-fried / Roasted,5.37,5.65,8.95,6.93,Veg moisture loss,0.92
+Kinnow (Mandrain),Nuts & Dry Fruits,As consumed / dry,5.46,5.46,5.46,5.46,No cooking,0.92
+Gingelly Seeds (Till),Nuts & Dry Fruits,As consumed / dry,5.75,5.75,5.75,5.75,No cooking,0.92
+Garden Cress (Chandrashoor),Nuts & Dry Fruits,As consumed / dry,9.9,9.9,9.9,9.9,No cooking,0.92
+Pine Nut (Chilgoza),Nuts & Dry Fruits,As consumed / dry,10.15,10.15,10.15,10.15,No cooking,0.92
+Blueberries,Nuts & Dry Fruits,As consumed / dry,11.3,11.3,11.3,11.3,No cooking,0.92
+Safflower seeds (Kusum Beej),Nuts & Dry Fruits,As consumed / dry,15.3,15.3,15.3,15.3,No cooking,0.92
+Areca nuts (Supari),Nuts & Dry Fruits,As consumed / dry,21.15,21.15,21.15,21.15,No cooking,0.92
+Apricot (Khumani) - Dry,Nuts & Dry Fruits,As consumed / dry,21.9,21.9,21.9,21.9,No cooking,0.92
+Lotus Seeds (Makhana),Nuts & Dry Fruits,As consumed / dry,28.16,28.16,28.16,28.16,No cooking,0.92
+Dried Dates (Chuara),Nuts & Dry Fruits,As consumed / dry,29.25,29.25,29.25,29.25,No cooking,0.92
+Raisin (Khishmish),Nuts & Dry Fruits,As consumed / dry,51.35,51.35,51.35,51.35,No cooking,0.92
+Sultana Currant (Munakka),Nuts & Dry Fruits,As consumed / dry,55.5,55.5,55.5,55.5,No cooking,0.92
+Soyabean,Cereals & Pulses,Boiled / Pressure-cooked,3.13,1.04,1.56,1.25,Dry beans yield 2.0-3.0x cooked,0.9
+Diabexy Sugar Control Atta,Cereals & Pulses,As consumed / dry,7.0,7.0,7.0,7.0,No cooking,0.92
+Chole (Chickpeas),Cereals & Pulses,Boiled / Pressure-cooked,12.0,4.0,6.0,4.8,Dry beans yield 2.0-3.0x cooked,0.9
+Kale Channa,Cereals & Pulses,As consumed / dry,12.0,12.0,12.0,12.0,No cooking,0.92
+Pea (Matar) - Dry,Cereals & Pulses,As consumed / dry,16.95,16.95,16.95,16.95,No cooking,0.92
+Lentil (Masoor),Cereals & Pulses,Boiled / Pressure-cooked,17.7,5.9,8.85,7.08,Dry beans yield 2.0-3.0x cooked,0.9
+Oats,Cereals & Pulses,As consumed / dry,19.86,19.86,19.86,19.86,No cooking,0.92
+Quinoa,Cereals & Pulses,As consumed / dry,20.0,20.0,20.0,20.0,No cooking,0.92
+Cow Pea (Lobhia),Cereals & Pulses,As consumed / dry,21.8,21.8,21.8,21.8,No cooking,0.92
+Moth Beans,Cereals & Pulses,Boiled / Pressure-cooked,22.6,7.53,11.3,9.04,Dry beans yield 2.0-3.0x cooked,0.9
+Horse Gram(Kulthi Dal),Cereals & Pulses,Boiled / Pressure-cooked,22.64,7.55,11.32,9.06,Dry beans yield 2.0-3.0x cooked,0.9
+Green Gram (Mung Dal),Cereals & Pulses,Boiled / Pressure-cooked,22.76,7.59,11.38,9.1,Dry beans yield 2.0-3.0x cooked,0.9
+Kidney Beans (Rajma),Cereals & Pulses,Boiled / Pressure-cooked,23.02,7.67,11.51,9.21,Dry beans yield 2.0-3.0x cooked,0.9
+Red Gram (Arhar Dal),Cereals & Pulses,Boiled / Pressure-cooked,23.04,7.68,11.52,9.22,Dry beans yield 2.0-3.0x cooked,0.9
+Bengal Gram (Chana Dal),Cereals & Pulses,Boiled / Pressure-cooked,23.92,7.97,11.96,9.57,Dry beans yield 2.0-3.0x cooked,0.9
+Barley (Jau),Cereals & Pulses,As consumed / dry,24.46,24.46,24.46,24.46,No cooking,0.92
+Water chestnut (Singhada) Flour,Cereals & Pulses,As consumed / dry,25.0,25.0,25.0,25.0,No cooking,0.92
+Black Gram (Urad Dal),Cereals & Pulses,Boiled / Pressure-cooked,25.0,8.33,12.5,10.0,Dry beans yield 2.0-3.0x cooked,0.9
+Field Beans (Sem),Cereals & Pulses,Boiled / Pressure-cooked,25.0,8.33,12.5,10.0,Dry beans yield 2.0-3.0x cooked,0.9
+Amaranth Grain (Chaulai),Cereals & Pulses,As consumed / dry,26.0,26.0,26.0,26.0,No cooking,0.92
+Samai (Kutki),Cereals & Pulses,As consumed / dry,26.8,26.8,26.8,26.8,No cooking,0.92
+Channa Sprouts,Cereals & Pulses,As consumed / dry,32.0,32.0,32.0,32.0,No cooking,0.92
+Kodo Millet (Kodra),Cereals & Pulses,As consumed / dry,38.0,38.0,38.0,38.0,No cooking,0.92
+Jowar,Cereals & Pulses,As consumed / dry,39.5,39.5,39.5,39.5,No cooking,0.92
+Mung Sprouts,Cereals & Pulses,As consumed / dry,40.0,40.0,40.0,40.0,No cooking,0.92
+Bajra,Cereals & Pulses,As consumed / dry,40.5,40.5,40.5,40.5,No cooking,0.92
+Brown Rice,Cereals & Pulses,Boiled,41.68,15.85,17.97,16.84,FAO raw->cooked rice yield,0.95
+Buck Wheat (Kuttu),Cereals & Pulses,As consumed / dry,42.9,42.9,42.9,42.9,No cooking,0.92
+Ragi,Cereals & Pulses,As consumed / dry,43.2,43.2,43.2,43.2,No cooking,0.92
+White Rice Flour,Cereals & Pulses,Boiled,45.0,17.11,19.4,18.18,FAO raw->cooked rice yield,0.95
+Corn Flour (Maize),Cereals & Pulses,As consumed / dry,49.6,49.6,49.6,49.6,No cooking,0.92
+Wheat Flour,Cereals & Pulses,As consumed / dry,49.96,49.96,49.96,49.96,No cooking,0.92
+Rice,Cereals & Pulses,Boiled,58.65,22.3,25.28,23.7,FAO raw->cooked rice yield,0.95
+Semolina (sooji),Cereals & Pulses,As consumed / dry,63.5,63.5,63.5,63.5,No cooking,0.92
+Sausage,Processed Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Sausage,Processed Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Sausage,Processed Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Bacon,Processed Non Veg,Boiled,0.4,0.44,0.53,0.48,USDA cooking yields meat/poultry,0.92
+Bacon,Processed Non Veg,Roasted / Grilled,0.4,0.47,0.62,0.53,USDA cooking yields meat/poultry,0.92
+Bacon,Processed Non Veg,Fried,0.4,0.5,0.67,0.57,USDA cooking yields meat/poultry,0.92
+Salami,Processed Non Veg,Boiled,0.67,0.74,0.89,0.81,USDA cooking yields meat/poultry,0.92
+Salami,Processed Non Veg,Roasted / Grilled,0.67,0.79,1.03,0.89,USDA cooking yields meat/poultry,0.92
+Salami,Processed Non Veg,Fried,0.67,0.84,1.12,0.96,USDA cooking yields meat/poultry,0.92
+KFC Chicken 1 Pc,Processed Non Veg,Boiled,3.6,4.0,4.8,4.36,USDA cooking yields meat/poultry,0.92
+KFC Chicken 1 Pc,Processed Non Veg,Roasted / Grilled,3.6,4.24,5.54,4.8,USDA cooking yields meat/poultry,0.92
+KFC Chicken 1 Pc,Processed Non Veg,Fried,3.6,4.5,6.0,5.14,USDA cooking yields meat/poultry,0.92
+Chicken Nuggets,Processed Non Veg,Boiled,6.0,6.67,8.0,7.27,USDA cooking yields meat/poultry,0.92
+Chicken Nuggets,Processed Non Veg,Roasted / Grilled,6.0,7.06,9.23,8.0,USDA cooking yields meat/poultry,0.92
+Chicken Nuggets,Processed Non Veg,Fried,6.0,7.5,10.0,8.57,USDA cooking yields meat/poultry,0.92
+Kabab,Processed Non Veg,Boiled,6.0,6.67,8.0,7.27,USDA cooking yields meat/poultry,0.92
+Kabab,Processed Non Veg,Roasted / Grilled,6.0,7.06,9.23,8.0,USDA cooking yields meat/poultry,0.92
+Kabab,Processed Non Veg,Fried,6.0,7.5,10.0,8.57,USDA cooking yields meat/poultry,0.92
+Soya Nuggets,Ready Made Cereal,As consumed / dry,5.25,5.25,5.25,5.25,No cooking,0.92
+Besan,Ready Made Cereal,As consumed / dry,18.0,18.0,18.0,18.0,No cooking,0.92
+Italian Pasta,Ready Made Cereal,Boiled,27.5,11.0,13.75,12.22,Typical cooked yield for pasta/noodles,0.88
+Pasta,Ready Made Cereal,Boiled,29.0,11.6,14.5,12.89,Typical cooked yield for pasta/noodles,0.88
+Moong Daal Vadi,Ready Made Cereal,Boiled / Pressure-cooked,29.25,9.75,14.62,11.7,Dry beans yield 2.0-3.0x cooked,0.9
+Noodles Maggi type,Ready Made Cereal,Boiled,32.5,13.0,16.25,14.44,Typical cooked yield for pasta/noodles,0.88
+Macaroni,Ready Made Cereal,As consumed / dry,35.25,35.25,35.25,35.25,No cooking,0.92
+Chowmin,Ready Made Cereal,As consumed / dry,39.6,39.6,39.6,39.6,No cooking,0.92
+Atta Noodles,Ready Made Cereal,Boiled,42.25,16.9,21.12,18.78,Typical cooked yield for pasta/noodles,0.88
+Spaghetti,Ready Made Cereal,As consumed / dry,43.5,43.5,43.5,43.5,No cooking,0.92
+Museli,Ready Made Cereal,As consumed / dry,43.56,43.56,43.56,43.56,No cooking,0.92
+Sooji,Ready Made Cereal,As consumed / dry,44.4,44.4,44.4,44.4,No cooking,0.92
+Porridges,Ready Made Cereal,As consumed / dry,45.78,45.78,45.78,45.78,No cooking,0.92
+Oats,Ready Made Cereal,As consumed / dry,47.25,47.25,47.25,47.25,No cooking,0.92
+Vermicelli,Ready Made Cereal,Boiled,49.2,19.68,24.6,21.87,Typical cooked yield for pasta/noodles,0.88
+Multigrain Atta,Ready Made Cereal,As consumed / dry,50.4,50.4,50.4,50.4,No cooking,0.92
+Dalia,Ready Made Cereal,Boiled / Pressure-cooked,50.7,16.9,25.35,20.28,Dry beans yield 2.0-3.0x cooked,0.9
+Museli Dry Fruit Mix,Ready Made Cereal,As consumed / dry,50.7,50.7,50.7,50.7,No cooking,0.92
+Museli Fruit Mix,Ready Made Cereal,As consumed / dry,51.48,51.48,51.48,51.48,No cooking,0.92
+Atta,Ready Made Cereal,As consumed / dry,52.5,52.5,52.5,52.5,No cooking,0.92
+Maida,Ready Made Cereal,As consumed / dry,56.25,56.25,56.25,56.25,No cooking,0.92
+Wheat Flakes,Ready Made Cereal,As consumed / dry,60.0,60.0,60.0,60.0,No cooking,0.92
+Sabudana,Ready Made Cereal,As consumed / dry,76.5,76.5,76.5,76.5,No cooking,0.92
+Poha,Ready Made Cereal,As consumed / dry,79.2,79.2,79.2,79.2,No cooking,0.92
+Corn Flakes,Ready Made Cereal,As consumed / dry,79.98,79.98,79.98,79.98,No cooking,0.92
+Cold Drink Sugar Free,Non Alcoholic Beverages,As consumed / dry,1.0,1.0,1.0,1.0,No cooking,0.92
+Cold Drink,Non Alcoholic Beverages,As consumed / dry,7.56,7.56,7.56,7.56,No cooking,0.92
+Flavoured Milk,Non Alcoholic Beverages,As consumed (no cooking),7.8,7.8,7.8,7.8,No cooking,0.92
+Cold Drink Nimbu Flavour,Non Alcoholic Beverages,As consumed / dry,8.16,8.16,8.16,8.16,No cooking,0.92
+Cold Drink Mango Flavour,Non Alcoholic Beverages,Raw,11.2,11.2,11.2,11.2,No cooking,0.92
+Tomato Soup Powder,Non Alcoholic Beverages,Raw,43.8,43.8,43.8,43.8,No cooking,0.92
+Tomato Soup Powder,Non Alcoholic Beverages,Boiled / Steamed,43.8,39.82,51.53,44.92,Typical veg yield close to 1,0.88
+Tomato Soup Powder,Non Alcoholic Beverages,Stir-fried / Roasted,43.8,46.11,73.0,56.52,Veg moisture loss,0.92
+Corn Soup Powder,Non Alcoholic Beverages,As consumed / dry,47.6,47.6,47.6,47.6,No cooking,0.92
+Protein Drink Like Horliks Type,Non Alcoholic Beverages,As consumed / dry,56.7,56.7,56.7,56.7,No cooking,0.92
+Ice Tea Premix,Non Alcoholic Beverages,As consumed / dry,78.4,78.4,78.4,78.4,No cooking,0.92
+Concentrated Syrup like Rohafza,Non Alcoholic Beverages,As consumed / dry,80.0,80.0,80.0,80.0,No cooking,0.92
+Glucose Drink like GluconD,Non Alcoholic Beverages,As consumed / dry,100.0,100.0,100.0,100.0,No cooking,0.92
+Diabexy Coconut Cookies,Biscuits,As consumed / dry,4.0,4.0,4.0,4.0,No cooking,0.92
+Diabexy Peanut Butter Cookies,Biscuits,As consumed (no cooking),4.5,4.5,4.5,4.5,No cooking,0.92
+Diabexy Almond Cookies,Biscuits,As consumed / dry,5.0,5.0,5.0,5.0,No cooking,0.92
+Diabexy Chocolate Cookies,Biscuits,As consumed / dry,4.5,4.5,4.5,4.5,No cooking,0.92
+Diabexy Breakfast Bar,Biscuits,As consumed / dry,4.0,4.0,4.0,4.0,No cooking,0.92
+Diabexy Diabetic Dry Fruit Biscotti,Biscuits,As consumed / dry,4.0,4.0,4.0,4.0,No cooking,0.92
+Salty Biscuits,Biscuits,As consumed / dry,49.0,49.0,49.0,49.0,No cooking,0.92
+Digestive Biscuits,Biscuits,As consumed / dry,49.7,49.7,49.7,49.7,No cooking,0.92
+Sugar Free Biscuits,Biscuits,As consumed / dry,49.7,49.7,49.7,49.7,No cooking,0.92
+Cream Biscuits,Biscuits,As consumed / dry,51.8,51.8,51.8,51.8,No cooking,0.92
+Sweet Biscuits,Biscuits,As consumed / dry,54.6,54.6,54.6,54.6,No cooking,0.92
+Rusk,Biscuits,As consumed / dry,56.6,56.6,56.6,56.6,No cooking,0.92
+Egg,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Egg,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Egg,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Fish,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Fish,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Fish,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Chicken,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Chicken,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Chicken,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Lamb,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Lamb,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Lamb,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Beef,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Beef,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Beef,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Pork,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Pork,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Pork,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Prawns,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Prawns,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Prawns,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Lobsters,Non Veg,Boiled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Lobsters,Non Veg,Roasted / Grilled,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Lobsters,Non Veg,Fried,0.0,0.0,0.0,0.0,USDA cooking yields meat/poultry,0.92
+Green Chilli,Spices,As consumed / dry,0.96,0.96,0.96,0.96,No cooking,0.92
+Garlic (Lehsun),Spices,As consumed / dry,1.49,1.49,1.49,1.49,No cooking,0.92
+Cumin seeds (Jeera),Spices,As consumed / dry,1.83,1.83,1.83,1.83,No cooking,0.92
+Ginger (Adrak) fresh,Spices,As consumed / dry,1.84,1.84,1.84,1.84,No cooking,0.92
+Poppy Seeds (khus khus),Spices,As consumed / dry,1.84,1.84,1.84,1.84,No cooking,0.92
+Coriander Leaves fresh,Spices,Raw,2.01,2.01,2.01,2.01,No cooking,0.92
+Coriander Leaves fresh,Spices,Boiled / Steamed,2.01,1.83,2.36,2.06,Typical veg yield close to 1,0.88
+Coriander Leaves fresh,Spices,Stir-fried / Roasted,2.01,2.12,3.35,2.59,Veg moisture loss,0.92
+Cardemom (Ilaychi),Spices,As consumed / dry,2.1,2.1,2.1,2.1,No cooking,0.92
+Fenugreek Seeds (Methi),Spices,As consumed / dry,2.2,2.2,2.2,2.2,No cooking,0.92
+Cloves (Laung),Spices,As consumed / dry,2.3,2.3,2.3,2.3,No cooking,0.92
+Black Pepper (Kali Mirch),Spices,As consumed / dry,2.46,2.46,2.46,2.46,No cooking,0.92
+Turmeric (Haldi),Spices,As consumed / dry,3.4,3.4,3.4,3.4,No cooking,0.92
+Cinnamon,Spices,As consumed / dry,4.05,4.05,4.05,4.05,No cooking,0.92
+Dania Seeds (Coriander),Spices,As consumed / dry,6.91,6.91,6.91,6.91,No cooking,0.92
+Red Chilli -Dry,Spices,As consumed / dry,14.22,14.22,14.22,14.22,No cooking,0.92
+Mango Powder,Spices,Raw,35.2,35.2,35.2,35.2,No cooking,0.92
+Asafoetida (Hing),Spices,As consumed / dry,36.9,36.9,36.9,36.9,No cooking,0.92
+Tamarind Pulp (Imli),Spices,As consumed / dry,43.55,43.55,43.55,43.55,No cooking,0.92
+Multi Grain Bread,Breads,As consumed / dry,31.5,31.5,31.5,31.5,No cooking,0.92
+White Bread,Breads,As consumed / dry,34.3,34.3,34.3,34.3,No cooking,0.92
+Brown Bread,Breads,As consumed / dry,35.0,35.0,35.0,35.0,No cooking,0.92
+Whole Wheat Bread,Breads,As consumed / dry,35.0,35.0,35.0,35.0,No cooking,0.92
+Burger Bread,Breads,As consumed / dry,39.9,39.9,39.9,39.9,No cooking,0.92
+Fruit Bun,Breads,As consumed / dry,39.9,39.9,39.9,39.9,No cooking,0.92
+Pizza Base,Breads,As consumed / dry,42.0,42.0,42.0,42.0,No cooking,0.92
+Diabexy Cheese Crackers Sugar Control,Snacks,As consumed (no cooking),4.5,4.5,4.5,4.5,No cooking,0.92
+Diabexy Nachous Sugar Control,Snacks,As consumed / dry,4.8,4.8,4.8,4.8,No cooking,0.92
+Diabexy Matthi Sugar Control,Snacks,As consumed / dry,4.5,4.5,4.5,4.5,No cooking,0.92
+Soya Chips,Snacks,As consumed / dry,11.31,11.31,11.31,11.31,No cooking,0.92
+Maida Matthi,Snacks,As consumed / dry,30.0,30.0,30.0,30.0,No cooking,0.92
+Nachous made with corn,Snacks,As consumed / dry,31.0,31.0,31.0,31.0,No cooking,0.92
+Cheese crackers made with corn,Snacks,As consumed (no cooking),32.0,32.0,32.0,32.0,No cooking,0.92
+Diabexy Diabetic Burfi Coconut,Sweets,As consumed / dry,1.0,1.0,1.0,1.0,No cooking,0.92
+Diabexy Diabetic Burfi Chocolate,Sweets,As consumed / dry,1.0,1.0,1.0,1.0,No cooking,0.92
+Diabexy Diabetic Burfi Kaju,Sweets,As consumed / dry,1.0,1.0,1.0,1.0,No cooking,0.92
+Ice-Cream,Sweets,As consumed / dry,10.0,10.0,10.0,10.0,No cooking,0.92
+Gulab Jamun,Sweets,As consumed / dry,25.0,25.0,25.0,25.0,No cooking,0.92
+Rasgulla,Sweets,As consumed / dry,28.0,28.0,28.0,28.0,No cooking,0.92
+Besan Laddoo,Sweets,As consumed / dry,30.0,30.0,30.0,30.0,No cooking,0.92
+Atta Laddoo,Sweets,As consumed / dry,36.0,36.0,36.0,36.0,No cooking,0.92
+Erythritol,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Fructooligosaccharide,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Curculin,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Inulin,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Oligofructose,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Polydextrose,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Stevia,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Tagatose,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Xylitol,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Aspartame,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Sucralose,Sugars,As consumed / dry,0.0,0.0,0.0,0.0,No cooking,0.92
+Isomalto-Oligosaccharide,Sugars,As consumed / dry,1.0,1.0,1.0,1.0,No cooking,0.92
+Mannitol,Sugars,As consumed / dry,2.0,2.0,2.0,2.0,No cooking,0.92
+Sorbitol,Sugars,As consumed / dry,5.0,5.0,5.0,5.0,No cooking,0.92
+Yacon Syrup,Sugars,As consumed / dry,16.0,16.0,16.0,16.0,No cooking,0.92
+Galactose,Sugars,As consumed / dry,23.0,23.0,23.0,23.0,No cooking,0.92
+Agave Syrup,Sugars,As consumed / dry,27.0,27.0,27.0,27.0,No cooking,0.92
+Fructose,Sugars,As consumed / dry,30.0,30.0,30.0,30.0,No cooking,0.92
+Coconut Palm Sugar,Sugars,As consumed / dry,35.0,35.0,35.0,35.0,No cooking,0.92
+Maltitol,Sugars,As consumed / dry,35.0,35.0,35.0,35.0,No cooking,0.92
+Palm Sugar,Sugars,As consumed / dry,35.0,35.0,35.0,35.0,No cooking,0.92
+Birch Syrup,Sugars,As consumed / dry,40.0,40.0,40.0,40.0,No cooking,0.92
+Blackstrap Molasses,Sugars,As consumed / dry,40.0,40.0,40.0,40.0,No cooking,0.92
+Maple Syrup,Sugars,As consumed / dry,40.0,40.0,40.0,40.0,No cooking,0.92
+Inverted Sugar,Sugars,As consumed / dry,50.0,50.0,50.0,50.0,No cooking,0.92
+Sorghum Syrup,Sugars,As consumed / dry,50.0,50.0,50.0,50.0,No cooking,0.92
+Honey,Sugars,As consumed / dry,52.0,52.0,52.0,52.0,No cooking,0.92
+High Fructose Corn Syrup(Corn Sugar),Sugars,As consumed / dry,55.0,55.0,55.0,55.0,No cooking,0.92
+Barley Malt Syrup,Sugars,As consumed / dry,60.0,60.0,60.0,60.0,No cooking,0.92
+Lactose,Sugars,As consumed / dry,62.0,62.0,62.0,62.0,No cooking,0.92
+Golden Syrup,Sugars,As consumed / dry,65.0,65.0,65.0,65.0,No cooking,0.92
+Sucrose (White Sugar),Sugars,As consumed / dry,65.0,65.0,65.0,65.0,No cooking,0.92
+Brown Sugar,Sugars,As consumed / dry,65.0,65.0,65.0,65.0,No cooking,0.92
+High Maltose Corn Syrup,Sugars,As consumed / dry,72.0,72.0,72.0,72.0,No cooking,0.92
+Glucose,Sugars,As consumed / dry,100.0,100.0,100.0,100.0,No cooking,0.92
+Maltose,Sugars,As consumed / dry,100.0,100.0,100.0,100.0,No cooking,0.92
+Maltodextrin,Sugars,As consumed / dry,110.0,110.0,110.0,110.0,No cooking,0.92

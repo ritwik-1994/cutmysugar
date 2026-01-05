@@ -1,0 +1,14 @@
+food_id,canonical_name,primary_category,gi,gi_evidence,gl_median,gl_min,gl_max,gl_category,confidence_score,serving_size_g,available_carbs_g,notes
+GNS_001,White rice (boiled),Grains & staples,73,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): white rice, boiled (India)",10.7,9.6,11.8,Medium,0.92,100,14.7,Normalized to 100g cooked rice
+GNS_002,Brown rice (boiled),Grains & staples,68,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): brown rice, boiled",10.9,9.8,12.0,Medium,0.92,100,16.0,Normalized to 100g cooked brown rice
+GNS_003,Parboiled rice (boiled),Grains & staples,48,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): parboiled rice, boiled",11.8,10.6,13.0,Medium,0.92,100,24.6,Normalized to 100g cooked parboiled rice
+GNS_004,"Rice flakes (poha, cooked)",Grains & staples,38,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): rice flakes (India)",15.2,13.7,16.7,Medium,0.92,100,40.0,"Cooked poha equivalent, normalized to 100g"
+GNS_005,Rice porridge (kanji),Grains & staples,78,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): rice porridge",5.0,4.5,5.5,Low,0.92,100,6.4,"Very dilute porridge, normalized to 100g"
+PLS_001,Chana dal (boiled),Pulses & legumes,33,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): Bengal gram dal (India)",4.6,4.1,5.1,Low,0.92,100,14.0,"Boiled chana dal, normalized to 100g"
+PLS_002,Rajma (boiled),Pulses & legumes,23,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): kidney beans, boiled",3.8,3.4,4.2,Low,0.9,100,16.5,"Boiled rajma, normalized to 100g"
+PLS_003,Moong dal (boiled),Pulses & legumes,21,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): lentils, boiled",2.5,2.3,2.8,Low,0.9,100,12.0,"Boiled moong dal, normalized to 100g"
+VEG_001,Potato (boiled),Starchy vegetables,74,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): potato, boiled (India)",13.0,11.7,14.3,Medium,0.92,100,17.6,"Boiled potato, normalized to 100g"
+VEG_002,Sweet potato (boiled),Starchy vegetables,61,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): sweet potato, boiled",6.7,6.0,7.4,Low,0.92,100,11.0,"Boiled sweet potato, normalized to 100g"
+FRT_001,Apple (raw),Fruits,39,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): apple, raw",5.2,4.7,5.7,Low,0.92,100,13.4,"Raw apple, edible portion"
+FRT_002,Banana (ripe),Fruits,52,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): banana, raw",12.5,11.3,13.8,Medium,0.92,100,24.0,Raw ripe banana
+FRT_003,Mango (raw),Fruits,51,"Clinically measured GI (Atkinson et al., Diabetes Care 2008): mango, raw",8.2,7.4,9.0,Low,0.92,100,16.0,Raw mango

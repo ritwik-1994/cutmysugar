@@ -1,0 +1,16 @@
+food_id,canonical_name,primary_category,gi,gi_evidence,gl_median,gl_min,gl_max,gl_category,confidence_score,serving_size_g,available_carbs_g,notes
+T2_0001,Ragi roti,Breads & flatbreads,35,GI measured in Indian studies (ICMR/NIN); GL estimated using carbs from NIN tables,9.0,7.5,10.5,Low,0.85,100,26,Estimated GL using 100g cooked ragi roti
+T2_0002,Jowar roti,Breads & flatbreads,50,GI measured in Indian studies (ICMR/NIN); GL estimated using carbs from NIN tables,15.0,12.5,17.5,Medium,0.85,100,30,Estimated GL using 100g cooked jowar roti
+T2_0003,Bajra roti,Breads & flatbreads,54,GI measured in Indian studies (ICMR/NIN); GL estimated using carbs from NIN tables,16.5,13.8,19.2,Medium,0.85,100,31,Estimated GL using 100g cooked bajra roti
+T2_0004,Multigrain chapati,Breads & flatbreads,58,GI from mixed-grain chapati studies; GL estimated from average atta carb profile,18.0,15.0,21.0,Medium,0.82,100,31,Estimated GL using standard multigrain atta
+T2_0005,Vegetable upma,Mixed meals,63,GI measured for semolina-based meals; GL estimated using standard recipe,14.0,11.5,16.5,Medium,0.8,100,22,Recipe-based GL estimate
+T2_0006,Plain upma,Mixed meals,66,GI measured for semolina-based meals; GL estimated using standard recipe,16.0,13.5,18.5,Medium,0.8,100,24,Recipe-based GL estimate
+T2_0007,Poha with peanuts,Mixed meals,55,GI measured for poha; GL estimated with peanuts reducing glycemic load,13.0,11.0,15.0,Medium,0.8,100,23,Recipe-based GL estimate
+T2_0008,Idli (plain),Mixed meals,77,GI measured for idli batter; GL estimated from carb content,18.5,15.5,21.5,Medium,0.82,100,24,Standard plain idli
+T2_0009,Plain dosa,Mixed meals,76,GI measured for dosa batter; GL estimated from carb content,20.0,17.0,23.0,High,0.82,100,26,Standard plain dosa
+T2_0010,Dhokla,Snacks,35,GI measured for fermented gram foods; GL estimated from recipe carbs,8.0,6.5,9.5,Low,0.8,100,23,Fermented gram-based snack
+T2_0011,Vegetable khichdi,Mixed meals,52,GI estimated using weighted rice+dal method (FAO),12.0,10.0,14.0,Medium,0.78,100,23,Rice+moong dal khichdi
+T2_0012,Curd rice,Mixed meals,46,GI reduced by dairy; GL estimated from rice-dominant recipe,11.0,9.0,13.0,Medium,0.78,100,24,Rice with curd
+T2_0013,Rajma chawal,Mixed meals,55,GI estimated using weighted rice+rajma method (FAO),14.5,12.0,17.0,Medium,0.78,100,26,Rice + rajma
+T2_0014,Chole chawal,Mixed meals,57,GI estimated using weighted rice+chole method (FAO),15.0,12.5,17.5,Medium,0.78,100,26,Rice + chickpeas
+T2_0015,Vegetable pulao,Mixed meals,60,GI estimated for rice-based mixed veg dishes,16.5,14.0,19.0,Medium,0.78,100,27,Rice with vegetables
