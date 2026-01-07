@@ -1,0 +1,38 @@
+food_id,food_name,canonical_name,primary_category,serving_val,serving_size_g,serving_size_min_g,serving_size_max_g,serving_size_confidence,gi_min,gi_median,gi_max,gi_evidence,available_carbs_per_100g,gl_min,gl_median,gl_max,gl_category,confidence_score,notes
+T3_0011,Baingan Bharta,Baingan bharta,Mixed meals,portion,150,120,200,0.5,30,35,40,GI_PROXY_RULE,4.0,1.44,2.1,3.2,Low,0.5,Roasted eggplant; low carbs.
+T3_0012,Bhindi Masala,Bhindi masala,Mixed meals,portion,150,120,200,0.5,30,35,40,GI_PROXY_RULE,4.6667,1.68,2.45,3.73,Low,0.5,Okra; low carbs.
+T3_0020,Chicken Curry,Chicken curry (home-style),Mixed meals,katori,150,120,180,0.7,25,30,40,GI_PROXY_RULE,1.3333,0.4,0.6,0.96,Low,0.7,Very low carbs; gravy variability low.
+T4_0075,Chicken Kebab,Chicken kebab,Mixed meals,portion,150,120,200,0.5,20,30,35,GI_PROXY_RULE,1.3333,0.32,0.6,0.93,Low,0.5,Grilled; negligible carbs.
+T4_0006,Chicken Korma,Chicken korma,Mixed meals,bowl,200,160,240,0.55,40,45,50,GI_PROXY_RULE,6.6667,4.27,6.0,8.0,Low,0.55,Cashew gravy; moderate carbs.
+WEST_IN_0224,Chicken Nuggets,Chicken Nuggets,Western foods (India) - Sides,portion,150,120,200,0.6,50,55,60,GI_PROXY_RULE,10.0,6.0,8.25,12.0,Low,0.6,Breadcrumb-coated nuggets; flour-based carbs.
+T4_0008,Chicken Shawarma,Chicken shawarma (Indian restaurant),Mixed meals,piece,220,180,280,0.48,50,55,65,GI_PROXY_RULE,10.0,9.0,12.1,18.2,Moderate,0.48,Wrap + sauces; highly variable.
+T4_0087,Chicken Soup,Chicken soup (clear),Mixed meals,portion,150,120,200,0.5,20,30,35,GI_PROXY_RULE,1.3333,0.32,0.6,0.93,Low,0.5,Clear soup; negligible carbs.
+T4_0073,Chicken Tikka,Chicken tikka,Mixed meals,portion,150,120,200,0.5,20,30,35,GI_PROXY_RULE,1.3333,0.32,0.6,0.93,Low,0.5,Grilled; negligible carbs.
+T4_0002,Chicken Tikka Masala,Chicken tikka masala,Mixed meals,bowl,200,160,240,0.52,45,50,60,GI_PROXY_RULE,6.0,4.32,6.0,8.64,Low,0.52,Restaurant-style gravy; variable sugar.
+WEST_IN_0225,Chicken Wings,Chicken Wings,Western foods (India) - Sides,portion,150,120,200,0.62,45,50,55,GI_PROXY_RULE,3.3333,1.8,2.5,3.67,Low,0.62,Sauced wings; small carb contribution from coating/sauce.
+T4_0015,Chilli Chicken,Chilli chicken (dry),Mixed meals,plate,180,140,220,0.5,45,55,65,GI_PROXY_RULE,6.0,3.78,5.94,8.58,Low,0.5,Sauce sugars vary; batter possible.
+T4_0086,Cream of Spinach Soup,Cream of spinach soup,Mixed meals,portion,150,120,200,0.5,30,35,40,GI_PROXY_RULE,4.0,1.44,2.1,3.2,Low,0.5,Creamy veg soup; low carbs.
+T4_0072,Egg Bhurji,Egg bhurji,Mixed meals,portion,150,120,200,0.5,20,30,35,GI_PROXY_RULE,2.0,0.48,0.9,1.4,Low,0.5,Low carb egg dish.
+T3_0022,Egg Curry,Egg curry,Mixed meals,katori,150,120,180,0.7,25,30,40,GI_PROXY_RULE,2.0,0.6,0.9,1.44,Low,0.7,Low carbs; gravy.
+T3_0021,Fish Curry,Fish curry (home-style),Mixed meals,katori,150,120,180,0.7,25,30,40,GI_PROXY_RULE,1.3333,0.4,0.6,0.96,Low,0.7,Very low carbs; home-style curry.
+WEST_IN_0227,Fish Fingers,Fish Fingers,Western foods (India) - Sides,portion,150,120,200,0.6,50,55,60,GI_PROXY_RULE,10.0,6.0,8.25,12.0,Low,0.6,Breaded fish; flour-based carbs.
+T4_0035,Fish Fry,Fish fry,Mixed meals,portion,150,120,200,0.5,20,30,35,GI_PROXY_RULE,2.0,0.48,0.9,1.4,Low,0.5,Negligible carbs; batter varies.
+NONIND_0360,Herbal Tea Rosemary,Herbaltea:Rosemary,Non-Indian reference food,cup,150,120,180,0.85,0,0,0,GI_PROXY_RULE,0.0,0.0,0.0,0.0,NA,0.85,"Herbal tea; effectively 0 carbs, but source row shows 100. Treat as NA carbs placeholder; set carbs=0."
+NONIND_0144,Hommali Bread,Hommalibread,Non-Indian reference food,slice,25,20,30,0.9,55,60,70,GI_TABLE_ANCHOR_OR_PROXY,100.0,11.0,15.0,21.0,Moderate,0.9,Bread slice; carbs placeholder from source snippet; treat as carb-dominant for GI table entry.
+NONIND_0154,Jowar,Sorghum,Non-Indian reference food,portion,150,120,200,0.5,50,55,60,GI_TABLE_ANCHOR_OR_PROXY,14.6667,8.8,12.1,17.6,Moderate,0.5,Sorghum staple; grain.
+WEST_IN_0205,Lasagna Chicken,Lasagna Chicken,Western foods (India) - Pasta,bowl,200,160,240,0.58,45,50,60,GI_PROXY_RULE,8.0,5.76,8.0,11.52,Low,0.58,Pasta sheets + sauce; mixed carbs.
+T3_0005,Palak Paneer,Palak paneer,Mixed meals,portion,150,120,200,0.5,30,35,40,GI_PROXY_RULE,4.0,1.44,2.1,3.2,Low,0.5,Low-carb spinach gravy.
+T4_0071,Paneer Bhurji,Paneer bhurji,Mixed meals,portion,150,120,200,0.5,40,45,55,GI_PROXY_RULE,6.6667,3.2,4.5,7.33,Low,0.5,Paneer with onions; moderate carbs.
+T4_0074,Paneer Tikka,Paneer tikka,Mixed meals,portion,150,120,200,0.5,20,30,35,GI_PROXY_RULE,4.0,0.96,1.8,2.8,Low,0.5,Grilled paneer; low carbs.
+T4_0003,Paneer Tikka Masala,Paneer tikka masala,Mixed meals,bowl,200,160,240,0.52,45,50,60,GI_PROXY_RULE,8.0,5.76,8.0,11.52,Low,0.52,Paneer + sweetened gravy possible.
+NONIND_0701,Porridge,Porridge(Caryoteurens),Non-Indian reference food,portion,150,120,200,0.5,50,55,60,GI_TABLE_ANCHOR_OR_PROXY,6.2667,3.76,5.17,7.52,Low,0.5,Cereal-based porridge; carb-dominant.
+WEST_IN_0219,Ramen Chicken,Ramen Chicken,Western/Asian (India) - Noodles,bowl,200,160,240,0.55,55,60,65,GI_PROXY_RULE,8.8,7.74,10.56,13.73,Moderate,0.55,Noodles are primary carb carrier.
+T4_0076,Seekh Kebab,Seekh kebab,Mixed meals,portion,150,120,200,0.5,20,30,35,GI_PROXY_RULE,2.0,0.48,0.9,1.4,Low,0.5,Minced meat; negligible carbs.
+T4_0077,Veg Kebab,Veg kebab,Mixed meals,portion,150,120,200,0.5,40,50,60,GI_PROXY_RULE,8.0,3.84,6.0,9.6,Low,0.5,Veg + binders; carbs vary.
+NONIND_0128,Wheyproteindrink,Wheyproteindrink(Mesotropinplatinum,Non-Indian reference food,portion,150,120,200,0.5,35,45,55,GI_PROXY_RULE,13.3333,5.6,9.0,14.67,Low,0.5,Protein drink; carbs vary by brand.
+INDWEB_0099,Poriyal (cabbage),Poriyal (cabbage),Pulses & legumes,portion,150,120,200,0.6,35,45,55,GI_PROXY_RULE,9.2,3.86,6.21,10.12,Low,0.45,Cabbage poriyal; add-ons (oil) vary. Proxy-mapped previously—low confidence.
+INDWEB_0107,Bhindi fry,Bhindi fry,Pulses & legumes,portion,150,120,200,0.6,45,55,65,GI_PROXY_RULE,9.2,4.97,7.59,11.96,Low,0.45,Fried okra; batter/oil varies. Proxy-mapped previously—low confidence.
+INDWEB_0108,Baingan fry,Baingan fry,Pulses & legumes,portion,150,120,200,0.6,45,55,65,GI_PROXY_RULE,9.2,4.97,7.59,11.96,Low,0.45,Fried eggplant; batter/oil varies. Proxy-mapped previously—low confidence.
+INDWEB_0109,Gobi manchurian (dry),Gobi manchurian (dry),Pulses & legumes,portion,150,120,200,0.6,50,60,70,GI_PROXY_RULE,9.2,5.52,8.28,12.88,Low,0.45,Manchurian; flour + sauce sugar likely. Proxy-mapped previously—low confidence.
+INDWEB_0118,Mutton rogan josh,Mutton rogan josh,Pulses & legumes,portion,150,120,200,0.6,40,50,60,GI_PROXY_RULE,9.2,4.42,6.9,11.04,Low,0.45,Gravy dish; carbs from onions/tomatoes; proxy-mapped previously—low confidence.
+INDWEB_0122,Masala omelette,Masala omelette,Pulses & legumes,portion,150,120,200,0.6,25,35,45,GI_PROXY_RULE,9.2,2.76,4.83,8.28,Low,0.45,Egg omelette; carbs likely lower than 9.2; proxy-mapped previously—low confidence.

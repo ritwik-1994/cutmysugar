@@ -1,0 +1,10 @@
+food_id,food_name,canonical_name,primary_category,serving_val,serving_size_g,serving_size_min_g,serving_size_max_g,serving_size_confidence,gi,gi_evidence,gi_min,gi_median,gi_max,gl_category,confidence_score,available_carbs_per_100g,notes
+T4_0006,Chicken Korma,Chicken korma,Mixed meals,bowl,200,160,240,0.55,-1,Proxy GI (gravy-based mixed meal),40,45,50,Low to Moderate,0.55,6.7,Cashew-onion gravy; carbs from nuts + onions; restaurant variability.
+T4_0002,Chicken Tikka Masala,Chicken tikka masala,Mixed meals,bowl,200,160,240,0.52,-1,Proxy GI (tomato-onion gravy),45,50,60,Moderate,0.52,8.0,Tomato-onion gravy; sugar varies by restaurant.
+T4_0015,Chilli Chicken,Chilli chicken (dry),Mixed meals,plate,180,140,220,0.5,-1,Proxy GI (sauce + batter),45,55,65,Moderate,0.5,6.0,Sauce-coated fried dish; sugar/flour variability.
+T4_0008,Chicken Shawarma,Chicken shawarma,Mixed meals,piece,220,180,280,0.48,-1,Proxy GI (wrap + sauces),50,55,65,Moderate to High,0.48,10.0,Wrap + sauces; carb carrier present.
+WEST_IN_0205,Lasagna Chicken,Lasagna Chicken,Western foods (India) - Pasta,bowl,250,200,320,0.58,-1,Proxy GI (pasta-based),45,50,60,Moderate,0.58,8.0,Pasta sheets + sauce; mixed carb sources.
+WEST_IN_0219,Ramen Chicken,Ramen Chicken,Western/Asian (India) - Noodles,bowl,250,200,320,0.55,-1,Proxy GI (noodle-based),55,60,65,High,0.55,8.8,Noodles are primary carb carrier.
+WEST_IN_0224,Chicken Nuggets,Chicken Nuggets,Western foods (India) - Sides,portion,150,120,200,0.6,-1,Proxy GI (breaded meat),50,55,60,Moderate,0.6,10.0,Breadcrumb-coated nuggets; flour-based carbs.
+WEST_IN_0227,Fish Fingers,Fish Fingers,Western foods (India) - Sides,portion,150,120,200,0.6,-1,Proxy GI (breaded fish),50,55,60,Moderate,0.6,10.0,Breaded fish fingers; flour-based carb load.
+NONIND_0701,Porridge,Porridge,Non-Indian reference food,portion,150,120,200,0.6,-1,Henry et al. GI tables,50,55,60,Moderate,0.6,6.3,Cereal-based porridge; carb-dominant.

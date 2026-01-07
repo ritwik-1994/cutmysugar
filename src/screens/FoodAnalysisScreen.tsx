@@ -266,31 +266,7 @@ export default function FoodAnalysisScreen() {
                         </View>
                     )}
 
-                    <View style={styles.macrosContainer}>
-                        <Text style={styles.sectionTitle}>Nutritional Info</Text>
-                        <Card style={styles.ingredientsCard} variant="solid">
-                            <View style={styles.ingredientRow}>
-                                <Text style={styles.ingredientName}>Calories</Text>
-                                <Text style={styles.ingredientValue}>{result.nutritionalInfo.calories} kcal</Text>
-                            </View>
-                            <View style={[styles.ingredientRow, styles.ingredientDivider]}>
-                                <Text style={styles.ingredientName}>Carbs</Text>
-                                <Text style={styles.ingredientValue}>{result.nutritionalInfo.carbs}g</Text>
-                            </View>
-                            <View style={[styles.ingredientRow, styles.ingredientDivider]}>
-                                <Text style={styles.ingredientName}>Protein</Text>
-                                <Text style={styles.ingredientValue}>{result.nutritionalInfo.protein}g</Text>
-                            </View>
-                            <View style={[styles.ingredientRow, styles.ingredientDivider]}>
-                                <Text style={styles.ingredientName}>Fat</Text>
-                                <Text style={styles.ingredientValue}>{result.nutritionalInfo.fat}g</Text>
-                            </View>
-                            <View style={styles.ingredientRow}>
-                                <Text style={styles.ingredientName}>Fiber</Text>
-                                <Text style={styles.ingredientValue}>{result.nutritionalInfo.fiber}g</Text>
-                            </View>
-                        </Card>
-                    </View>
+
                 </View>
             </ScrollView>
 

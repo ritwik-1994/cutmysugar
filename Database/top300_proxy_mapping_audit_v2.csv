@@ -1,0 +1,301 @@
+new_item,mapped_food_id,mapped_canonical_name,mapped_gi_evidence,mapping_score,mapping_tier,source_serving_size_g,derived_available_carbs_per100g,derived_gl_per100g
+Grilled bread toast (white bread),T1_0215,White Bread,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #215",0.55,medium,25.0,160.0,126.4
+Grilled bread toast (brown bread),NONIND_0420,Bread,Henry et al. GI tables (non-Indian cohort),0.3,low,25.0,80.0,37.599999999999994
+Butter toast,NONIND_0692,Butter Cake,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,80.0,33.375,21.593625
+Masala toast,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Cheese toast,NONIND_0008,Cheese Bun,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,64.13333333333333,60.926666666666655
+Garlic bread toast,WEST_IN_0133,Garlic Bread,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.7166666666666667,high,80.0,41.25,29.287499999999998
+Bread poha,NONIND_0420,Bread,Henry et al. GI tables (non-Indian cohort),0.55,medium,25.0,80.0,37.599999999999994
+Bread uttapam,NONIND_0420,Bread,Henry et al. GI tables (non-Indian cohort),0.55,medium,25.0,80.0,37.599999999999994
+Pav (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Ladi pav,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kulcha (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Amritsari kulcha,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Aloo kulcha,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Paneer kulcha,WEST_IN_0120,Burger Paneer,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3833333333333333,low,180.0,16.666666666666664,11.58333333333333
+Tandoori roti,IND_HENRY2021_711,Roti,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 148; n=30 Healthy; ref food/time: Dextrose/2h participants; portion 55 g provides 50 g available carbs (table page 24).",0.55,medium,30.0,303.0,135.138
+Roomali roti,IND_HENRY2021_711,Roti,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 148; n=30 Healthy; ref food/time: Dextrose/2h participants; portion 55 g provides 50 g available carbs (table page 24).",0.55,medium,30.0,303.0,135.138
+Missi roti,IND_HENRY2021_711,Roti,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 148; n=30 Healthy; ref food/time: Dextrose/2h participants; portion 55 g provides 50 g available carbs (table page 24).",0.55,medium,30.0,303.0,135.138
+Makki roti,IND_HENRY2021_711,Roti,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 148; n=30 Healthy; ref food/time: Dextrose/2h participants; portion 55 g provides 50 g available carbs (table page 24).",0.55,medium,30.0,303.0,135.138
+Laccha paratha,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Methi paratha,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Mooli paratha,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Masala poori,IND_HENRY2021_692,Poori,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 121 g provides 50 g available carbs (table page 23).",0.5,medium,20.0,206.5,120.8025
+Luchi,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kachori (dal),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kachori (pyaaz),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kachori (aloo),WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Sheermal,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Naan (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Naan (butter),NONIND_0692,Butter Cake,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,80.0,33.375,21.593625
+Naan (garlic),WEST_IN_0133,Garlic Bread,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,80.0,41.25,29.287499999999998
+Naan (cheese),NONIND_0008,Cheese Bun,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,64.13333333333333,60.926666666666655
+Idiyappam (string hoppers),IND_HENRY2021_693,Idiyappam,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 131 g provides 50 g available carbs (table page 23).",0.3333333333333333,low,200.0,19.1,11.3454
+Puttu (rice),NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.55,medium,150.0,52.06666666666666,24.991999999999997
+Kerala parotta,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Set dosa,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.55,medium,120.0,34.75,19.3905
+Rava dosa,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.55,medium,120.0,34.75,19.3905
+Onion dosa,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.55,medium,120.0,34.75,19.3905
+Mysore masala dosa,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.3833333333333333,low,120.0,34.75,19.3905
+Uttapam (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Uttapam (onion),WEST_IN_0230,Onion Rings,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,150.0,20.0,14.2
+Uttapam (tomato),WEST_IN_0163,Panini Tomato,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,200.0,16.5,11.715
+Uttapam (mixed veg),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.749999999999998
+Akki rotti,NONIND_0654,Rotti,Henry et al. GI tables (non-Indian cohort),0.5,medium,150.0,13.666666666666666,4.92
+Bisibelebath,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Ven pongal,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Sakkarai pongal,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Curd rice (thayir sadam),NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.3,low,150.0,52.06666666666666,24.991999999999997
+Tamarind rice (puliyogare),NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.3833333333333333,low,150.0,52.06666666666666,24.991999999999997
+Ghee rice,NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.55,medium,150.0,52.06666666666666,24.991999999999997
+Khichdi (moong dal),IND_HENRY2021_663,Khichdi,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 133; n=None None; ref food/time: Healthy Glucose/2.5h participants NutritionandDiabetes Henryetal.NutritionandDiabetes (2021) 11:2 Page23of36 Reference Country Fooditem GI(glucose=100) Servingsize(g)perexperimental AvailableCHO Participants Reference portionsize (g)per (typeand foodand experimental number) timeperiod portion Mean SEM; portion 50 g provides 10 g available carbs (table page 22).",0.3333333333333333,low,180.0,11.11111111111111,3.8888888888888884
+Khichdi (masala),IND_HENRY2021_663,Khichdi,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 133; n=None None; ref food/time: Healthy Glucose/2.5h participants NutritionandDiabetes Henryetal.NutritionandDiabetes (2021) 11:2 Page23of36 Reference Country Fooditem GI(glucose=100) Servingsize(g)perexperimental AvailableCHO Participants Reference portionsize (g)per (typeand foodand experimental number) timeperiod portion Mean SEM; portion 50 g provides 10 g available carbs (table page 22).",0.5,medium,180.0,11.11111111111111,3.8888888888888884
+Daliya (broken wheat) porridge,T1_0311,Whole Wheat Barley Flour Porridge,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #311",0.2857142857142857,low,150.0,20.0,11.0
+Rava upma,IND_HENRY2021_709,Upma,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 147; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 16 g available carbs (table page 24).",0.55,medium,180.0,17.77777777777778,11.644444444444446
+Vegetable upma,IND_HENRY2021_709,Upma,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 147; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 16 g available carbs (table page 24).",0.55,medium,180.0,17.77777777777778,11.644444444444446
+Poha (kanda),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Poha (indori),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Poha (batata),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Sabudana khichdi,IND_HENRY2021_663,Khichdi,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 133; n=None None; ref food/time: Healthy Glucose/2.5h participants NutritionandDiabetes Henryetal.NutritionandDiabetes (2021) 11:2 Page23of36 Reference Country Fooditem GI(glucose=100) Servingsize(g)perexperimental AvailableCHO Participants Reference portionsize (g)per (typeand foodand experimental number) timeperiod portion Mean SEM; portion 50 g provides 10 g available carbs (table page 22).",0.5,medium,180.0,11.11111111111111,3.8888888888888884
+Sabudana vada,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Dhokla (khaman),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Dhokla (white),NONIND_0292,Guava White,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,7.133333333333333,1.3553333333333333
+Handvo,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Methi thepla,IND_HENRY2021_699,Thepla,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 143; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 30 g available carbs (table page 24).",0.5,medium,150.0,40.0,23.119999999999997
+"Rice (white, steamed)",IND_HENRY2021_666,White Rice,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 134; n=40 Healthy; ref food/time: Glucose/2h 1:2water participants; portion 65 g provides 50 g available carbs (table page 23).",0.7166666666666667,high,150.0,51.26666666666667,40.60320000000001
+"Rice (parboiled, steamed)",NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.3833333333333333,low,150.0,52.06666666666666,24.991999999999997
+"Rice (brown, steamed)",IND_HENRY2021_683,Brown Rice,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 141; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 12 g available carbs (table page 23).",0.7166666666666667,high,150.0,16.0,9.216000000000001
+Basmati rice (steamed),NONIND_0057,Basmati Rice,Henry et al. GI tables (non-Indian cohort),0.7166666666666667,high,150.0,50.13333333333333,27.573333333333334
+Sona masuri rice (steamed),IND_HENRY2021_619,Sona Masuri,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 119; n=30 Healthy; ref food/time: Glucose/2h participants; portion 235 g provides 50 g available carbs (table page 21).",0.5,medium,150.0,14.200000000000001,10.224
+Idli rice (cooked),NONIND_0408,Cooked Rice,Henry et al. GI tables (non-Indian cohort),0.8666666666666667,high,150.0,16.0,13.312000000000001
+"Red rice (Kerala, cooked)",NONIND_0408,Cooked Rice,Henry et al. GI tables (non-Indian cohort),0.7000000000000001,high,150.0,16.0,13.312000000000001
+Broken rice (cooked),NONIND_0408,Cooked Rice,Henry et al. GI tables (non-Indian cohort),0.8666666666666667,high,150.0,16.0,13.312000000000001
+Puffed rice (murmura),NONIND_0377,Puffed Rice Grains,Henry et al. GI tables (non-Indian cohort),0.55,medium,150.0,59.333333333333336,42.95733333333334
+Flattened rice (chivda),NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.3833333333333333,low,150.0,52.06666666666666,24.991999999999997
+"Rice flakes (poha, raw)",T1_0543,Red Raw Rice Sri Lankan Cooked in Rice Cooker,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #543",0.39999999999999997,low,150.0,52.0,30.68
+Semolina (sooji) cooked,NONIND_0438,Cooked Millet,Henry et al. GI tables (non-Indian cohort),0.4,low,150.0,19.733333333333334,12.708266666666667
+Vermicelli (sevai) upma,IND_HENRY2021_709,Upma,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 147; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 16 g available carbs (table page 24).",0.3833333333333333,low,180.0,17.77777777777778,11.644444444444446
+Vermicelli (sevai) kheer,NONIND_0762,Boiled Sevai,Henry et al. GI tables (non-Indian cohort),0.25,low,200.0,10.0,6.75
+Dal palak,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Dal dhokli,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Dal makhani (restaurant style),WEST_IN_0066,Pizza Paneer Makhani,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.16666666666666666,low,150.0,22.666666666666664,15.617333333333333
+Chana dal (boiled),IND_HENRY2021_616,Boiled Amaranth,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 118; n=50 Glucose/2h; ref food/time: Grainsflourchapatti participants; portion 118 g provides 50 g available carbs (table page 21).",0.4,low,150.0,28.26666666666667,31.602133333333335
+Masoor dal (boiled),IND_HENRY2021_616,Boiled Amaranth,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 118; n=50 Glucose/2h; ref food/time: Grainsflourchapatti participants; portion 118 g provides 50 g available carbs (table page 21).",0.4,low,150.0,28.26666666666667,31.602133333333335
+Moong dal (boiled),IND_HENRY2021_616,Boiled Amaranth,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 118; n=50 Glucose/2h; ref food/time: Grainsflourchapatti participants; portion 118 g provides 50 g available carbs (table page 21).",0.4,low,150.0,28.26666666666667,31.602133333333335
+Toor dal (boiled),IND_HENRY2021_616,Boiled Amaranth,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 118; n=50 Glucose/2h; ref food/time: Grainsflourchapatti participants; portion 118 g provides 50 g available carbs (table page 21).",0.4,low,150.0,28.26666666666667,31.602133333333335
+Urad dal (boiled),IND_HENRY2021_616,Boiled Amaranth,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 118; n=50 Glucose/2h; ref food/time: Grainsflourchapatti participants; portion 118 g provides 50 g available carbs (table page 21).",0.4,low,150.0,28.26666666666667,31.602133333333335
+Rajma curry,NONIND_0026,Curry Puff,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,25.733333333333334,10.550666666666666
+Chole (chickpea curry),NONIND_0026,Curry Puff,Henry et al. GI tables (non-Indian cohort),0.25,low,150.0,25.733333333333334,10.550666666666666
+Kala chana curry,NONIND_0026,Curry Puff,Henry et al. GI tables (non-Indian cohort),0.25,low,150.0,25.733333333333334,10.550666666666666
+Lobia (black-eyed peas) curry,NONIND_0026,Curry Puff,Henry et al. GI tables (non-Indian cohort),0.16666666666666666,low,150.0,25.733333333333334,10.550666666666666
+Chole kulche (combo),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Rajma chawal (combo),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kadhi (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Punjabi kadhi,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Gujarati kadhi,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Sindhi kadhi,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Avial,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kootu,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Poriyal (beans),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Poriyal (cabbage),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Chana saag,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Sarson ka saag,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Saag paneer,WEST_IN_0120,Burger Paneer,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3833333333333333,low,180.0,16.666666666666664,11.58333333333333
+Aloo palak,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Aloo jeera,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Aloo baingan,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Aloo tamatar,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Bhindi fry,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Baingan fry,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Gobi manchurian (dry),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Gobi manchurian (gravy),NONIND_0599,Kurakkanpittu with Gravy,Henry et al. GI tables (non-Indian cohort),0.2,low,150.0,20.666666666666668,13.061333333333334
+Vegetable jalfrezi,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Mixed vegetable curry,NONIND_0026,Curry Puff,Henry et al. GI tables (non-Indian cohort),0.25,low,150.0,25.733333333333334,10.550666666666666
+Chole bhature (combo),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Pav bhaji (with pav),NONIND_0610,Attarotimeal with Accompaniments,Henry et al. GI tables (non-Indian cohort),0.2,low,150.0,11.200000000000001,9.856000000000002
+Bhaji (pav bhaji bhaji only),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Chicken curry (home style),NONIND_0007,Chicken Curry Puff,Henry et al. GI tables (non-Indian cohort),0.45,medium,150.0,46.93333333333334,43.17866666666667
+Mutton curry,NONIND_0026,Curry Puff,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,25.733333333333334,10.550666666666666
+Mutton rogan josh,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Fish curry (Goan),NONIND_0648,Brown Rice Flour Idiyappam with Fish Curry,Henry et al. GI tables (non-Indian cohort),0.3,low,200.0,30.0,13.589999999999998
+Fish curry (Bengali),NONIND_0648,Brown Rice Flour Idiyappam with Fish Curry,Henry et al. GI tables (non-Indian cohort),0.3,low,200.0,30.0,13.589999999999998
+Egg omelette (plain),WEST_IN_0114,Burger Egg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,14.444444444444443,10.255555555555555
+Masala omelette,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Soyabean curry,NONIND_0026,Curry Puff,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,25.733333333333334,10.550666666666666
+Soya chaap gravy,NONIND_0599,Kurakkanpittu with Gravy,Henry et al. GI tables (non-Indian cohort),0.2,low,150.0,20.666666666666668,13.061333333333334
+Soya chunks pulao,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Samosa chaat,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Aloo tikki chaat,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.5,medium,180.0,16.666666666666664,11.83333333333333
+Dahi puri,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Poha jalebi (combo),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Chole tikki,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Chole chaat,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Dahi bhalla,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Rava idli,IND_HENRY2021_627,Idli,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 122; n=10 Healthy; ref food/time: Glucose/2h participants; portion 70 g provides 50 g available carbs (table page 21).",0.55,medium,50.0,142.8,95.8188
+Idli with chutney,IND_HENRY2021_627,Idli,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 122; n=10 Healthy; ref food/time: Glucose/2h participants; portion 70 g provides 50 g available carbs (table page 21).",0.3833333333333333,low,50.0,142.8,95.8188
+Dosa with sambar,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.3833333333333333,low,120.0,34.75,19.3905
+Dosa with chutney,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.3833333333333333,low,120.0,34.75,19.3905
+Plain dosa,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.55,medium,120.0,34.75,19.3905
+Onion uttapam,WEST_IN_0230,Onion Rings,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,150.0,20.0,14.2
+Rava uttapam,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kathi roll (egg),WEST_IN_0114,Burger Egg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,14.444444444444443,10.255555555555555
+Kathi roll (paneer),WEST_IN_0120,Burger Paneer,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3,low,180.0,16.666666666666664,11.58333333333333
+Kathi roll (chicken),WEST_IN_0108,Burger Chicken,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3,low,180.0,14.444444444444443,9.966666666666665
+Frankie roll (veg),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.749999999999998
+Frankie roll (egg),WEST_IN_0114,Burger Egg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,14.444444444444443,10.255555555555555
+Paneer tikka roll,WEST_IN_0162,Panini Paneer Tikka,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.55,medium,200.0,16.5,11.4675
+Chicken tikka roll,WEST_IN_0155,Panini Chicken Tikka,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.55,medium,200.0,14.499999999999998,10.004999999999997
+Momos (veg steamed),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.749999999999998
+Momos (chicken steamed),WEST_IN_0108,Burger Chicken,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3,low,180.0,14.444444444444443,9.966666666666665
+Momos (veg fried),NONIND_0517,Fried Fritter,Henry et al. GI tables (non-Indian cohort),0.4,low,150.0,24.0,16.56
+Momos (chicken fried),NONIND_0078,Fried Noodles with Chicken and Prawns,Henry et al. GI tables (non-Indian cohort),0.4857142857142857,medium,250.0,145.72,80.146
+Chowmein (veg),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,180.0,16.666666666666664,11.749999999999998
+Chowmein (egg),WEST_IN_0114,Burger Egg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,180.0,14.444444444444443,10.255555555555555
+Chowmein (chicken),WEST_IN_0108,Burger Chicken,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3833333333333333,low,180.0,14.444444444444443,9.966666666666665
+Hakka noodles (veg),WEST_IN_0216,Hakka Noodles,Proxy GI anchor: cooked pasta from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.6666666666666666,high,250.0,11.200000000000001,4.614400000000001
+Hakka noodles (chicken),WEST_IN_0216,Hakka Noodles,Proxy GI anchor: cooked pasta from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.6666666666666666,high,250.0,11.200000000000001,4.614400000000001
+Fried rice (veg),NONIND_0105,Fried Fragrantwhite Rice,Henry et al. GI tables (non-Indian cohort),0.7000000000000001,high,150.0,12.933333333333334,6.466666666666667
+Fried rice (egg),NONIND_0105,Fried Fragrantwhite Rice,Henry et al. GI tables (non-Indian cohort),0.7000000000000001,high,150.0,12.933333333333334,6.466666666666667
+Fried rice (chicken),NONIND_0105,Fried Fragrantwhite Rice,Henry et al. GI tables (non-Indian cohort),0.7000000000000001,high,150.0,12.933333333333334,6.466666666666667
+Manchurian balls (veg),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.749999999999998
+Spring roll (veg),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.749999999999998
+Spring roll (chicken),WEST_IN_0108,Burger Chicken,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3,low,180.0,14.444444444444443,9.966666666666665
+Pakora (onion),WEST_IN_0230,Onion Rings,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,150.0,20.0,14.2
+Pakora (paneer),WEST_IN_0120,Burger Paneer,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3833333333333333,low,180.0,16.666666666666664,11.58333333333333
+Pakora (spinach/palak),WEST_IN_0084,Pizza Spinach and Corn,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.16666666666666666,low,150.0,18.666666666666668,13.048000000000002
+Pakora (mixed veg),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.749999999999998
+Chana jor garam,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Masala peanuts,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Baked/roasted makhana,NONIND_0515,Baked Barbecuedporkpuff,Henry et al. GI tables (non-Indian cohort),0.4,low,150.0,20.733333333333334,11.403333333333334
+Namkeen mixture,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Aloo bhujiya,WEST_IN_0099,Burger Aloo Tikki,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.25,low,180.0,16.666666666666664,11.83333333333333
+Bhujia sev,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Sev (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Mathri,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Namak pare,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Shakarpare,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Banana chips,IND_HENRY2021_605,Banana,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 117; n=10 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 25 g available carbs (table page 21).",0.5,medium,120.0,17.333333333333336,7.453333333333334
+Potato chips (salted),NONIND_0428,Potato,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,13.333333333333334,8.266666666666667
+Potato chips (masala),NONIND_0428,Potato,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,13.333333333333334,8.266666666666667
+Murukku,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Chakli,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kara sev,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Ribbon pakoda,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Upma (rava),IND_HENRY2021_709,Upma,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 147; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 16 g available carbs (table page 24).",0.55,medium,180.0,17.77777777777778,11.644444444444446
+Upma (vermicelli),IND_HENRY2021_709,Upma,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 147; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 16 g available carbs (table page 24).",0.55,medium,180.0,17.77777777777778,11.644444444444446
+Pongal (ven),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Pesarattu upma combo,IND_HENRY2021_709,Upma,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 147; n=None None; ref food/time: Healthy Glucose/2h participants; portion 50 g provides 16 g available carbs (table page 24).",0.3833333333333333,low,180.0,17.77777777777778,11.644444444444446
+Vegetable pulao,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Peas pulao,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Jeera pulao,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Mutton biryani,NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.55,medium,250.0,7.88,4.0976
+Hyderabadi biryani (chicken),NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.3833333333333333,low,250.0,7.88,4.0976
+Hyderabadi biryani (mutton),NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.3833333333333333,low,250.0,7.88,4.0976
+Egg biryani,NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.55,medium,250.0,7.88,4.0976
+Fish biryani,NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.55,medium,250.0,7.88,4.0976
+Fried rice (schezwan veg),NONIND_0105,Fried Fragrantwhite Rice,Henry et al. GI tables (non-Indian cohort),0.6000000000000001,medium,150.0,12.933333333333334,6.466666666666667
+Schezwan noodles (veg),WEST_IN_0221,Schezwan Noodles,Proxy GI anchor: cooked pasta from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.6666666666666666,high,250.0,11.200000000000001,4.614400000000001
+Tehri (veg),WEST_IN_0126,Burger Veg,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,180.0,16.666666666666664,11.749999999999998
+Tahari (chicken),WEST_IN_0108,Burger Chicken,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3833333333333333,low,180.0,14.444444444444443,9.966666666666665
+Kushka rice,NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.55,medium,150.0,52.06666666666666,24.991999999999997
+Bagara rice,NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.55,medium,150.0,52.06666666666666,24.991999999999997
+Imarti,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kala jamun,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kheer (rice),NONIND_0071,Rice,Henry et al. GI tables (non-Indian cohort),0.55,medium,150.0,52.06666666666666,24.991999999999997
+Phirni,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Sheer khurma,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Seviyan kheer,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Halwa (suji),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Halwa (gajar),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Halwa (moong dal),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Halwa (atte ka),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Badam halwa,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Ladoo (boondi),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Ladoo (besan),NONIND_0622,Besan,Henry et al. GI tables (non-Indian cohort),0.5,medium,150.0,19.733333333333334,6.571199999999999
+Ladoo (motichoor),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Ladoo (til),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Ladoo (rava),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Barfi (kaju katli),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Barfi (coconut),NONIND_0299,Coconut Sapsugar,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,61.73333333333333,21.606666666666662
+Barfi (milk),WEST_IN_0268,Milk Shake,Proxy GI anchor: milk from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.3333333333333333,low,250.0,7.199999999999999,3.6719999999999997
+Sandesh,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Mishti doi,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Chhena poda,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Ice cream (vanilla),WEST_IN_0251,Ice Cream,Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). + Proxy GI anchor: milk from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.6666666666666666,high,50.0,48.0,24.48
+Shrikhand,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Payasam (vermicelli),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Payasam (ada),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Payasam (palada),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Modak (ukadiche),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Puran poli,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Chikki (peanut),NONIND_0050,Whole Grainbiscuitfilled with Peanut Butter,Henry et al. GI tables (non-Indian cohort),0.16666666666666666,low,14.0,350.0,154.0
+Chikki (sesame/til),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Gajak,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Revdi,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Banana fritters (pazham pori),IND_HENRY2021_605,Banana,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 117; n=10 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 25 g available carbs (table page 21).",0.25,low,120.0,17.333333333333336,7.453333333333334
+Unniyappam,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Masala chai (tea with milk & spices),T1_0625,Bebe Dobre Rano with Milk,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #625",0.2,low,250.0,28.799999999999997,14.399999999999999
+Ginger tea,WEST_IN_0265,Iced Tea,Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008).,0.3333333333333333,low,150.0,7.000000000000001,4.550000000000001
+Black tea (unsweetened),WEST_IN_0265,Iced Tea,Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008).,0.25,low,150.0,7.000000000000001,4.550000000000001
+Green tea (unsweetened),NONIND_0621,Green Gram,Henry et al. GI tables (non-Indian cohort),0.25,low,150.0,16.933333333333334,5.317066666666666
+Filter coffee (south Indian),WEST_IN_0263,Cold Coffee,Proxy GI anchor: milk from International GI Tables (Atkinson 2008).,0.2,low,300.0,2.666666666666667,0.8
+Instant coffee with milk,NONIND_0533,Instant Sweet Milk Bun,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,250.0,17.560000000000002,11.765200000000002
+Cold coffee (sweetened),WEST_IN_0263,Cold Coffee,Proxy GI anchor: milk from International GI Tables (Atkinson 2008).,0.6666666666666666,high,300.0,2.666666666666667,0.8
+Lemon tea,WEST_IN_0265,Iced Tea,Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008).,0.3333333333333333,low,150.0,7.000000000000001,4.550000000000001
+Salted buttermilk (chaas),T1_0491,Barley Pot Boiled in Salted Water,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #491",0.125,low,150.0,18.666666666666668,3.733333333333334
+Sweet lassi,NONIND_0415,Sweet Corn,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,13.333333333333334,7.333333333333334
+Salted lassi,T1_0491,Barley Pot Boiled in Salted Water,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #491",0.14285714285714285,low,150.0,18.666666666666668,3.733333333333334
+Mango lassi,IND_HENRY2021_606,Mango,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 117; n=10 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 25 g available carbs (table page 21).",0.5,medium,200.0,10.4,3.6399999999999997
+Coconut water,NONIND_0299,Coconut Sapsugar,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,61.73333333333333,21.606666666666662
+Sugarcane juice,NONIND_0277,Yacon Juice,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,250.0,4.8,2.928
+Lassi (rose),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Aam panna,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Jaljeera,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Nimbu pani (sweetened),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Nimbu pani (salted),T1_0491,Barley Pot Boiled in Salted Water,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #491",0.125,low,150.0,18.666666666666668,3.733333333333334
+Thandai,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Soft drink (cola),WEST_IN_0272,Soft Drink,Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008).,0.6666666666666666,high,330.0,3.1818181818181817,2.0681818181818183
+Packaged fruit juice (orange),IND_HENRY2021_608,Orange,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 117; n=10 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 10 g available carbs (table page 21).",0.25,low,130.0,6.384615384615386,3.3200000000000007
+Packaged fruit juice (mango),T1_0865,Yoghurt Tropical Fruit Mango,"Clinically measured GI/GL from International Tables (Atkinson et al., Diabetes Care 2008), Table A1, item #865",0.3333333333333333,low,200.0,3.25,1.04
+Milk (toned),WEST_IN_0268,Milk Shake,Proxy GI anchor: milk from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.3333333333333333,low,250.0,7.199999999999999,3.6719999999999997
+Milk (full cream),WEST_IN_0251,Ice Cream,Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). + Proxy GI anchor: milk from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.25,low,50.0,48.0,24.48
+Milk (skim),WEST_IN_0268,Milk Shake,Proxy GI anchor: milk from International GI Tables (Atkinson 2008). + Proxy GI anchor: sucrose/sugar from International GI Tables (Atkinson 2008). Combined using carb-weighted recipe GI formula.,0.3333333333333333,low,250.0,7.199999999999999,3.6719999999999997
+"Curd (dahi, plain)",NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.25,low,25.0,171.6,121.3212
+Greek yogurt (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.25,low,25.0,171.6,121.3212
+Raita (boondi),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Raita (cucumber),WEST_IN_0157,Panini Cucumber,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,200.0,16.5,11.715
+Raita (onion),WEST_IN_0230,Onion Rings,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,150.0,20.0,14.2
+Paneer (plain),WEST_IN_0120,Burger Paneer,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3833333333333333,low,180.0,16.666666666666664,11.58333333333333
+Tofu (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Cheese slice,NONIND_0008,Cheese Bun,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,64.13333333333333,60.926666666666655
+Cheese spread,NONIND_0008,Cheese Bun,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,64.13333333333333,60.926666666666655
+Butter,NONIND_0692,Butter Cake,Henry et al. GI tables (non-Indian cohort),0.5,medium,80.0,33.375,21.593625
+Ghee,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Mayonnaise,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Mint chutney,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Coriander chutney,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Tamarind chutney,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Pickle (mango),IND_HENRY2021_606,Mango,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 117; n=10 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 25 g available carbs (table page 21).",0.5,medium,200.0,10.4,3.6399999999999997
+Pickle (lime),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Papad (roasted),NONIND_0551,Luceayam Roasted,Henry et al. GI tables (non-Indian cohort),0.4833333333333333,medium,150.0,16.799999999999997,12.935999999999998
+Papad (fried),NONIND_0517,Fried Fritter,Henry et al. GI tables (non-Indian cohort),0.4833333333333333,medium,150.0,24.0,16.56
+Salad (kachumber),NONIND_0357,Rawherb Corn Salad,Henry et al. GI tables (non-Indian cohort),0.25,low,150.0,166.66666666666669,162.50000000000003
+Onion salad,WEST_IN_0230,Onion Rings,Proxy GI anchor: refined wheat bread products from International GI Tables (Atkinson 2008).,0.3333333333333333,low,150.0,20.0,14.2
+Green salad,NONIND_0621,Green Gram,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,16.933333333333334,5.317066666666666
+Idli podi (gunpowder) with oil,IND_HENRY2021_627,Idli,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 122; n=10 Healthy; ref food/time: Glucose/2h participants; portion 70 g provides 50 g available carbs (table page 21).",0.25,low,50.0,142.8,95.8188
+Dosa podi with ghee,IND_HENRY2021_688,Dosa,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 142; n=11 Healthy; ref food/time: Glucose/2h participants; portion 120 g provides 50 g available carbs (table page 23).",0.3,low,120.0,34.75,19.3905
+Hyderabadi haleem,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Nihari,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Payaa soup,NONIND_0314,Soy Bean Paste Soup and Rice,Henry et al. GI tables (non-Indian cohort),0.14285714285714285,low,150.0,20.866666666666667,15.441333333333333
+Dal baati churma,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Baati (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,25.0,171.6,121.3212
+Churma (sweet),NONIND_0415,Sweet Corn,Henry et al. GI tables (non-Indian cohort),0.3333333333333333,low,150.0,13.333333333333334,7.333333333333334
+Undhiyu,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Kadhi khichdi (combo),IND_HENRY2021_663,Khichdi,"Henry et al. (Nutrition & Diabetes, 2021) GI compendium; ref 133; n=None None; ref food/time: Healthy Glucose/2.5h participants NutritionandDiabetes Henryetal.NutritionandDiabetes (2021) 11:2 Page23of36 Reference Country Fooditem GI(glucose=100) Servingsize(g)perexperimental AvailableCHO Participants Reference portionsize (g)per (typeand foodand experimental number) timeperiod portion Mean SEM; portion 50 g provides 10 g available carbs (table page 22).",0.3333333333333333,low,180.0,11.11111111111111,3.8888888888888884
+Dal chawal (plain),NONIND_0388,Plain Bread,Henry et al. GI tables (non-Indian cohort),0.25,low,25.0,171.6,121.3212
+Curd rice with pickle,NONIND_0448,Driedapples with Rice,Henry et al. GI tables (non-Indian cohort),0.45,medium,150.0,86.79999999999998,56.41999999999999
+Chole chawal (combo),NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964
+Lucknowi biryani,NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.55,medium,250.0,7.88,4.0976
+Kolkata biryani,NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.55,medium,250.0,7.88,4.0976
+Ambur biryani,NONIND_0738,Biryani,Henry et al. GI tables (non-Indian cohort),0.55,medium,250.0,7.88,4.0976
+Vangi bath,NONIND_0398,Acorn Jelly,Henry et al. GI tables (non-Indian cohort),0.0,low,150.0,9.2,6.5964

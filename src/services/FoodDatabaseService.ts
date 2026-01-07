@@ -15,6 +15,8 @@ export interface FoodItem {
     serving_size_min_g?: number;
     serving_size_max_g?: number;
     available_carbs_g: number;
+    search_text?: string;
+    aliases_compiled?: string;
 }
 
 class FoodDatabaseService {
@@ -65,9 +67,12 @@ class FoodDatabaseService {
         if (!query || query.length < 2) return [];
 
         const lowerQuery = query.toLowerCase();
-        return this.database.filter(item =>
-            item.canonical_name && item.canonical_name.toLowerCase().includes(lowerQuery)
-        ).slice(0, 50); // Limit results for performance
+        return this.database.filter(item => {
+            if (item.search_text) {
+                return item.search_text.toLowerCase().includes(lowerQuery);
+            }
+            return item.canonical_name && item.canonical_name.toLowerCase().includes(lowerQuery);
+        }).slice(0, 50); // Limit results for performance
     }
 
     getFoodById(id: string): FoodItem | undefined {
