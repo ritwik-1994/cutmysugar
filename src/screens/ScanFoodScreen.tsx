@@ -23,7 +23,7 @@ export default function ScanFoodScreen() {
             try {
                 const photo = await cameraRef.current.takePictureAsync({
                     base64: true,
-                    quality: 0.3,
+                    quality: 1.0,
                 });
                 if (photo && photo.base64) {
                     console.log('[ScanFood] Starting background scan...');

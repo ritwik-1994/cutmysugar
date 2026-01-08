@@ -7,6 +7,7 @@ import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../styles/theme';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { CheckCircle, AlertTriangle, AlertCircle } from 'lucide-react-native';
+import { CircularProgress } from '../components/ui/CircularProgress';
 import { useMeal } from '../context/MealContext';
 import { geminiService, FoodAnalysisResult } from '../services/GeminiService';
 import { SUGAR_TYPES } from '../data/sugars';
@@ -24,6 +25,29 @@ export default function FoodAnalysisScreen() {
     const [error, setError] = useState<string | null>(null);
     const [fixModalVisible, setFixModalVisible] = useState(false);
     const [userFeedback, setUserFeedback] = useState('');
+    const [loadingProgress, setLoadingProgress] = useState(0);
+
+    // Progressive Loading Logic
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (analyzing) {
+            setLoadingProgress(0);
+            interval = setInterval(() => {
+                setLoadingProgress(prev => {
+                    if (prev >= 95) return 95; // Pause at 95%
+
+                    // Slow down as we get closer
+                    if (prev < 60) return prev + 2; // Fast
+                    if (prev < 80) return prev + 1; // Medium
+                    if (prev < 90) return prev + 0.5; // Slow
+                    return prev + 0.1; // Crawl to 95
+                });
+            }, 100);
+        } else {
+            setLoadingProgress(100);
+        }
+        return () => clearInterval(interval);
+    }, [analyzing]);
 
     // Added Sugar State
     const [sugarModalVisible, setSugarModalVisible] = useState(false);
@@ -160,13 +184,18 @@ export default function FoodAnalysisScreen() {
             <View style={styles.container}>
                 <Image source={{ uri: imageUri }} style={styles.backgroundImage} blurRadius={10} />
                 <View style={styles.overlay}>
-                    <ActivityIndicator size="large" color={COLORS.brand.accent} />
+                    <CircularProgress
+                        size={160}
+                        progress={loadingProgress}
+                        strokeWidth={12}
+                    />
                     <Text style={styles.analyzingText}>Analyzing Food...</Text>
                     <Text style={styles.analyzingSubtext}>Identifying ingredients and calculating GL</Text>
                 </View>
             </View>
         );
     }
+
 
     if (error || !result) {
         return (

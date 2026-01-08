@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
@@ -12,135 +12,108 @@ export default function HeightWeightScreen() {
     const [isMetric, setIsMetric] = useState(false); // Default to Imperial (Feet/Inches)
 
     // Height State
-    const [heightCm, setHeightCm] = useState(170);
-    const [heightFt, setHeightFt] = useState(5);
-    const [heightIn, setHeightIn] = useState(7);
+    const [heightCm, setHeightCm] = useState('170');
+    const [heightFt, setHeightFt] = useState('5');
+    const [heightIn, setHeightIn] = useState('7');
 
     // Weight State
-    const [weightKg, setWeightKg] = useState(70);
+    const [weightKg, setWeightKg] = useState('70');
 
     const handleNext = () => {
-        // Save height/weight logic here
+        // Save logic (parse strings to numbers)
         navigation.navigate('Login');
     };
 
-    const toggleUnit = () => {
-        setIsMetric(!isMetric);
-    };
-
-    // Convert for display if needed, but we keep separate state for simplicity in this demo
-    // In a real app, we'd sync them.
-
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>Body Details</Text>
-                    <Text style={styles.subtitle}>To calculate your metabolic baseline.</Text>
-                </View>
-
-                <View style={styles.unitToggleContainer}>
-                    <TouchableOpacity
-                        style={[styles.unitButton, !isMetric && styles.activeUnitButton]}
-                        onPress={() => setIsMetric(false)}
-                    >
-                        <Text style={[styles.unitText, !isMetric && styles.activeUnitText]}>Imperial</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles.unitButton, isMetric && styles.activeUnitButton]}
-                        onPress={() => setIsMetric(true)}
-                    >
-                        <Text style={[styles.unitText, isMetric && styles.activeUnitText]}>Metric</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Height</Text>
-                    {isMetric ? (
-                        <View style={styles.valueContainer}>
-                            <Text style={styles.valueText}>{Math.round(heightCm)}</Text>
-                            <Text style={styles.unitLabel}>cm</Text>
-                        </View>
-                    ) : (
-                        <View style={styles.valueContainer}>
-                            <Text style={styles.valueText}>{heightFt}'{heightIn}"</Text>
-                            <Text style={styles.unitLabel}>ft/in</Text>
-                        </View>
-                    )}
-
-                    {isMetric ? (
-                        <Slider
-                            style={styles.slider}
-                            minimumValue={100}
-                            maximumValue={250}
-                            step={1}
-                            value={heightCm}
-                            onValueChange={setHeightCm}
-                            minimumTrackTintColor={COLORS.primary}
-                            maximumTrackTintColor={COLORS.surfaceLight}
-                            thumbTintColor={COLORS.primary}
-                        />
-                    ) : (
-                        <View style={styles.dualSliderContainer}>
-                            <View style={styles.sliderWrapper}>
-                                <Text style={styles.sliderLabel}>Feet: {heightFt}</Text>
-                                <Slider
-                                    style={styles.slider}
-                                    minimumValue={3}
-                                    maximumValue={8}
-                                    step={1}
-                                    value={heightFt}
-                                    onValueChange={setHeightFt}
-                                    minimumTrackTintColor={COLORS.primary}
-                                    maximumTrackTintColor={COLORS.surfaceLight}
-                                    thumbTintColor={COLORS.primary}
-                                />
-                            </View>
-                            <View style={styles.sliderWrapper}>
-                                <Text style={styles.sliderLabel}>Inches: {heightIn}</Text>
-                                <Slider
-                                    style={styles.slider}
-                                    minimumValue={0}
-                                    maximumValue={11}
-                                    step={1}
-                                    value={heightIn}
-                                    onValueChange={setHeightIn}
-                                    minimumTrackTintColor={COLORS.primary}
-                                    maximumTrackTintColor={COLORS.surfaceLight}
-                                    thumbTintColor={COLORS.primary}
-                                />
-                            </View>
-                        </View>
-                    )}
-                </View>
-
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Weight</Text>
-                    <View style={styles.valueContainer}>
-                        <Text style={styles.valueText}>{Math.round(weightKg)}</Text>
-                        <Text style={styles.unitLabel}>kg</Text>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}
+            >
+                <ScrollView contentContainerStyle={styles.content}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>Body Details</Text>
+                        <Text style={styles.subtitle}>To calculate your metabolic baseline.</Text>
                     </View>
-                    <Slider
-                        style={styles.slider}
-                        minimumValue={30}
-                        maximumValue={200}
-                        step={0.5}
-                        value={weightKg}
-                        onValueChange={setWeightKg}
-                        minimumTrackTintColor={COLORS.secondary}
-                        maximumTrackTintColor={COLORS.surfaceLight}
-                        thumbTintColor={COLORS.secondary}
-                    />
-                </View>
 
-                <View style={styles.footer}>
-                    <Button
-                        title="Next"
-                        onPress={handleNext}
-                        style={styles.button}
-                    />
-                </View>
-            </View>
+                    <View style={styles.unitToggleContainer}>
+                        <TouchableOpacity
+                            style={[styles.unitButton, !isMetric && styles.activeUnitButton]}
+                            onPress={() => setIsMetric(false)}
+                        >
+                            <Text style={[styles.unitText, !isMetric && styles.activeUnitText]}>Imperial (Ft/In)</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.unitButton, isMetric && styles.activeUnitButton]}
+                            onPress={() => setIsMetric(true)}
+                        >
+                            <Text style={[styles.unitText, isMetric && styles.activeUnitText]}>Metric (Cm/Kg)</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Height</Text>
+                        {isMetric ? (
+                            <View style={styles.inputRow}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={heightCm}
+                                    onChangeText={setHeightCm}
+                                    keyboardType="numeric"
+                                    placeholder="170"
+                                    placeholderTextColor={COLORS.textTertiary}
+                                />
+                                <Text style={styles.unitLabel}>cm</Text>
+                            </View>
+                        ) : (
+                            <View style={styles.inputRow}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={heightFt}
+                                    onChangeText={setHeightFt}
+                                    keyboardType="numeric"
+                                    placeholder="5"
+                                    placeholderTextColor={COLORS.textTertiary}
+                                />
+                                <Text style={styles.unitLabel}>ft</Text>
+                                <View style={{ width: SPACING.m }} />
+                                <TextInput
+                                    style={styles.input}
+                                    value={heightIn}
+                                    onChangeText={setHeightIn}
+                                    keyboardType="numeric"
+                                    placeholder="7"
+                                    placeholderTextColor={COLORS.textTertiary}
+                                />
+                                <Text style={styles.unitLabel}>in</Text>
+                            </View>
+                        )}
+                    </View>
+
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Weight</Text>
+                        <View style={styles.inputRow}>
+                            <TextInput
+                                style={styles.input}
+                                value={weightKg}
+                                onChangeText={setWeightKg}
+                                keyboardType="numeric"
+                                placeholder="70"
+                                placeholderTextColor={COLORS.textTertiary}
+                            />
+                            <Text style={styles.unitLabel}>kg</Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.footer}>
+                        <Button
+                            title="Next"
+                            onPress={handleNext}
+                            style={styles.button}
+                        />
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
@@ -151,7 +124,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.background,
     },
     content: {
-        flex: 1,
+        flexGrow: 1,
         padding: SPACING.l,
     },
     header: {
@@ -200,16 +173,19 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         marginBottom: SPACING.m,
     },
-    valueContainer: {
+    inputRow: {
         flexDirection: 'row',
-        alignItems: 'baseline',
-        justifyContent: 'center',
-        marginBottom: SPACING.m,
+        alignItems: 'center',
     },
-    valueText: {
+    input: {
+        flex: 1,
+        backgroundColor: COLORS.surface,
+        borderRadius: SIZES.borderRadius.m,
+        padding: SPACING.m,
+        fontSize: 24,
         fontFamily: FONTS.heading,
-        fontSize: 48,
         color: COLORS.text,
+        textAlign: 'center',
     },
     unitLabel: {
         fontFamily: FONTS.medium,
@@ -217,23 +193,9 @@ const styles = StyleSheet.create({
         color: COLORS.textSecondary,
         marginLeft: SPACING.s,
     },
-    slider: {
-        width: '100%',
-        height: 40,
-    },
-    dualSliderContainer: {
-        gap: SPACING.m,
-    },
-    sliderWrapper: {
-        width: '100%',
-    },
-    sliderLabel: {
-        fontFamily: FONTS.body,
-        color: COLORS.textSecondary,
-        marginBottom: SPACING.xs,
-    },
     footer: {
         marginTop: 'auto',
+        paddingTop: SPACING.m,
     },
     button: {
         width: '100%',

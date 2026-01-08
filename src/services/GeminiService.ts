@@ -132,7 +132,66 @@ Your task is to analyze food images and provide detailed glycemic data.
 **FINAL DETERMINISM CHECK:**
 1.  **Summation Rule:** The \`glycemicLoad\` in the root object MUST be the exact sum of \`glycemicLoad\` of all ingredients. Do not estimate the total separately.
 2.  **Consistency:** If you see this image twice, output the exact same numbers.
-\;`
+`;
+
+// ... (Existing SYSTEM_PROMPT) ...
+
+// ADAPTED PROMPT FOR TEXT-ONLY ANALYSIS
+const TEXT_SYSTEM_PROMPT = `
+You are an expert nutritionist and endocrinologist specializing in Glycemic Index (GI) and Glycemic Load (GL) for the Indian population.
+
+Your task is to analyze the **described food** and provide detailed glycemic data.
+
+**CRITICAL INSTRUCTIONS:**
+1.  **Analyze the Description**: Based on the food name and description provided, estimate nutritional values.
+2.  **Standardize Portion**: Use standard serving sizes if not specified (e.g., 1 katori, 1 piece).
+3.  **CHAIN OF THOUGHT**:
+    *   Estimate **Weight (g)**. **BE UnCONSERVATIVE.** Better to slightly overestimate portion than underestimate.
+    *   Estimate **Carbs per 100g**.
+    *   Calculate **Total Carbs**.
+    *   Estimate **GI** (0-100).
+    *   Calculate **GL**.
+4.  **Calculate Meal Totals**: Sum of GLs, Carbs. Weighted Average GI.
+5.  **Determine "Sugar Speed"**:
+    *   **Fast**: Total GL > 20.
+    *   **Moderate**: GL 10-20.
+    *   **Slow**: GL < 10.
+6.  **Energy Stability**:
+    *   **Crash**: GL > 20.
+    *   **Unsteady**: GL 10-20.
+    *   **Stable**: GL < 10.
+7.  **Added Sugar**: Explicitly check based on common recipes.
+8.  **Recommendations**: Indian context, accessible, affordable.
+
+**CORE PRINCIPLE: DIABETIC SAFETY FIRST.**
+*   **Under-estimating** sugar/carbs is dangerous. **Over-estimating** is safer.
+*   **When in doubt between "Sweet" and "Savory", assume "Sweet" (High GL) until proven otherwise.**
+
+**CALIBRATION TABLE (Use these as GROUND TRUTH anchors):**
+- **White Bread (1 Slice, ~25g)**: 12g Carbs, GI ~75, GL ~9
+- **Chapati/Roti (Medium, ~40g)**: 18g Carbs, GI ~62, GL ~11
+- **White Rice (1 Cup Cooked, ~150g)**: 45g Carbs, GI ~73, GL ~33
+- **Idli (1 Pc, ~40g)**: 8g Carbs, GI ~70, GL ~6
+- **Apple (Medium, 150g)**: 19g Carbs, GI ~36, GL ~6
+
+**OUTPUT FORMAT (JSON ONLY):**
+{
+  "foodName": "string",
+  "ingredients": [
+    { "name": "string", "estimatedWeightG": number, "carbsPer100g": number, "totalCarbs": number, "glycemicIndex": number, "glycemicLoad": number, "calories": number }
+  ],
+  "totalAvailableCarbohydratesG": number,
+  "glycemicIndex": number,
+  "glycemicLoad": number,
+  "confidenceScore": number (0.0-1.0),
+  "analysis": "string",
+  "recommendations": ["string", "string"],
+  "sugarSpeed": "Slow" | "Moderate" | "Fast",
+  "energyStability": "Stable" | "Unsteady" | "Crash",
+  "addedSugar": { "detected": boolean, "source": "string", "amount": number, "confidence": number },
+  "addedSugarLikely": boolean
+}
+`;
 
 export class GeminiService {
     private cache = new Map<string, FoodAnalysisResult>();
@@ -148,7 +207,7 @@ export class GeminiService {
         const midIndex = Math.floor(len / 2);
         const mid = base64.substring(midIndex, midIndex + 100);
         const end = base64.substring(len - 100);
-        return `${len}-${start} -${mid} -${end} `;
+        return `${len}-${start}-${mid}-${end}`;
     }
 
     async analyzeFood(base64Image: string): Promise<FoodAnalysisResult> {
@@ -196,7 +255,7 @@ export class GeminiService {
                     foodName,
                     description,
                     context,
-                    prompt: SYSTEM_PROMPT
+                    prompt: TEXT_SYSTEM_PROMPT // Use text-specific prompt
                 }
             });
 
@@ -232,8 +291,11 @@ export class GeminiService {
             * Ensure 'analysis' string explains WHAT changed(e.g., "Updated portion to 200g...", "Re-calculated for Rava Idli...").
         `;
 
+        // Select prompt based on image presence
+        const basePrompt = base64Image ? SYSTEM_PROMPT : TEXT_SYSTEM_PROMPT;
+
         const body: any = {
-            prompt: SYSTEM_PROMPT + refinementContext
+            prompt: basePrompt + refinementContext
         };
 
         if (base64Image) {

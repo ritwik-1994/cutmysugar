@@ -12,6 +12,7 @@ export default function PhoneNumberScreen() {
     const navigation = useNavigation<NavigationProps>();
     const { login, isLoading } = useAuth();
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [countryCode, setCountryCode] = useState('+1');
 
     const handleSendCode = async () => {
         if (phoneNumber.length < 10) {
@@ -52,7 +53,14 @@ export default function PhoneNumberScreen() {
                     <Text style={styles.subtitle}>We'll send you a verification code.</Text>
 
                     <View style={styles.inputContainer}>
-                        <Text style={styles.countryCode}>+1</Text>
+                        <TextInput
+                            style={styles.countryCodeInput}
+                            value={countryCode}
+                            onChangeText={setCountryCode}
+                            keyboardType="phone-pad"
+                            placeholder="+1"
+                            placeholderTextColor={COLORS.textTertiary}
+                        />
                         <TextInput
                             style={styles.input}
                             placeholder="000 000 0000"
@@ -123,11 +131,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: COLORS.surfaceLight,
     },
-    countryCode: {
+    countryCodeInput: {
         fontFamily: FONTS.medium,
         fontSize: 18,
         color: COLORS.text,
         marginRight: SPACING.m,
+        minWidth: 50,
     },
     input: {
         flex: 1,

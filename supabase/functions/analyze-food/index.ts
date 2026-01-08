@@ -64,11 +64,11 @@ Deno.serve(async (req) => {
 
         // 2. Construct Vertex AI Request
         const projectId = saKey.project_id
-        const location = 'us-central1'
+        const location = 'asia-south1'
         const modelId = 'gemini-2.5-flash' // STRICT USER REQUEST
 
         // SWITCH TO NON-STREAMING ENDPOINT (generateContent) prevents partial chunks
-        const endpoint = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${modelId}:generateContent`
+        const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${modelId}:generateContent`
 
         const parts = []
         if (prompt) parts.push({ text: prompt })

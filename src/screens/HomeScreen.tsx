@@ -29,6 +29,7 @@ import { MetricCard } from '../components/dashboard/MetricCard';
 import { AddMealModal } from '../components/dashboard/AddMealModal';
 import { WeeklyProgressChart } from '../components/dashboard/WeeklyProgressChart';
 import { MealItem } from '../components/dashboard/MealItem';
+import { PendingMealItem } from '../components/dashboard/PendingMealItem';
 
 export default function HomeScreen() {
     const navigation = useNavigation<NavigationProps>();
@@ -39,6 +40,7 @@ export default function HomeScreen() {
     const [editBudgetVisible, setEditBudgetVisible] = useState(false);
     const [addMealVisible, setAddMealVisible] = useState(false);
     const [tempBudget, setTempBudget] = useState(dailyBudget.toString());
+    const [scrollTargetY, setScrollTargetY] = useState(0);
 
     useEffect(() => {
         setTempBudget(dailyBudget.toString());
@@ -109,15 +111,30 @@ export default function HomeScreen() {
     const isFocused = useIsFocused();
 
     // Auto-scroll when new action starts or screen becomes focused with active actions
+    // Auto-scroll when new action starts or screen becomes focused with active actions
+    // Auto-scroll when new action starts
+    const lastScrollActionId = useRef<string | null>(null);
+
     useEffect(() => {
-        if (isFocused && pendingActions.length > 0) {
-            console.log("Auto-scrolling to new meal action...");
+        const latestActionId = pendingActions[0]?.id;
+
+        // Only scroll if we have a pending action, it's different from the last one we scrolled for,
+        // and we have a valid scroll target.
+        if (isFocused && latestActionId && latestActionId !== lastScrollActionId.current && scrollTargetY > 0) {
+            console.log("Auto-scrolling to new meal action:", latestActionId);
+            lastScrollActionId.current = latestActionId;
+
             // Wait for layout/navigation transition
             setTimeout(() => {
-                scrollRef.current?.scrollToEnd({ animated: true });
+                scrollRef.current?.scrollTo({ y: scrollTargetY, animated: true });
             }, 500);
         }
-    }, [isFocused, pendingActions.length]);
+
+        // Reset if no pending actions
+        if (pendingActions.length === 0) {
+            lastScrollActionId.current = null;
+        }
+    }, [isFocused, pendingActions, scrollTargetY]);
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         scrollY.value = event.nativeEvent.contentOffset.y;
@@ -192,12 +209,6 @@ export default function HomeScreen() {
                 showsVerticalScrollIndicator={false}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
-                onContentSizeChange={() => {
-                    // Backup: if content grows while we are focused and have pending actions, ensure we see it.
-                    if (isFocused && pendingActions.length > 0) {
-                        scrollRef.current?.scrollToEnd({ animated: true });
-                    }
-                }}
             >
                 {/* 2. Header Area */}
                 <View style={styles.header}>
@@ -243,62 +254,16 @@ export default function HomeScreen() {
                     <WeeklyProgressChart meals={meals} dailyBudget={dailyBudget} />
 
                     {/* 7. Recently Logged Meals Section */}
-                    <Text style={styles.sectionTitle}>Today's Meals</Text>
+                    {/* 7. Recently Logged Meals Section */}
+                    <View onLayout={(e) => setScrollTargetY(e.nativeEvent.layout.y)}>
+                        <Text style={styles.sectionTitle}>Today's Meals</Text>
+                    </View>
 
                     {/* PENDING ACTIONS SECTION */}
                     {pendingActions.length > 0 && (
                         <View style={styles.mealList}>
                             {pendingActions.map((action) => (
-                                <View key={action.id} style={[styles.mealItem, { opacity: 0.9, borderColor: COLORS.brand.accent, borderWidth: 1 }]}>
-                                    <View style={[styles.mealThumbnail, { overflow: 'hidden', justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.surface }]}>
-                                        {action.imageUri ? (
-                                            <Image
-                                                source={{ uri: action.imageUri }}
-                                                style={{ width: '100%', height: '100%' }}
-                                            />
-                                        ) : (
-                                            <Text style={{ fontSize: 24 }}>
-                                                {action.type === 'text' ? '📝' : '✨'}
-                                            </Text>
-                                        )}
-                                        {/* Overlay to dim image or just background */}
-                                        <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.1)' }} />
-                                    </View>
-                                    <View style={{ flex: 1, gap: 4 }}>
-                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                            <Text style={[styles.mealName, { color: COLORS.brand.accent }]}>
-                                                {action.label}
-                                            </Text>
-                                            <Text style={{ fontSize: 12, color: COLORS.textTertiary }}>
-                                                {action.progress}%
-                                            </Text>
-                                        </View>
-
-                                        {/* Status Text with Animation Cue */}
-                                        <Text style={{ fontFamily: FONTS.medium, fontSize: 13, color: COLORS.textSecondary }}>
-                                            {action.status === 'analyzing' ? '🔍 Identifying ingredients...' :
-                                                action.status === 'separating' ? '🍱 Separating components...' :
-                                                    action.status === 'calculating' ? '🧮 Calculating Sugar Score...' :
-                                                        action.status === 'finalizing' ? '✅ Almost done...' :
-                                                            action.status === 'failed' ? '❌ Analysis Failed' : 'Processing...'}
-                                        </Text>
-
-                                        {/* Progress Bar */}
-                                        <View style={{
-                                            height: 4,
-                                            backgroundColor: COLORS.divider,
-                                            borderRadius: 2,
-                                            marginTop: 4,
-                                            overflow: 'hidden'
-                                        }}>
-                                            <View style={{
-                                                height: '100%',
-                                                width: `${action.progress}%`,
-                                                backgroundColor: COLORS.brand.accent
-                                            }} />
-                                        </View>
-                                    </View>
-                                </View>
+                                <PendingMealItem key={action.id} action={action} />
                             ))}
                         </View>
                     )}

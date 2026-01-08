@@ -83,6 +83,11 @@ export default function PreferencesScreen() {
                     </View>
                 </View>
 
+                {/* Scroll Hint */}
+                <View style={{ alignItems: 'center', marginVertical: SPACING.s, opacity: 0.6 }}>
+                    <Text style={{ fontFamily: FONTS.body, color: COLORS.textSecondary }}>👇 Scroll for Diet Preferences</Text>
+                </View>
+
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Dietary Preference</Text>
                     <View style={styles.optionsContainer}>
