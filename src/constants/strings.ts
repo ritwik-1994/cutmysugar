@@ -69,9 +69,9 @@ export const STRINGS = {
         },
         ENERGY_FLOW: {
             LABEL: 'Energy Flow',
-            CRASH: 'Crash Likely 📉',
-            UNSTABLE: 'Unstable 〰️',
-            STEADY: 'Steady Flow 🌊',
+            CRASH: 'Crash',
+            UNSTABLE: 'Unsteady',
+            STEADY: 'Stable',
         },
         SPIKE_ALERT: 'Spike Alert',
     },

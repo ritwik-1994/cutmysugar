@@ -1,5 +1,5 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { GEMINI_API_KEY } from '../config/secrets';
+import { supabase } from '../lib/supabase';
+
 
 export interface FoodAnalysisResult {
     foodName: string;
@@ -12,9 +12,11 @@ export interface FoodAnalysisResult {
         name: string;
         estimatedWeightG?: number;
         estimatedVolumeMl?: number;
-        availableCarbohydratesG: number;
-        giMedian: number;
-        giRange: [number, number];
+        carbsPer100g: number;
+        totalCarbs: number;
+        glycemicIndex: number;
+        glycemicLoad: number;
+        calories: number;
     }[];
     totalAvailableCarbohydratesG?: number;
     glycemicIndex: number;
@@ -31,7 +33,7 @@ export interface FoodAnalysisResult {
     analysis: string;
     recommendations: string[];
     sugarSpeed: 'Slow' | 'Moderate' | 'Fast';
-    energyStability: 'Steady' | 'Okay' | 'Likely Crash';
+    energyStability: 'Stable' | 'Unsteady' | 'Crash';
     addedSugar?: {
         detected: boolean;
         source?: string;
@@ -41,410 +43,278 @@ export interface FoodAnalysisResult {
     addedSugarLikely?: boolean;
 }
 
+// ⚠️ CRITICAL: DO NOT EDIT THIS PROMPT WITHOUT EXPLICIT TEAM/USER APPROVAL
+// This prompt has been tuned for diabetic safety and accuracy.
 const SYSTEM_PROMPT = `
 You are an expert nutritionist and endocrinologist specializing in Glycemic Index (GI) and Glycemic Load (GL) for the Indian population.
 
 Your task is to analyze food images and provide detailed glycemic data.
 
 **CRITICAL INSTRUCTIONS:**
-1.  **Identify the foods in the meal and it's ingredients**: Be specific (e.g., ["Idli", "Sambar"], ["Paneer Butter Masala"], ["Brown Rice", "Chicken Thigs" ).
-2.  **Normalize the image on dimensions like depth, angle and surrounding reference objects to understand it's true size. Use surrounding or any cues to detect the true weights of the ingridients. Keep thinking till you have high confidence in the correct portion weights. Once image is normalized, ensure you correctly estimate the right portion weight for each ingridient**.
-    **There is a high negative penalty to the user's life if we mis-identify the ingridients so ensure we do not make that mistake.
-3.  **Estimate GI & GL for each ingridient based on portion dimensions and available carbs according to the weight of the ingridients**:
-    *   **Glycemic Index (GI)**: 0-100 scale. [Only use high confidence GI values]
-    *   **Glycemic Load (GL)**: (GI * Carbs) / 100.
-5.  **Determine "Sugar Speed" (Spike Risk)**:
-    *   **Slow**: Complex carbs, high fiber/protein/fat (e.g., Dal, Salad, Chicken meal).
-    *   **Moderate**: Balanced meals (e.g., Roti with Sabzi, Low Starch Rice with fish curry).
-    *   **Fast**: Simple sugars, refined carbs (e.g., Sweets, White Rice, Juice).
-6.  **Determine "Energy Stability" based on portion size**:
-    *   **Steady**: Sustained energy (Low GL).
-    *   **Okay**: Moderate fluctuations (Medium GL).
-    *   **Likely Crash**: High spike followed by a drop (High GL).
-7.  **Detect Added Sugar based on portion size**:
-    *   Explicitly check for added sugars (cane sugar, jaggery, honey, syrups).
-    *   If detected, set 'addedSugar.detected' to true and estimate amount.
-    *   **Determine 'addedSugarLikely'**: Set to true if the food is commonly prepared with added sugar (e.g., Coffee, Tea, Desserts, Juices, Breakfast Cereals). Set to false for savory dishes (e.g., Dal, Roti, Salad).
-8.  **Provide Recommendations**:
-    *   **Context**: Focus on the **Indian context**. Suggestions must be **accessible** (common ingredients) and **affordable**.
-    *   **If High GL (>20)**: Suggest a specific **alternative meal** or **smart swap**.
-        *   *Example*: "Try Oats Idli instead of Rava Idli" or "Swap White Rice for Brown Rice or Quinoa".
-    *   **If Moderate/Low GL**: Suggest a small tweak to improve it further.
-        *   *Example*: "Add a side of cucumber salad" or "Walk for 10 mins after eating".
-    *   **Format**: Return 1-2 short, actionable strings.
+1.  **Identify the foods**: Be specific (e.g., ["Idli", "Sambar"]).
+2.  **Normalize the image**: Use reference cues to detect true size.
+    **For each mis-identified ingredient it can be fatal for diabetics or PCOS/PCOD users, so be highly accurate.**
+3.  **CHAIN OF THOUGHT (Per-Ingredient Calculation)**:
+    *   Estimate **Weight (g)**. **BE UnCONSERVATIVE.** Better to slightly overestimate portion than underestimate.
+    *   Estimate **Carbs per 100g**.
+    *   Calculate **Total Carbs**.
+    *   Estimate **GI** (0-100).
+    *   Calculate **GL**.
+4.  **Calculate Meal Totals**: Sum of GLs, Carbs. Weighted Average GI.
+5.  **Determine "Sugar Speed"**:
+    *   **Fast**: Total GL > 20.
+    *   **Moderate**: GL 10-20.
+    *   **Slow**: GL < 10.
+6.  **Energy Stability**:
+    *   **Crash**: GL > 20.
+    *   **Unsteady**: GL 10-20.
+    *   **Stable**: GL < 10.
+7.  **Added Sugar**: Explicitly check. 'addedSugarLikely' true for desserts/juices.
+8.  **Recommendations**: Indian context, accessible, affordable.
+    *   If High GL: Suggest specific valid swap (e.g., Oats Idli vs Rava Idli).
+    *   If Low GL: Small tweak.
+
+
+**CORE PRINCIPLE: DIABETIC SAFETY FIRST.**
+*   **Under-estimating** sugar/carbs is dangerous. **Over-estimating** is safer.
+*   **When in doubt between "Sweet" and "Savory", assume "Sweet" (High GL) until proven otherwise.**
+*   **Consistency is Key:** Identical foods MUST get identical scores.
+
+**STEP-BY-STEP ANALYSIS PROTOCOL:**
+
+1.  **🔍 PRECISE IDENTIFICATION**
+    *   Look closely at texture.
+    *   *Glossy/Sticky/Syrupy* = **SWEET** (High Sugar).
+    *   *Dry/Powdery/Fried* = **SAVORY** (High Fat/Carb, but lower Sugar).
+
+
+3.  **🧮 CALCULATION LOGIC (Show your work)**
+    *   **GL Formula:** (Total Carbs × GI) / 100.
+    *   **Sugar Speed:**
+        *   **FAST ⚡**: GL > 20 OR "Sweets/Desserts" detected.
+        *   **MODERATE ⚠️**: GL 11-19.
+        *   **SLOW 🐢**: GL < 10.
+    *   **Critical Checks:**
+        *   *White Rice / Maida / Sugar* = **Always Fast/High GI**.
+        *   *Ghee / Protein / Fiber* = **Lowers GI slightly**, but does NOT cancel out pure sugar.
+
+
+**CALIBRATION TABLE (Use these as GROUND TRUTH anchors):**
+- **White Bread (1 Slice, ~25g)**: 12g Carbs, GI ~75, GL ~9
+- **Chapati/Roti (Medium, ~40g)**: 18g Carbs, GI ~62, GL ~11
+- **White Rice (1 Cup Cooked, ~150g)**: 45g Carbs, GI ~73, GL ~33
+- **Brown Rice (1 Cup Cooked, ~150g)**: 42g Carbs, GI ~68, GL ~28
+- **Idli (1 Pc, ~40g)**: 8g Carbs, GI ~70, GL ~6
+- **Dosa (Plain, Medium)**: 25g Carbs, GI ~75, GL ~19
+- **Apple (Medium, 150g)**: 19g Carbs, GI ~36, GL ~6
+- **Coke/Soda (330ml Can)**: 35g Carbs, GI ~60, GL ~21 (LIQUID SUGAR)
+
+**Consistency Rule**: If the user scans "White Bread", the result MUST align with the table above. Do not deviate unless the portion is clearly different.
 
 **OUTPUT FORMAT (JSON ONLY):**
 {
   "foodName": "string",
   "ingredients": [
-    {
-      "name": "string",
-      "estimatedWeightG": number,
-      "calories": number
-    }
+    { "name": "string", "estimatedWeightG": number, "carbsPer100g": number, "totalCarbs": number, "glycemicIndex": number, "glycemicLoad": number, "calories": number }
   ],
+  "totalAvailableCarbohydratesG": number,
   "glycemicIndex": number,
   "glycemicLoad": number,
   "confidenceScore": number (0.0-1.0),
-  "analysis": "string (brief summary)",
+  "analysis": "string",
   "recommendations": ["string", "string"],
   "sugarSpeed": "Slow" | "Moderate" | "Fast",
-  "energyStability": "Steady" | "Okay" | "Likely Crash",
-  "addedSugar": {
-    "detected": boolean,
-    "source": "string (optional)",
-    "amount": number (optional),
-    "confidence": number (optional)
-  },
+  "energyStability": "Stable" | "Unsteady" | "Crash",
+  "addedSugar": { "detected": boolean, "source": "string", "amount": number, "confidence": number },
   "addedSugarLikely": boolean
 }
-`;
+
+**FINAL DETERMINISM CHECK:**
+1.  **Summation Rule:** The \`glycemicLoad\` in the root object MUST be the exact sum of \`glycemicLoad\` of all ingredients. Do not estimate the total separately.
+2.  **Consistency:** If you see this image twice, output the exact same numbers.
+\;`
 
 export class GeminiService {
-    private model: any;
-    private backupModel: any;
+    private cache = new Map<string, FoodAnalysisResult>();
 
     constructor() {
-        if (GEMINI_API_KEY && !GEMINI_API_KEY.includes('YOUR_GEMINI_API_KEY')) {
-            const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-            this.model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-            this.backupModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
-        }
+
+    }
+
+    private generateImageHash(base64: string): string {
+        if (!base64 || base64.length < 300) return base64;
+        const len = base64.length;
+        const start = base64.substring(0, 100);
+        const midIndex = Math.floor(len / 2);
+        const mid = base64.substring(midIndex, midIndex + 100);
+        const end = base64.substring(len - 100);
+        return `${len}-${start} -${mid} -${end} `;
     }
 
     async analyzeFood(base64Image: string): Promise<FoodAnalysisResult> {
-        if (!this.model) {
-            console.log('Using Mock Backend Response (No API Key provided)');
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        foodName: "Sample Meal (Mock)",
-                        glycemicIndex: 55,
-                        glycemicLoad: 15,
-                        confidenceScore: 0.9,
-                        nutritionalInfo: {
-                            calories: 350,
-                            carbs: 45,
-                            protein: 12,
-                            fat: 10,
-                            fiber: 5,
-                            sugar: 4
-                        },
-                        analysis: "This is a balanced meal with a moderate glycemic impact.",
-                        recommendations: [
-                            "Consider adding more leafy greens.",
-                            "A 10-minute walk after this meal would be beneficial."
-                        ],
-                        sugarSpeed: "Moderate",
-                        energyStability: "Steady",
-                        addedSugar: { detected: false }
-                    });
-                }, 1500);
-            });
-        }
+        try {
+            const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
-        let attempts = 0;
-        const maxAttempts = 2;
-
-        while (attempts < maxAttempts) {
-            try {
-                // Create a timeout promise (increased to 60s for safety)
-                const timeoutPromise = new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error("Request timed out")), 60000)
-                );
-
-                const modelToUse = attempts === 0 ? this.model : this.backupModel;
-                console.log(`Attempt ${attempts + 1}: Using model ${attempts === 0 ? 'Primary' : 'Backup (Lite)'}`);
-
-                const result: any = await Promise.race([
-                    modelToUse.generateContent([
-                        SYSTEM_PROMPT,
-                        {
-                            inlineData: {
-                                mimeType: "image/jpeg",
-                                data: base64Image.replace(/^data:image\/\w+;base64,/, '')
-                            }
-                        }
-                    ]),
-                    timeoutPromise
-                ]);
-                const response = await result.response;
-                const text = response.text();
-                const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-                return this.refineAnalysis(JSON.parse(cleanedText));
-            } catch (error: any) {
-                console.error(`Gemini Analysis Attempt ${attempts + 1} (${attempts === 0 ? 'Primary' : 'Backup'}) Failed:`, error.message || error);
-                attempts++;
-                if (attempts >= maxAttempts) throw error;
-
-                // Exponential Backoff: Wait longer between retries (e.g., 2s, 4s) to let rate limits reset
-                const delay = Math.pow(2, attempts) * 1000;
-                console.log(`Retrying in ${delay}ms...`);
-                await new Promise(resolve => setTimeout(resolve, delay));
+            // 1. CHECK CACHE (Deterministic Guard)
+            const imageHash = this.generateImageHash(cleanBase64);
+            if (this.cache.has(imageHash)) {
+                console.log('✅ Returning Cached Analysis (Deterministic)');
+                return this.cache.get(imageHash)!;
             }
-        }
-        throw new Error("Analysis failed after retries");
-    }
 
-    async refineAnalysisWithFeedback(base64Image: string | undefined, previousResult: FoodAnalysisResult, userFeedback: string): Promise<FoodAnalysisResult> {
-        if (!this.model) {
-            // Mock refinement
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        ...previousResult,
-                        foodName: userFeedback.includes("not") ? userFeedback.split("not")[1].trim() : previousResult.foodName,
-                        analysis: `Refined analysis based on feedback: "${userFeedback}".`,
-                        confidenceScore: 0.95
-                    });
-                }, 1000);
-            });
-        }
-
-        let prompt = "";
-        let inlineData = undefined;
-
-        if (base64Image) {
-            // Image-based refinement
-            prompt = `
-            ${SYSTEM_PROMPT}
-
-            **CONTEXT:**
-            You previously analyzed this image and provided the following result:
-            ${JSON.stringify(previousResult)}
-
-            **USER FEEDBACK:**
-            The user has provided the following correction/feedback:
-            "${userFeedback}"
-
-            **TASK:**
-            Re-analyze the image and the previous result in light of the user's feedback.
-            - If the user corrected the food name, update the nutritional values and GL accordingly.
-            - If the user pointed out specific ingredients, adjust the analysis.
-            - Maintain the same JSON output format.
-            -Ensure the new GL/GI values makes sense in light of the new feedback, and do not sounds gibberish compared to the previous GI/GL values you shared using core GL calculation principles. 
-            -Example: Adding Paneer to Flatbread should usually LOWER or keep GL similar, if portion size of carbs stays constant.
-            Gemini must NOT:
-                Increase GL without carb increase
-            `;
-
-            inlineData = {
-                mimeType: "image/jpeg",
-                data: base64Image.replace(/^data:image\/\w+;base64,/, '')
-            };
-        } else {
-            // Text-only refinement (for Manual/DB entries)
-            prompt = `
-            ${SYSTEM_PROMPT}
-
-            **CONTEXT:**
-            You previously provided this analysis for a food item (no image available):
-            ${JSON.stringify(previousResult)}
-
-            **USER FEEDBACK:**
-            The user has provided the following correction/feedback:
-            "${userFeedback}"
-
-            **TASK:**
-            Update the analysis based on the user's feedback.
-            - Trust the user's correction (e.g., if they say "It's Brown Rice", treat it as Brown Rice).
-            - Recalculate GL, Sugar Speed, and Stability based on the new information.
-            - Maintain the same JSON output format.
-            -Ensure the new GL/GI values makes sense in light of the new feedback, and do not sounds gibberish compared to the previous GI/GL values you shared using core GL calculation principles. 
-            -Example: Adding Paneer to Flatbread should usually LOWER or keep GL similar, if portion size of carbs stays constant.
-            Gemini must NOT:
-                Increase GL without carb increase
-            `;
-        }
-
-        let attempts = 0;
-        const maxAttempts = 2;
-
-        while (attempts < maxAttempts) {
-            try {
-                const content: any[] = [prompt];
-                if (inlineData) {
-                    content.push({ inlineData });
+            console.log("Calling Vertex AI via Edge Function...");
+            const { data, error } = await supabase.functions.invoke('analyze-food', {
+                body: {
+                    base64Image: cleanBase64,
+                    prompt: SYSTEM_PROMPT
                 }
+            });
 
-                // Create a timeout promise (increased to 60s)
-                const timeoutPromise = new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error("Request timed out")), 60000)
-                );
-
-                const modelToUse = attempts === 0 ? this.model : this.backupModel;
-                console.log(`Refinement Attempt ${attempts + 1}: Using model ${attempts === 0 ? 'Primary' : 'Backup (Lite)'}`);
-
-                const result: any = await Promise.race([
-                    modelToUse.generateContent(content),
-                    timeoutPromise
-                ]);
-                const response = await result.response;
-                const text = response.text();
-                const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-                return this.refineAnalysis(JSON.parse(cleanedText));
-            } catch (error: any) {
-                console.error(`Gemini Refinement Attempt ${attempts + 1} (${attempts === 0 ? 'Primary' : 'Backup'}) Failed:`, error.message || error);
-                attempts++;
-                if (attempts >= maxAttempts) throw error;
-
-                // Exponential Backoff
-                const delay = Math.pow(2, attempts) * 1000;
-                console.log(`Retrying in ${delay}ms...`);
-                await new Promise(resolve => setTimeout(resolve, delay));
+            if (error) {
+                console.error("Supabase Edge Function Error:", error);
+                throw error;
             }
+            if (!data) throw new Error("No data returned from AI");
+
+            const refined = this.refineAnalysis(data);
+
+            // 2. STORE IN CACHE
+            this.cache.set(imageHash, refined);
+            return refined;
+
+        } catch (error: any) {
+            console.error("AI Analysis Failed:", error.message || error);
+            throw error;
         }
-        throw new Error("Refinement failed after retries");
     }
 
     async analyzeText(foodName: string, description?: string, context?: string): Promise<FoodAnalysisResult> {
-        if (!this.model) {
-            // Mock response
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        foodName: foodName,
-                        glycemicIndex: 60,
-                        glycemicLoad: 18,
-                        confidenceScore: 0.85,
-                        nutritionalInfo: {
-                            calories: 250,
-                            carbs: 30,
-                            protein: 5,
-                            fat: 8,
-                            fiber: 3,
-                            sugar: 2
-                        },
-                        analysis: `AI Analysis for ${foodName}.`,
-                        recommendations: ["Consider a smaller portion."],
-                        sugarSpeed: "Moderate",
-                        energyStability: "Okay",
-                        addedSugar: { detected: false },
-                        addedSugarLikely: false
-                    });
-                }, 1000);
+        console.log(`Analyzing Text: ${foodName}...`);
+        try {
+            const { data, error } = await supabase.functions.invoke('analyze-food', {
+                body: {
+                    foodName,
+                    description,
+                    context,
+                    prompt: SYSTEM_PROMPT
+                }
             });
+
+            if (error) throw error;
+            return this.refineAnalysis(data);
+        } catch (error: any) {
+            console.error("Text Analysis Failed:", error);
+            throw error;
         }
+    }
 
-        const prompt = `
-        ${SYSTEM_PROMPT}
+    async refineAnalysisWithFeedback(base64Image: string | undefined, previousResult: FoodAnalysisResult, userFeedback: string): Promise<FoodAnalysisResult> {
+        // ⚠️ DO NOT EDIT PROMPT WITHOUT USER APPROVAL
+        const refinementContext = `
+    ** CONTEXT:**
+        You are an expert nutritionist assisting a diabetic or PCOS / PCOD user.
+        ** PREVIOUS ANALYSIS:** ${JSON.stringify(previousResult)}
+        
+        ** USER FEEDBACK / CORRECTION:** "${userFeedback}"
 
-        **INPUT:**
-        Food Name: "${foodName}"
-        Description: "${description || ''}"
-        Context: "${context || ''}"
+    ** INSTRUCTIONS FOR RE - ANALYSIS:**
+        1. ** IDENTIFY THE INTENT:**
+            *   ** Identity Correction:** (e.g., "This is Rava Idli, not Rice Idli"). -> ** ACTION:** IGNORE previous ingredients / macros.Re - analyze from scratch for the NEW food.
+            *   ** Portion Adjustment:** (e.g., "I ate half", "It was 200g"). -> ** ACTION:** KEEP per - 100g values / GI SAME.Multiply 'estimatedWeightG', 'totalCarbs', 'calories', 'glycemicLoad' by the factor.
+            *   ** Ingredient Addition / Removal:** (e.g., "I added Ghee", "No sugar"). -> ** ACTION:** Adjust the nutritional profile(e.g., Ghee = lower GI, higher Fat / Calories).
+        
+        2. ** STRICT GLYCEMIC RULES:**
+            * If correcting portion, ** Glycemic Index(GI) ** usually remains constant(unless mix changes).
+            *   ** Glycemic Load(GL) ** MUST scale linearly with portion.
 
-        **TASK:**
-        Analyze the food based on the name, description, and context provided.
-        - If context specifies a portion size or weight, adjust nutritional values (Carbs, GL, Calories) accordingly.
-        - Estimate nutritional values, GI, and GL.
-        - Provide recommendations.
-        - Return the standard JSON format.
+        3. ** OUTPUT:**
+            * Return the ** COMPLETE ** updated JSON object matching the 'FoodAnalysisResult' schema.
+            * Ensure 'analysis' string explains WHAT changed(e.g., "Updated portion to 200g...", "Re-calculated for Rava Idli...").
         `;
 
-        let attempts = 0;
-        const maxAttempts = 2;
+        const body: any = {
+            prompt: SYSTEM_PROMPT + refinementContext
+        };
 
-        while (attempts < maxAttempts) {
-            try {
-                // Create a timeout promise (increased to 60s)
-                const timeoutPromise = new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error("Request timed out")), 60000)
-                );
-
-                const modelToUse = attempts === 0 ? this.model : this.backupModel;
-                console.log(`Text Analysis Attempt ${attempts + 1}: Using model ${attempts === 0 ? 'Primary' : 'Backup (Lite)'}`);
-
-                const result: any = await Promise.race([
-                    modelToUse.generateContent(prompt),
-                    timeoutPromise
-                ]);
-                const response = await result.response;
-                const text = response.text();
-                const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-                return this.refineAnalysis(JSON.parse(cleanedText));
-            } catch (error: any) {
-                console.error(`Gemini Text Analysis Attempt ${attempts + 1} (${attempts === 0 ? 'Primary' : 'Backup'}) Failed:`, error.message || error);
-                attempts++;
-                if (attempts >= maxAttempts) throw error;
-
-                // Exponential Backoff
-                const delay = Math.pow(2, attempts) * 1000;
-                console.log(`Retrying in ${delay}ms...`);
-                await new Promise(resolve => setTimeout(resolve, delay));
-            }
+        if (base64Image) {
+            body.base64Image = base64Image.replace(/^data:image\/\w+;base64,/, '');
         }
-        throw new Error("Text analysis failed after retries");
+
+        try {
+            const { data, error } = await supabase.functions.invoke('analyze-food', { body });
+            if (error) throw error;
+            return this.refineAnalysis(data);
+        } catch (error: any) {
+            console.error("Refinement Failed:", error);
+            throw error;
+        }
     }
 
     async getRecommendationsForFood(foodName: string): Promise<string[]> {
-        if (!this.model) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve([
-                        "Try Brown Rice or Quinoa instead for more fiber.",
-                        "Add a side of Cucumber Raita to lower the glycemic impact."
-                    ]);
-                }, 1000);
-            });
-        }
-
+        // ⚠️ DO NOT EDIT PROMPT WITHOUT USER APPROVAL
         const PROMPT = `
-        You are an expert nutritionist specializing in Indian diets.
-        The user is eating: "${foodName}".
-        This food likely has a High Glycemic Load.
-
-        **TASK:**
-        Suggest 1-2 specific, **Indian-context**, **accessible**, and **affordable** alternatives or modifications to lower the Glycemic Load.
+        You are an expert nutritionist advising a diabetic / PCOS user about: "${foodName}".
         
-        **EXAMPLES:**
-        - "Try Oats Idli instead of Rava Idli."
-        - "Add a bowl of Sprouts Salad to balance the meal."
-        - "Swap White Rice for Foxtail Millet."
-
-        **OUTPUT FORMAT:**
-        Return ONLY a JSON array of strings. Example: ["Suggestion 1", "Suggestion 2"]
-        `;
+        ** TASK: PROVIDE 2 GENIUS "GLUCOSE HACKS"(Indian Context) **
+    Give 2 specific, actionable, and culturally relevant tips to reduce the glucose spike from this SPECIFIC food.
+        
+        ** RULES:**
+    1. ** NO GENERIC ADVICE ** (e.g., Avoid "Eat less", "Avoid sugar").
+2. ** FOCUS ON PAIRING / SEQUENCING **: e.g., "Eat 4 almonds before this", "Add a tsp of Ghee to reduce GI", "Have a bowl of Dal first".
+        3. ** SMART SWAPS **: e.g., "Use Khapli Wheat instead", "Try Rava Idli".
+        4. ** Short & Punchy **: Max 10 - 12 words per tip.
+        
+        ** OUTPUT:** JSON Array of strings ONLY.Example: ["Dip Roti in Ghee to lower GI", "Start with a Cucumber Salad"]
+    `;
 
         try {
-            // Create a timeout promise
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("Request timed out")), 10000)
-            );
+            const { data, error } = await supabase.functions.invoke('analyze-food', {
+                body: { prompt: PROMPT }
+            });
 
-            const result: any = await Promise.race([
-                this.model.generateContent(PROMPT),
-                timeoutPromise
-            ]);
-            const response = await result.response;
-            const text = response.text();
-            const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
-            return JSON.parse(cleanedText);
+            if (error) throw error;
+            return Array.isArray(data) ? data : ["Consider smaller portions."];
         } catch (error) {
-            console.error("Gemini Recommendation Error:", error);
-            return ["Could not fetch recommendations. Try adding fiber or protein!"];
+            console.warn("Recommendation failed", error);
+            return ["Try adding more vegetables."];
         }
     }
 
     private refineAnalysis(result: any): FoodAnalysisResult {
+        console.log("🔍 Refine Analysis Input:", JSON.stringify(result, null, 2));
+
+        // Aggregate stats from ingredients if not provided at root
+        const calculatedCalories = result.ingredients?.reduce((sum: number, i: any) => sum + (i.calories || 0), 0) || 0;
+        const calculatedCarbs = result.totalAvailableCarbohydratesG || result.ingredients?.reduce((sum: number, i: any) => sum + (i.totalCarbs || 0), 0) || 0;
+        const calculatedProtein = result.ingredients?.reduce((sum: number, i: any) => sum + (i.protein || 0), 0) || 0; // AI might not return protein often, but safe to sum
+        const calculatedFat = result.ingredients?.reduce((sum: number, i: any) => sum + (i.fat || 0), 0) || 0;
+
         return {
             foodName: result.foodName || "Unknown Food",
             glycemicIndex: result.glycemicIndex || 0,
             glycemicLoad: result.glycemicLoad || 0,
             confidenceScore: result.confidenceScore || 0,
             nutritionalInfo: {
-                calories: result.nutritionalInfo?.calories || 0,
-                carbs: result.nutritionalInfo?.carbs || 0,
-                protein: result.nutritionalInfo?.protein || 0,
-                fat: result.nutritionalInfo?.fat || 0,
+                calories: result.nutritionalInfo?.calories || calculatedCalories,
+                carbs: result.nutritionalInfo?.carbs || calculatedCarbs,
+                protein: result.nutritionalInfo?.protein || calculatedProtein,
+                fat: result.nutritionalInfo?.fat || calculatedFat,
                 fiber: result.nutritionalInfo?.fiber || 0,
                 sugar: result.nutritionalInfo?.sugar || 0,
             },
             analysis: result.analysis || "No analysis available.",
             recommendations: result.recommendations || [],
-            ingredients: result.ingredients || [],
+            ingredients: (result.ingredients || []).map((i: any) => ({
+                name: i.name || "Unknown Ingredient",
+                estimatedWeightG: i.estimatedWeightG || 0,
+                carbsPer100g: i.carbsPer100g || 0,
+                totalCarbs: i.totalCarbs || 0,
+                glycemicIndex: i.glycemicIndex || 0,
+                glycemicLoad: i.glycemicLoad || 0,
+                calories: i.calories || 0
+            })),
             sugarSpeed: result.sugarSpeed || "Moderate",
-            energyStability: result.energyStability || "Okay",
+            energyStability: result.energyStability || "Stable",
             addedSugar: result.addedSugar,
             addedSugarLikely: result.addedSugarLikely
         };

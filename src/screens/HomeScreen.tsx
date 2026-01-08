@@ -1,27 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image, LayoutChangeEvent, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { NavigationProps } from '../navigation/types';
 import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../styles/theme';
 import { useAuth } from '../context/AuthContext';
 import { useMeal } from '../context/MealContext';
-import { Plus, Zap, Utensils } from 'lucide-react-native';
+import { Plus, Zap, Utensils, ChevronDown } from 'lucide-react-native';
 import { Button } from '../components/ui/Button';
 import { STRINGS } from '../constants/strings';
 import { geminiService } from '../services/GeminiService';
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    withRepeat,
+    withSequence,
+    withTiming,
+    withSpring,
+    FadeIn,
+    FadeOut,
+    interpolate
+} from 'react-native-reanimated';
 
 // Components
 import { DateSelector } from '../components/dashboard/DateSelector';
-import { GLRingCard } from '../components/dashboard/GLRingCard';
+import { SpeedometerCard } from '../components/dashboard/SpeedometerCard';
 import { MetricCard } from '../components/dashboard/MetricCard';
 import { AddMealModal } from '../components/dashboard/AddMealModal';
 import { WeeklyProgressChart } from '../components/dashboard/WeeklyProgressChart';
+import { MealItem } from '../components/dashboard/MealItem';
 
 export default function HomeScreen() {
     const navigation = useNavigation<NavigationProps>();
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const { dailyBudget, setDailyBudget, meals, updateMeal } = useMeal();
+    const { dailyBudget, setDailyBudget, meals, updateMeal, pendingActions } = useMeal();
     const { logout } = useAuth();
 
     const [editBudgetVisible, setEditBudgetVisible] = useState(false);
@@ -89,11 +101,54 @@ export default function HomeScreen() {
         stabilityColor = COLORS.sugarScore.warningText;
     }
 
+    // Auto-Repair and other effects hidden for brevity...
+
+    // Scroll Logic
+    const scrollRef = useRef<ScrollView>(null);
+    const scrollY = useSharedValue(0);
+    const isFocused = useIsFocused();
+
+    // Auto-scroll when new action starts or screen becomes focused with active actions
+    useEffect(() => {
+        if (isFocused && pendingActions.length > 0) {
+            console.log("Auto-scrolling to new meal action...");
+            // Wait for layout/navigation transition
+            setTimeout(() => {
+                scrollRef.current?.scrollToEnd({ animated: true });
+            }, 500);
+        }
+    }, [isFocused, pendingActions.length]);
+
+    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        scrollY.value = event.nativeEvent.contentOffset.y;
+    };
+
+    // Scroll Cue Animation
+    const bounce = useSharedValue(0);
+    useEffect(() => {
+        bounce.value = withRepeat(
+            withSequence(
+                withTiming(10, { duration: 1500 }),
+                withTiming(0, { duration: 1500 })
+            ),
+            -1,
+            true
+        );
+    }, []);
+
+    const animatedCueStyle = useAnimatedStyle(() => {
+        // Fade out as user scrolls down > 50px
+        const opacity = interpolate(scrollY.value, [0, 50], [1, 0], 'clamp');
+        return {
+            opacity,
+            transform: [{ translateY: bounce.value }]
+        };
+    });
+
+    // ... (Keep existing Auto-Repair effect) ...
     // Auto-Repair: Fetch recommendations for high GL meals if missing
     useEffect(() => {
         const fixMissingRecommendations = async () => {
-            // Find a meal that needs recommendations (High GL > 20, no recs)
-            // Limit to dailyMeals to avoid spamming API for old history
             const mealToFix = dailyMeals.find(m =>
                 m.gl > 20 &&
                 (!m.analysisResult?.recommendations || m.analysisResult.recommendations.length === 0)
@@ -103,14 +158,12 @@ export default function HomeScreen() {
                 console.log(`Auto-repairing recommendations for: ${mealToFix.name}`);
                 try {
                     const recs = await geminiService.getRecommendationsForFood(mealToFix.name);
-
-                    // Update the meal with new recommendations
                     updateMeal(mealToFix.id, {
                         analysisResult: {
-                            ...mealToFix.analysisResult!, // Assume analysisResult exists if we logged it, or create partial
-                            foodName: mealToFix.name, // Fallback
-                            glycemicLoad: mealToFix.gl, // Fallback
-                            glycemicIndex: 0, // Fallback
+                            ...mealToFix.analysisResult!,
+                            foodName: mealToFix.name,
+                            glycemicLoad: mealToFix.gl,
+                            glycemicIndex: 0,
                             confidenceScore: 0,
                             nutritionalInfo: mealToFix.analysisResult?.nutritionalInfo || {
                                 calories: 0, carbs: 0, protein: 0, fat: 0, fiber: 0, sugar: 0
@@ -127,8 +180,6 @@ export default function HomeScreen() {
             }
         };
 
-        // Run this effect when dailyMeals changes
-        // Debounce slightly to avoid conflict with initial load
         const timer = setTimeout(fixMissingRecommendations, 1000);
         return () => clearTimeout(timer);
     }, [dailyMeals]);
@@ -136,8 +187,17 @@ export default function HomeScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
+                ref={scrollRef}
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
+                onContentSizeChange={() => {
+                    // Backup: if content grows while we are focused and have pending actions, ensure we see it.
+                    if (isFocused && pendingActions.length > 0) {
+                        scrollRef.current?.scrollToEnd({ animated: true });
+                    }
+                }}
             >
                 {/* 2. Header Area */}
                 <View style={styles.header}>
@@ -170,44 +230,14 @@ export default function HomeScreen() {
 
                 <View style={styles.mainContent}>
                     {/* 4. Primary Metric Card (Hero) */}
-                    <GLRingCard
+                    <SpeedometerCard
                         budget={dailyBudget}
                         consumed={dailyGL}
+                        spikes={dailySpikes}
+                        energyStability={stabilityStatus}
                         onPress={() => setEditBudgetVisible(true)}
                     />
 
-                    {/* 5. Secondary Metric Cards (Grid Layout) */}
-                    <View style={styles.metricsGrid}>
-                        {/* Row 1: Speed & Stability */}
-                        <View style={styles.metricsRow}>
-                            <View style={{ flex: 1 }}>
-                                <MetricCard
-                                    title={STRINGS.METRICS.SPIKE_ALERT}
-                                    value={dailySpikes > 2 ? "High Risk ⚡" : dailySpikes > 0 ? "Moderate ⚠️" : "Low Risk ✅"}
-                                    statusColor={dailySpikes > 2 ? COLORS.sugarScore.criticalText : dailySpikes > 0 ? COLORS.sugarScore.warningText : COLORS.sugarScore.safeText}
-                                    icon={<Text style={{ fontSize: 16 }}>📉</Text>}
-                                />
-                            </View>
-                            <View style={{ flex: 1 }}>
-                                <MetricCard
-                                    title={STRINGS.METRICS.ENERGY_FLOW.LABEL}
-                                    value={stabilityStatus}
-                                    statusColor={stabilityColor}
-                                />
-                            </View>
-                        </View>
-
-                        {/* Row 2: Consumed (Full Width) */}
-                        <View style={styles.metricsRow}>
-                            <View style={{ flex: 1 }}>
-                                <MetricCard
-                                    title="Consumed"
-                                    value={`${dailyGL} ${STRINGS.METRICS.SUGAR_SCORE}`}
-                                    subtitle={selectedDate.getDate() === new Date().getDate() ? "Today" : "Selected Date"}
-                                />
-                            </View>
-                        </View>
-                    </View>
 
                     {/* 6. Weekly Progress Chart */}
                     <WeeklyProgressChart meals={meals} dailyBudget={dailyBudget} />
@@ -215,7 +245,65 @@ export default function HomeScreen() {
                     {/* 7. Recently Logged Meals Section */}
                     <Text style={styles.sectionTitle}>Today's Meals</Text>
 
-                    {dailyMeals.length === 0 ? (
+                    {/* PENDING ACTIONS SECTION */}
+                    {pendingActions.length > 0 && (
+                        <View style={styles.mealList}>
+                            {pendingActions.map((action) => (
+                                <View key={action.id} style={[styles.mealItem, { opacity: 0.9, borderColor: COLORS.brand.accent, borderWidth: 1 }]}>
+                                    <View style={[styles.mealThumbnail, { overflow: 'hidden', justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.surface }]}>
+                                        {action.imageUri ? (
+                                            <Image
+                                                source={{ uri: action.imageUri }}
+                                                style={{ width: '100%', height: '100%' }}
+                                            />
+                                        ) : (
+                                            <Text style={{ fontSize: 24 }}>
+                                                {action.type === 'text' ? '📝' : '✨'}
+                                            </Text>
+                                        )}
+                                        {/* Overlay to dim image or just background */}
+                                        <View style={{ ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.1)' }} />
+                                    </View>
+                                    <View style={{ flex: 1, gap: 4 }}>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                            <Text style={[styles.mealName, { color: COLORS.brand.accent }]}>
+                                                {action.label}
+                                            </Text>
+                                            <Text style={{ fontSize: 12, color: COLORS.textTertiary }}>
+                                                {action.progress}%
+                                            </Text>
+                                        </View>
+
+                                        {/* Status Text with Animation Cue */}
+                                        <Text style={{ fontFamily: FONTS.medium, fontSize: 13, color: COLORS.textSecondary }}>
+                                            {action.status === 'analyzing' ? '🔍 Identifying ingredients...' :
+                                                action.status === 'separating' ? '🍱 Separating components...' :
+                                                    action.status === 'calculating' ? '🧮 Calculating Sugar Score...' :
+                                                        action.status === 'finalizing' ? '✅ Almost done...' :
+                                                            action.status === 'failed' ? '❌ Analysis Failed' : 'Processing...'}
+                                        </Text>
+
+                                        {/* Progress Bar */}
+                                        <View style={{
+                                            height: 4,
+                                            backgroundColor: COLORS.divider,
+                                            borderRadius: 2,
+                                            marginTop: 4,
+                                            overflow: 'hidden'
+                                        }}>
+                                            <View style={{
+                                                height: '100%',
+                                                width: `${action.progress}%`,
+                                                backgroundColor: COLORS.brand.accent
+                                            }} />
+                                        </View>
+                                    </View>
+                                </View>
+                            ))}
+                        </View>
+                    )}
+
+                    {dailyMeals.length === 0 && pendingActions.length === 0 ? (
                         <TouchableOpacity
                             style={styles.emptyState}
                             onPress={() => setAddMealVisible(true)}
@@ -237,114 +325,37 @@ export default function HomeScreen() {
                         </TouchableOpacity>
                     ) : (
                         <View style={styles.mealList}>
-                            {dailyMeals.map((meal) => {
-                                const glPercentage = Math.round((meal.gl / dailyBudget) * 100);
-                                return (
-                                    <View key={meal.id} style={styles.mealItem}>
-                                        {meal.imageUri && (
-                                            <Image
-                                                source={{ uri: meal.imageUri }}
-                                                style={styles.mealThumbnail}
-                                            />
-                                        )}
-                                        <View style={{ flex: 1 }}>
-                                            <View style={{ marginBottom: 6 }}>
-                                                <Text style={styles.mealName} numberOfLines={1}>{meal.name}</Text>
-                                                <Text style={styles.mealTime}>
-                                                    {meal.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                                </Text>
-                                            </View>
-
-                                            <View style={styles.mealBadges}>
-                                                {/* GL Badge */}
-                                                <View style={[
-                                                    styles.glBadge,
-                                                    {
-                                                        backgroundColor: Math.round(meal.gl) > 20 ? COLORS.sugarScore.danger :
-                                                            Math.round(meal.gl) > 10 ? COLORS.sugarScore.warning :
-                                                                COLORS.sugarScore.safe
-                                                    }
-                                                ]}>
-                                                    <Text style={[
-                                                        styles.glBadgeText,
-                                                        {
-                                                            color: Math.round(meal.gl) > 20 ? COLORS.sugarScore.criticalText :
-                                                                Math.round(meal.gl) > 10 ? COLORS.sugarScore.warningText :
-                                                                    COLORS.sugarScore.safeText
-                                                        }
-                                                    ]}>
-                                                        {`+${Math.round(meal.gl)} ${STRINGS.METRICS.SUGAR_SCORE} (${glPercentage}%)`}
-                                                    </Text>
-                                                </View>
-
-                                                {/* Sugar Speed Badge */}
-                                                <View style={[
-                                                    styles.glBadge,
-                                                    {
-                                                        backgroundColor: meal.sugarSpeed === 'Fast' ? COLORS.sugarScore.danger :
-                                                            meal.sugarSpeed === 'Moderate' ? COLORS.sugarScore.warning :
-                                                                COLORS.sugarScore.safe
-                                                    }
-                                                ]}>
-                                                    <Text style={[
-                                                        styles.glBadgeText,
-                                                        {
-                                                            color: meal.sugarSpeed === 'Fast' ? COLORS.sugarScore.criticalText :
-                                                                meal.sugarSpeed === 'Moderate' ? COLORS.sugarScore.warningText :
-                                                                    COLORS.sugarScore.safeText
-                                                        }
-                                                    ]}>
-                                                        {meal.sugarSpeed === 'Fast' ? STRINGS.METRICS.SUGAR_RUSH.FAST :
-                                                            meal.sugarSpeed === 'Moderate' ? STRINGS.METRICS.SUGAR_RUSH.MODERATE :
-                                                                STRINGS.METRICS.SUGAR_RUSH.SLOW}
-                                                    </Text>
-                                                </View>
-
-                                                {meal.analysisResult && (
-                                                    <TouchableOpacity
-                                                        style={styles.fixButton}
-                                                        onPress={() => navigation.navigate('FoodAnalysis', {
-                                                            imageUri: meal.imageUri,
-                                                            base64: meal.imageBase64,
-                                                            mealId: meal.id,
-                                                            existingResult: meal.analysisResult
-                                                        })}
-                                                    >
-                                                        <Text style={styles.fixButtonText}>{STRINGS.HOME.ACTIONS.FIX_RESULT}</Text>
-                                                    </TouchableOpacity>
-                                                )}
-                                            </View>
-
-                                            {/* Smart Swap Recommendation */}
-                                            {meal.analysisResult?.recommendations && meal.analysisResult.recommendations.length > 0 && (
-                                                <View style={{
-                                                    marginTop: 8,
-                                                    backgroundColor: '#F0FDF4',
-                                                    padding: 8,
-                                                    borderRadius: 8,
-                                                    flexDirection: 'row',
-                                                    alignItems: 'center',
-                                                    gap: 6
-                                                }}>
-                                                    <Text style={{ fontSize: 14 }}>💡</Text>
-                                                    <Text style={{
-                                                        fontFamily: FONTS.medium,
-                                                        fontSize: 12,
-                                                        color: COLORS.text,
-                                                        flex: 1
-                                                    }} numberOfLines={2}>
-                                                        {meal.analysisResult.recommendations[0]}
-                                                    </Text>
-                                                </View>
-                                            )}
-                                        </View>
-                                    </View>
-                                );
-                            })}
+                            {dailyMeals.map((meal) => (
+                                <MealItem
+                                    key={meal.id}
+                                    meal={meal}
+                                    dailyBudget={dailyBudget}
+                                    onPressFix={() => navigation.navigate('FoodAnalysis', {
+                                        imageUri: meal.imageUri,
+                                        base64: meal.imageBase64,
+                                        mealId: meal.id,
+                                        existingResult: meal.analysisResult
+                                    })}
+                                />
+                            ))}
                         </View>
                     )}
                 </View>
             </ScrollView>
+
+            {/* Scroll Hint */}
+            <Animated.View
+                style={[
+                    styles.scrollCueContainer,
+                    animatedCueStyle,
+                    { pointerEvents: 'none' } // Let clicks pass through if it overlaps list slightly
+                ]}
+            >
+                <View style={styles.scrollCuePill}>
+                    <Text style={styles.scrollCueText}>Today's Meals</Text>
+                    <ChevronDown size={14} color={COLORS.textTertiary} />
+                </View>
+            </Animated.View>
 
             {/* 8. Primary Action Button (FAB) */}
             <TouchableOpacity
@@ -606,4 +617,30 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: SPACING.m,
     },
+    scrollCueContainer: {
+        position: 'absolute',
+        bottom: 100, // Above FAB/Footer area
+        left: 0,
+        right: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 5,
+    },
+    scrollCuePill: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.surface,
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderRadius: 20,
+        gap: 6,
+        ...SHADOWS.medium,
+        borderWidth: 1,
+        borderColor: COLORS.divider
+    },
+    scrollCueText: {
+        fontFamily: FONTS.medium,
+        fontSize: 12,
+        color: COLORS.textSecondary
+    }
 });

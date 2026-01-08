@@ -1,15 +1,19 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, Alert } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { X, Zap, Circle } from 'lucide-react-native';
 import { COLORS, FONTS, SPACING, SIZES } from '../styles/theme';
 import { Button } from '../components/ui/Button';
 import { NavigationProps } from '../navigation/types';
+import { useMeal } from '../context/MealContext';
 
 export default function ScanFoodScreen() {
+    const { startScan } = useMeal();
     const navigation = useNavigation<NavigationProps>();
+    const route = useRoute();
+    const { date } = route.params as { date?: string } || {};
     const [permission, requestPermission] = useCameraPermissions();
     const [scanned, setScanned] = useState(false);
     const cameraRef = useRef<CameraView>(null);
@@ -19,13 +23,14 @@ export default function ScanFoodScreen() {
             try {
                 const photo = await cameraRef.current.takePictureAsync({
                     base64: true,
-                    quality: 0.3, // Aggressive compression to prevent timeouts
+                    quality: 0.3,
                 });
                 if (photo && photo.base64) {
-                    navigation.navigate('FoodAnalysis', {
-                        imageUri: photo.uri,
-                        base64: photo.base64
-                    });
+                    console.log('[ScanFood] Starting background scan...');
+                    // Trigger background scan with date
+                    startScan(photo.uri, photo.base64, date);
+                    // Close the modal to reveal Home
+                    navigation.goBack();
                 }
             } catch (error) {
                 console.error('Failed to take picture:', error);

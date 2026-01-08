@@ -23,7 +23,7 @@ type ManualEntryRouteProp = RouteProp<RootStackParamList, 'ManualEntry'>;
 export default function ManualEntryScreen() {
     const navigation = useNavigation<NavigationProps>();
     const route = useRoute<ManualEntryRouteProp>();
-    const { logMeal } = useMeal();
+    const { logMeal, startTextAnalysis } = useMeal();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -88,46 +88,24 @@ export default function ManualEntryScreen() {
             return;
         }
 
-        setIsAnalyzing(true);
-        try {
-            // 1. Analyze with AI
-            // Construct context with portion info
-            let context = "";
-            if (useExactWeight && weightInput) {
-                context = `Weight: ${weightInput}g`;
-            } else {
-                context = `Portion Size: ${portion}`;
-            }
-
-            const result = await geminiService.analyzeText(name, description, context);
-            setAiResult(result);
-
-            // 2. Check for Added Sugar (AI Logic)
-            // DEBUG: Alert to confirm AI ran
-            // alert(`AI Analysis:\nLikely Sugar: ${result.addedSugarLikely}\nDetected: ${result.addedSugar?.detected}`);
-
-            if (result.addedSugarLikely || result.addedSugar?.detected) {
-                setSugarModalVisible(true);
-            } else {
-                // 3. No sugar suspected? Save directly with AI results
-                // Optional: Show a quick toast or just save.
-                // For now, let's just save to be fast, but maybe the user wants to know AI ran.
-                // We can rely on the "Analyzing..." button state change as feedback.
-                handleSaveFinal(undefined, result);
-            }
-        } catch (error) {
-            console.error("Analysis failed, falling back to manual:", error);
-            // Fallback to keyword check if AI fails
-            const sugarKeywords = ['tea', 'coffee', 'latte', 'cappuccino', 'chai', 'juice', 'shake', 'smoothie', 'cake', 'cookie', 'dessert', 'sweet', 'chocolate', 'ice cream', 'laddoo', 'barfi', 'halwa', 'kheer', 'payasam', 'jam', 'syrup', 'honey', 'sugar'];
-            const lowerName = name.toLowerCase();
-            if (sugarKeywords.some(keyword => lowerName.includes(keyword))) {
-                setSugarModalVisible(true);
-            } else {
-                handleSaveFinal();
-            }
-        } finally {
-            setIsAnalyzing(false);
+        // Construct context with portion info
+        let context = "";
+        if (useExactWeight && weightInput) {
+            context = `Weight: ${weightInput}g`;
+        } else {
+            context = `Portion Size: ${portion}`;
         }
+
+        // Check for added sugar manually
+        const date = route.params?.date;
+        if (addedSugarData) {
+            startTextAnalysis(name, description, context, addedSugarData, date);
+        } else {
+            // Trigger background analysis
+            startTextAnalysis(name, description, context, undefined, date);
+        }
+
+        navigation.navigate('Home');
     };
 
     const handleSaveFinal = (sugarData?: { amount: number; unit: 'g' | 'spoon'; typeId: string }, explicitAiResult?: any) => {

@@ -30,7 +30,7 @@ interface PortionModalProps {
 type InputMode = 'servings' | 'grams';
 
 export default function PortionModal({ visible, food, onClose, onAdd, date }: PortionModalProps) {
-    const { logMeal } = useMeal();
+    const { logMeal, startTextAnalysis } = useMeal();
     const [mode, setMode] = useState<InputMode>('servings');
     const [quantity, setQuantity] = useState('1'); // Default 1 serving
     const [calculatedGL, setCalculatedGL] = useState(food.gl_median);
@@ -92,35 +92,9 @@ export default function PortionModal({ visible, food, onClose, onAdd, date }: Po
     };
 
     const handleAdd = async () => {
-        setIsAnalyzing(true);
-        try {
-            // AI Check for Added Sugar & Refinement
-            const context = mode === 'servings'
-                ? `Quantity: ${quantity} serving(s) (approx ${parseFloat(quantity) * food.serving_size_g}g)`
-                : `Weight: ${quantity}g`;
-
-            const result = await geminiService.analyzeText(food.canonical_name, undefined, context);
-
-            if (result.addedSugarLikely || result.addedSugar?.detected) {
-                setSugarModalVisible(true);
-            } else {
-                handleLogFinal();
-            }
-        } catch (error) {
-            console.error("AI Check Failed, falling back to keywords:", error);
-            // Fallback to Smart Check
-            const sugarKeywords = ['tea', 'coffee', 'latte', 'cappuccino', 'chai', 'juice', 'shake', 'smoothie', 'cake', 'cookie', 'dessert', 'sweet', 'chocolate', 'ice cream', 'laddoo', 'barfi', 'halwa', 'kheer', 'payasam', 'jam', 'syrup', 'honey', 'sugar'];
-            const lowerName = food.canonical_name.toLowerCase();
-            const isLikelySugary = sugarKeywords.some(keyword => lowerName.includes(keyword));
-
-            if (isLikelySugary) {
-                setSugarModalVisible(true);
-            } else {
-                handleLogFinal();
-            }
-        } finally {
-            setIsAnalyzing(false);
-        }
+        // Skip AI for database items as requested.
+        // Use local DB values for GL and macros.
+        handleLogFinal();
     };
 
     const handleLogFinal = (sugarData?: { amount: number; unit: 'g' | 'spoon'; typeId: string }) => {

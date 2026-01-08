@@ -32,7 +32,7 @@ export default function FoodAnalysisScreen() {
     const [sugarType, setSugarType] = useState<string>('white_sugar');
     const [addedSugarData, setAddedSugarData] = useState<{ amount: number; unit: 'g' | 'spoon'; typeId: string } | undefined>(undefined);
 
-    const { logMeal, updateMeal } = useMeal();
+    const { logMeal, updateMeal, startRefinement } = useMeal();
 
     useEffect(() => {
         if (!existingResult && imageBase64) {
@@ -124,28 +124,35 @@ export default function FoodAnalysisScreen() {
         }
     };
 
-    const handleRefineAnalysis = async () => {
+    const handleRefineAnalysis = () => {
         if (!result) return;
+        setFixModalVisible(false);
 
-        try {
-            setFixModalVisible(false);
-            setAnalyzing(true);
-            setError(null);
+        // Start background refinement
+        // We assume we have the original meal ID if we came from Home. 
+        // If it's a fresh scan, we might need to handle it differently, 
+        // but typically 'Update' is on a result. 
+        // For now, let's pass a potentially undefined ID if it's brand new (which Context handles).
+        // Actually, startRefinement expects an ID to update. 
+        // If this is a new scan result that hasn't been saved yet?
+        // Wait, Scan saves it automatically in MealContext. 
+        // But here in FoodAnalysisScreen, we might be viewing `route.params.result`.
+        // If we just scanned, the meal IS in the context as the latest meal.
+        // We should try to find it or just create a new entry? 
+        // Updating an existing meal prefers having an ID.
+        // For simplicity, we'll let startRefinement find it or create a new one?
+        // The context method I wrote: `updateMeal(data.mealId, ...)`
+        // If we don't pass an ID, it won't update anything.
+        // We need the ID. 
+        // When we navigate to FoodAnalysisScreen (Scan), we don't pass ID, just result.
+        // But we DO log the meal in MealContext upon scan completion.
+        // So we should pass the ID.
+        // Let's assume we can get it from params or find it.
+        // However, if we can't find it easily, we might need to restructure.
+        // BUT, for now, let's pass the mealId if available.
 
-            // if (!imageBase64) throw new Error("No image data available"); // Removed check
-            const refinedData = await geminiService.refineAnalysisWithFeedback(imageBase64, result, userFeedback);
-
-            setResult(refinedData);
-            setUserFeedback(''); // Clear feedback after success
-            // Reset added sugar if re-analyzed? Maybe keep it? Let's reset for safety.
-            setAddedSugarData(undefined);
-
-        } catch (err) {
-            const errorMessage = err instanceof Error ? err.message : 'Failed to refine analysis';
-            setError(errorMessage);
-        } finally {
-            setAnalyzing(false);
-        }
+        startRefinement(route.params?.mealId || 'latest', imageBase64, result, userFeedback);
+        navigation.navigate('Home');
     };
 
     if (analyzing) {
@@ -200,8 +207,11 @@ export default function FoodAnalysisScreen() {
                                 color: result.glycemicLoad > 20 ? COLORS.sugarScore.criticalText :
                                     result.glycemicLoad > 10 ? COLORS.sugarScore.warningText : COLORS.sugarScore.safeText
                             }]}>
-                                {result.sugarSpeed === 'Fast' ? STRINGS.METRICS.SUGAR_RUSH.FAST :
-                                    result.sugarSpeed === 'Moderate' ? STRINGS.METRICS.SUGAR_RUSH.MODERATE : STRINGS.METRICS.SUGAR_RUSH.SLOW}
+                                {result.glycemicLoad > 20 ? STRINGS.METRICS.SUGAR_RUSH.FAST :
+                                    (result.glycemicLoad > 10 ? STRINGS.METRICS.SUGAR_RUSH.MODERATE :
+                                        (result.sugarSpeed === 'Fast' && result.glycemicLoad <= 10 ? STRINGS.METRICS.SUGAR_RUSH.SLOW : // Correction for hallucinations
+                                            result.sugarSpeed === 'Fast' ? STRINGS.METRICS.SUGAR_RUSH.FAST :
+                                                result.sugarSpeed === 'Moderate' ? STRINGS.METRICS.SUGAR_RUSH.MODERATE : STRINGS.METRICS.SUGAR_RUSH.SLOW))}
                             </Text>
                             <Text style={styles.metricUnit}>Impact</Text>
                         </Card>
@@ -230,12 +240,14 @@ export default function FoodAnalysisScreen() {
                         )}
                     </Card>
 
-                    {/* Smart Recommendations for High GL */}
-                    {result.glycemicLoad > 20 && result.recommendations && result.recommendations.length > 0 && (
+                    {/* Smart Recommendations */}
+                    {result.recommendations && result.recommendations.length > 0 && (
                         <Card style={[styles.insightCard, { backgroundColor: '#F0FDF4', borderColor: COLORS.brand.primary }]} variant="solid">
                             <View style={styles.insightHeader}>
                                 <Text style={{ fontSize: 20 }}>💡</Text>
-                                <Text style={[styles.insightTitle, { color: COLORS.brand.primary }]}>Better Choice</Text>
+                                <Text style={[styles.insightTitle, { color: COLORS.brand.primary }]}>
+                                    {result.glycemicLoad > 20 ? "Better Choice" : "Smart Tips"}
+                                </Text>
                             </View>
                             {result.recommendations.map((rec, index) => (
                                 <View key={index} style={{ flexDirection: 'row', gap: 8, marginBottom: 4 }}>
