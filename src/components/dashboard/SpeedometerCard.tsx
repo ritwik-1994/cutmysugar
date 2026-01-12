@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
-import Svg, { Path, Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
+import Svg, { Path, Circle, Defs, LinearGradient, Stop, Text as SvgText } from 'react-native-svg';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
     withSpring,
-    useAnimatedProps,
     withRepeat,
     withSequence,
     withTiming,
@@ -18,7 +17,37 @@ import { STRINGS } from '../../constants/strings';
 
 // Animated components
 const AnimatedView = Animated.createAnimatedComponent(View);
-const AnimatedPath = Animated.createAnimatedComponent(Path);
+
+// ------------------------------------------------------------------
+// 1. Static Geometry & Helpers (Optimized: Defined once)
+// ------------------------------------------------------------------
+const BASE_WIDTH = 340;
+const BASE_HEIGHT = 180;
+const CX = BASE_WIDTH / 2;
+const CY = 160;
+const RADIUS = 120;
+const STROKE_WIDTH = 24;
+
+const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
+    const angleInRadians = (angleInDegrees) * Math.PI / 180.0;
+    return {
+        x: centerX + (radius * Math.cos(angleInRadians)),
+        y: centerY + (radius * Math.sin(angleInRadians))
+    };
+};
+
+const describeArc = (x: number, y: number, radius: number, startAngle: number, endAngle: number) => {
+    const start = polarToCartesian(x, y, radius, endAngle);
+    const end = polarToCartesian(x, y, radius, startAngle);
+    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+    return [
+        "M", start.x, start.y,
+        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+    ].join(" ");
+};
+
+// Pre-calculate the main arc string since geometry is fixed relative to BASE size
+const ARC_MAIN = describeArc(CX, CY, RADIUS, -180, 0);
 
 interface SpeedometerCardProps {
     budget: number;
@@ -31,7 +60,7 @@ interface SpeedometerCardProps {
 export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onPress }: SpeedometerCardProps) => {
     const { width: windowWidth } = useWindowDimensions();
 
-    // 1. Animation State (Ratio 0 -> 1+)
+    // 2. Animation State (Ratio 0 -> 1+)
     const progress = useSharedValue(0);
     const shake = useSharedValue(0);
     const pulse = useSharedValue(0.2);
@@ -39,20 +68,20 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
 
     const percentage = Math.round((consumed / budget) * 100);
     const ratio = consumed / budget;
-    // "Pegged" Meter: Visual cap at 100% (1.0) for System Overload feeling
+    // "Pegged" Meter: Max out at 1.0
     const displayRatio = Math.min(ratio, 1.0);
 
     useEffect(() => {
-        // Weighted, premium feel
+        // Weighted, premium feeling needle movement
         progress.value = withSpring(displayRatio, {
             damping: 20,
             stiffness: 90,
-            mass: 2 // Heavier needle
+            mass: 2
         });
 
-        // "System Overload" Effects
+        // "System Overload" Effects for > 100%
         if (ratio >= 1.0) {
-            // Violent Tension Vibration (Pegged against the stop)
+            // Violent Tension Vibration
             shake.value = withRepeat(
                 withSequence(
                     withTiming(-3, { duration: 40 }),
@@ -65,33 +94,20 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                 true
             );
 
-            // Red Alert Background Pulse (Standard pulse for components)
-            pulse.value = withRepeat(
-                withTiming(1, { duration: 600 }),
-                -1,
-                true
-            );
+            // Red Alert Background Pulse
+            pulse.value = withRepeat(withTiming(1, { duration: 600 }), -1, true);
 
             // Background Tint Pulse
-            bgPulse.value = withRepeat(
-                withTiming(1, { duration: 800 }),
-                -1,
-                true
-            );
+            bgPulse.value = withRepeat(withTiming(1, { duration: 800 }), -1, true);
         } else {
             shake.value = withSpring(0);
-            pulse.value = withSpring(0.2); // Dim when safe
+            pulse.value = withSpring(0.2);
             bgPulse.value = withSpring(0);
         }
     }, [displayRatio, ratio]);
 
-    // 2. Geometry & Responsive Logic
-    const BASE_WIDTH = 340;
-    const BASE_HEIGHT = 180;
-
-    // Responsive calculations
-    // Card padding is SPACING.m (16) * 2 = 32, plus container margins/safe area? 
-    // Let's assume ~48px total horizontal deduction for a safe responsive fit.
+    // 3. Responsive Scaling
+    // Card padding is ~32px, plus container margins => ~48px deduction safe.
     const maxCardWidth = 600;
     const cardContentWidth = Math.min(windowWidth - 48, maxCardWidth);
     const scale = cardContentWidth / BASE_WIDTH;
@@ -100,36 +116,7 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
     const svgWidth = cardContentWidth;
     const svgHeight = BASE_HEIGHT * scale;
 
-    // Internal Grid (Keep these fixed to preserve geometry logic, we scale via viewBox/transforms)
-    const cx = BASE_WIDTH / 2;
-    const cy = 160;
-    const radius = 120;
-    const strokeWidth = 24;
-
-    // 3. Helpers
-    const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
-        // -180 deg = Left, 0 deg = Right
-        const angleInRadians = (angleInDegrees) * Math.PI / 180.0;
-        return {
-            x: centerX + (radius * Math.cos(angleInRadians)),
-            y: centerY + (radius * Math.sin(angleInRadians))
-        };
-    };
-
-    const describeArc = (x: number, y: number, radius: number, startAngle: number, endAngle: number) => {
-        const start = polarToCartesian(x, y, radius, endAngle);
-        const end = polarToCartesian(x, y, radius, startAngle);
-        const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-        return [
-            "M", start.x, start.y,
-            "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
-        ].join(" ");
-    };
-
-    // 4. Arc Angles (-180 to 0 is the main 100%)
-    const arcMain = describeArc(cx, cy, radius, -180, 0);
-
-    // 5. Needle Rotation Logic
+    // 4. Animated Styles
     const animatedNeedleStyle = useAnimatedStyle(() => {
         // Map 0..1 to -180..0 (Strict 180 degree range)
         const rotation = (progress.value * 180) - 180;
@@ -142,7 +129,6 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
         };
     });
 
-    // Interpolate color: Slate -> Orange -> Red
     const animatedNeedleColorStyle = useAnimatedStyle(() => {
         const bgColor = interpolateColor(
             progress.value,
@@ -152,7 +138,6 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
         return { backgroundColor: bgColor };
     });
 
-    // Background Warning Tint
     const animatedBgStyle = useAnimatedStyle(() => {
         const backgroundColor = interpolateColor(
             bgPulse.value,
@@ -162,31 +147,28 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
         return { backgroundColor };
     });
 
-    // 6. Status Logic
+    // 5. Status Logic (Safe/Risky/Danger)
     let statColor = COLORS.sugarScore.safeText;
-    let statText = "Safe Zone";
+    let statText = "Safe";
 
     if (percentage > 100) {
         statColor = COLORS.sugarScore.criticalText;
-        statText = "SYSTEM OVERLOAD";
-    } else if (percentage >= 80) {
-        statColor = '#F97316';
-        statText = "Near Limit";
+        statText = "Danger";
     } else if (percentage >= 50) {
-        statColor = '#EAB308';
-        statText = "Caution";
+        statColor = '#F97316'; // Orange
+        statText = "Risky";
+    } else {
+        statText = "OK"; // < 50%
     }
 
-    // Dynamic Gradient Logic based on percentage
-    const getGradientColor = () => {
-        if (percentage > 100) return ['#EF4444', '#991B1B']; // Deep Red for Overload
-        if (percentage > 80) return ['#F97316', '#EA580C']; // Orange
-        if (percentage > 50) return ['#EAB308', '#CA8A04']; // Yellow
+    // Dynamic Gradient Logic
+    const gradientColors = useMemo(() => {
+        if (percentage > 100) return ['#EF4444', '#991B1B']; // Deep Red
+        if (percentage >= 50) return ['#F97316', '#EA580C']; // Orange
         return ['#22C55E', '#15803D']; // Green
-    }
-    const gradientColors = getGradientColor();
-    // Unique ID for the gradient to prevent conflicts
-    const gradId = React.useMemo(() => `speedometer-grad-${Math.random().toString(36).substr(2, 9)}`, []);
+    }, [percentage]);
+
+    const gradId = useMemo(() => `speedometer-grad-${Math.random().toString(36).substr(2, 9)}`, []);
 
     return (
         <TouchableOpacity activeOpacity={0.95} onPress={onPress}>
@@ -209,13 +191,13 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                     </View>
                 </View>
 
-                {/* Gauge Area - Wrapper for strict coordinates */}
+                {/* Gauge Area */}
                 <View style={[styles.gaugeArea, { height: svgHeight + 10 }]}>
 
-                    {/* The Coordinate Root: Strictly sized to match SVG logic */}
+                    {/* Coordinate Root */}
                     <View style={{ width: svgWidth, height: svgHeight, position: 'relative' }}>
 
-                        {/* 1. The Gauge SVG */}
+                        {/* Gauge SVG */}
                         <Svg width={svgWidth} height={svgHeight} viewBox={`0 0 ${BASE_WIDTH} ${BASE_HEIGHT}`} style={{ position: 'absolute', top: 0, left: 0 }}>
                             <Defs>
                                 <LinearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
@@ -226,38 +208,36 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                             </Defs>
 
                             {/* Background Track */}
-                            <Path d={arcMain} stroke={COLORS.background} strokeWidth={strokeWidth} strokeOpacity={0.5} fill="none" />
+                            <Path d={ARC_MAIN} stroke={COLORS.background} strokeWidth={STROKE_WIDTH} strokeOpacity={0.5} fill="none" />
                             {/* Active Track */}
-                            <Path d={arcMain} stroke={`url(#${gradId})`} strokeWidth={strokeWidth} fill="none" strokeLinecap="round" />
+                            <Path d={ARC_MAIN} stroke={`url(#${gradId})`} strokeWidth={STROKE_WIDTH} fill="none" strokeLinecap="round" />
 
                             {/* Decorations */}
-                            <Circle cx={cx - radius - 18} cy={cy} r={4} fill={COLORS.textTertiary} opacity={0.5} />
-                            <Circle cx={cx + radius + 18} cy={cy} r={4} fill={COLORS.textTertiary} opacity={0.5} />
+                            <Circle cx={CX - RADIUS - 18} cy={CY} r={4} fill={COLORS.textTertiary} opacity={0.5} />
+                            <Circle cx={CX + RADIUS + 18} cy={CY} r={4} fill={COLORS.textTertiary} opacity={0.5} />
+
+                            {/* Labels (SVG Text) */}
+                            {/* Labels (SVG Text) */}
+                            <SvgText x={CX - RADIUS - 25} y={CY + 8} fill="#000000" fontSize="12" fontWeight="900" textAnchor="middle">Safe</SvgText>
+                            <SvgText x={CX} y={CY - RADIUS + 50} fill="#000000" fontSize="14" fontWeight="900" textAnchor="middle">OK</SvgText>
+                            <SvgText x={CX + RADIUS + 25} y={CY + 8} fill="#000000" fontSize="12" fontWeight="900" textAnchor="middle">Risky</SvgText>
                         </Svg>
 
-                        {/* 2. The Needle - Positioned relative to Coordinate Root */}
+                        {/* Needle */}
                         <AnimatedView style={[
                             styles.needleContainer,
                             {
                                 left: '50%', // Strictly center X
-                                top: cy * scale // Scaled Y position
+                                top: CY * scale // Scaled Y position
                             },
                             animatedNeedleStyle
                         ]}>
-                            {/* The needle shape drawn with Views */}
                             <AnimatedView style={[styles.needleBody, animatedNeedleColorStyle]} />
                             <View style={styles.needleHub} />
                             <View style={styles.needleHubInner} />
                         </AnimatedView>
 
-                        {/* 3. Labels - Scaled and Positioned relative to Root */}
-                        <View style={[styles.labelsContainer, { transform: [{ scale }] }]}>
-                            <Text style={[styles.tickLabel, { left: 24, bottom: 20 }]}>0%</Text>
-                            <Text style={[styles.tickLabel, { alignSelf: 'center', top: 5 }]}>50%</Text>
-                            <Text style={[styles.tickLabel, { right: 24, bottom: 20 }]}>100%</Text>
-                        </View>
-
-                        {/* 4. Overload Icon */}
+                        {/* Overload Icon */}
                         {percentage > 100 && (
                             <View style={{ position: 'absolute', bottom: 40 * scale, left: 0, right: 0, alignItems: 'center' }}>
                                 <Text style={{ fontSize: 28 * scale }}>⚠️</Text>
@@ -267,9 +247,9 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                     </View>
                 </View>
 
-                {/* New Dashboard Footer */}
+                {/* Dashboard Footer */}
                 <View style={styles.dashboardFooter}>
-                    {/* Spikes Metric */}
+                    {/* Spikes */}
                     <View style={styles.metricItem}>
                         <View style={styles.metricIconBg}>
                             <Zap size={20} color={COLORS.text} />
@@ -282,7 +262,7 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
 
                     <View style={styles.divider} />
 
-                    {/* Stability Metric */}
+                    {/* Stability */}
                     <View style={styles.metricItem}>
                         <View style={[styles.metricIconBg, { backgroundColor: '#E0F2FE' }]}>
                             <Activity size={20} color={COLORS.text} />
@@ -295,7 +275,7 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
 
                     <View style={styles.divider} />
 
-                    {/* Usage Metric */}
+                    {/* Usage */}
                     <View style={styles.metricItem}>
                         <View style={[styles.metricIconBg, { backgroundColor: '#F3E8FF' }]}>
                             <Text style={{ fontSize: 16 }}>📊</Text>
@@ -402,18 +382,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.brand.primary,
         top: -4,
         left: -4
-    },
-    labelsContainer: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-    },
-    tickLabel: {
-        position: 'absolute',
-        fontFamily: FONTS.bodyBold,
-        fontSize: 11,
-        color: COLORS.textTertiary,
-        opacity: 0.8
     },
     dashboardFooter: {
         flexDirection: 'row',

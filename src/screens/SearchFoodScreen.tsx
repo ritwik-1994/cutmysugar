@@ -17,6 +17,7 @@ import { ArrowLeft, Search, X } from 'lucide-react-native';
 import { COLORS, SPACING, SIZES, SHADOWS } from '../styles/theme';
 import { foodDatabaseService, FoodItem } from '../services/FoodDatabaseService';
 import PortionModal from '../components/search/PortionModal';
+import { calculateGLRange } from '../utils/glUtils';
 
 type SearchFoodRouteProp = RouteProp<RootStackParamList, 'SearchFood'>;
 
@@ -88,7 +89,7 @@ export default function SearchFoodScreen() {
             </View>
             <View style={[styles.glBadge, { backgroundColor: getGLBgColor(item.gl_category) }]}>
                 <Text style={[styles.glText, { color: getGLColor(item.gl_category) }]}>
-                    GL {Math.round(item.gl_median)}
+                    GL {calculateGLRange(item.gl_median)}
                 </Text>
             </View>
         </TouchableOpacity>

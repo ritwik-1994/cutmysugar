@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, FONTS, SPACING } from '../../styles/theme';
@@ -45,7 +46,15 @@ export default function DisclaimerScreen() {
 
                     <Button
                         title={STRINGS.ONBOARDING.DISCLAIMER.CTA}
-                        onPress={() => navigation.navigate('Permissions')}
+                        onPress={async () => {
+                            try {
+                                await AsyncStorage.setItem('temp_medical_disclaimer', 'true');
+                                navigation.navigate('Permissions');
+                            } catch (error) {
+                                console.log("Error saving disclaimer", error);
+                                navigation.navigate('Permissions');
+                            }
+                        }}
                         style={styles.button}
                         disabled={!accepted}
                     />

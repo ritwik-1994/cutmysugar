@@ -18,6 +18,7 @@ import { useMeal } from '../../context/MealContext';
 import { SUGAR_TYPES } from '../../data/sugars';
 import { Button } from '../ui/Button';
 import { GeminiService, geminiService } from '../../services/GeminiService';
+import { calculateGLRange } from '../../utils/glUtils';
 
 interface PortionModalProps {
     visible: boolean;
@@ -118,7 +119,7 @@ export default function PortionModal({ visible, food, onClose, onAdd, date }: Po
             name: food.canonical_name,
             gl: Math.round(finalGL),
             sugarSpeed: food.gl_category === 'High' ? 'Fast' : 'Moderate',
-            energyStability: food.gl_category === 'High' ? 'Likely Crash' : 'Steady',
+            energyStability: food.gl_category === 'High' ? 'Crash' : 'Stable',
             imageUri: undefined,
             timestamp: date ? new Date(date) : new Date(),
             addedSugar: sugarData
@@ -205,7 +206,7 @@ export default function PortionModal({ visible, food, onClose, onAdd, date }: Po
                                     <View style={styles.statItem}>
                                         <Text style={styles.statLabel}>Est. GL</Text>
                                         <Text style={[styles.statValue, { color: COLORS.brand.primary }]}>
-                                            {Math.round(calculatedGL)}
+                                            {calculateGLRange(calculatedGL)}
                                         </Text>
                                     </View>
                                     <View style={styles.divider} />

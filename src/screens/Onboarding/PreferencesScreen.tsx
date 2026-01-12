@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS, FONTS, SPACING, SIZES } from '../../styles/theme';
 import { Button } from '../../components/ui/Button';
 import { NavigationProps } from '../../navigation/types';
 
 import { useMeal, UserGoal } from '../../context/MealContext';
+import { useAuth } from '../../context/AuthContext';
 
 const GOALS: { id: UserGoal; label: string; icon: string; description: string; tag: string }[] = [
     { id: 'blood_sugar', label: 'Manage Blood Sugar', icon: '🩸', description: 'Daily Limit: 70 GL', tag: 'Type 2 Diabetes' },
@@ -27,18 +29,34 @@ export default function PreferencesScreen() {
     const [selectedGoal, setSelectedGoal] = useState<UserGoal | null>(null);
     const [selectedDiet, setSelectedDiet] = useState<string | null>(null);
 
-    const handleNext = () => {
-        if (selectedGoal) {
+    const handleNext = async () => {
+        if (!selectedGoal) {
+            alert("Please select a goal");
+            return;
+        }
+
+        try {
+            console.log("👉 Saving Preferences Locally (Pre-Auth)...");
+
+            // 1. Update Context (for immediate UI use if necessary)
             setGoal(selectedGoal);
-            // Save diet preference logic here if needed
+
+            // 2. Save to Temporary Storage (for post-login sync)
+            await AsyncStorage.setItem('temp_goal', selectedGoal);
+            if (selectedDiet) {
+                await AsyncStorage.setItem('temp_diet_pref', selectedDiet);
+            }
+
+            console.log("✅ Preferences stored in AsyncStorage for later sync.");
+            navigation.navigate('HeightWeight');
+
+        } catch (e: any) {
+            console.error("Error saving local preferences:", e);
             navigation.navigate('HeightWeight');
         }
     };
 
-    const handleSkip = () => {
-        setGoal('blood_sugar'); // Default
-        navigation.navigate('HeightWeight');
-    };
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -83,11 +101,6 @@ export default function PreferencesScreen() {
                     </View>
                 </View>
 
-                {/* Scroll Hint */}
-                <View style={{ alignItems: 'center', marginVertical: SPACING.s, opacity: 0.6 }}>
-                    <Text style={{ fontFamily: FONTS.body, color: COLORS.textSecondary }}>👇 Scroll for Diet Preferences</Text>
-                </View>
-
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Dietary Preference</Text>
                     <View style={styles.optionsContainer}>
@@ -121,13 +134,7 @@ export default function PreferencesScreen() {
                     title="Continue"
                     onPress={handleNext}
                     style={styles.button}
-                    disabled={!selectedGoal || !selectedDiet}
-                />
-                <Button
-                    title="Skip for now"
-                    onPress={handleSkip}
-                    variant="ghost"
-                    style={styles.skipButton}
+                    disabled={!selectedGoal}
                 />
             </View>
         </SafeAreaView >

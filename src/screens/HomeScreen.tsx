@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image, LayoutChangeEvent, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image, LayoutChangeEvent, NativeSyntheticEvent, NativeScrollEvent, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { NavigationProps } from '../navigation/types';
 import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../styles/theme';
 import { useAuth } from '../context/AuthContext';
 import { useMeal } from '../context/MealContext';
-import { Plus, Zap, Utensils, ChevronDown } from 'lucide-react-native';
+import { Plus, Zap, Utensils, ChevronDown, Settings } from 'lucide-react-native';
 import { Button } from '../components/ui/Button';
 import { STRINGS } from '../constants/strings';
 import { geminiService } from '../services/GeminiService';
@@ -27,20 +27,36 @@ import { DateSelector } from '../components/dashboard/DateSelector';
 import { SpeedometerCard } from '../components/dashboard/SpeedometerCard';
 import { MetricCard } from '../components/dashboard/MetricCard';
 import { AddMealModal } from '../components/dashboard/AddMealModal';
+import { SettingsModal } from '../components/dashboard/SettingsModal';
 import { WeeklyProgressChart } from '../components/dashboard/WeeklyProgressChart';
 import { MealItem } from '../components/dashboard/MealItem';
 import { PendingMealItem } from '../components/dashboard/PendingMealItem';
+import { InstallAppBanner } from '../components/InstallAppBanner';
 
 export default function HomeScreen() {
     const navigation = useNavigation<NavigationProps>();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const { dailyBudget, setDailyBudget, meals, updateMeal, pendingActions } = useMeal();
-    const { logout } = useAuth();
+    const { user, logout } = useAuth();
 
     const [editBudgetVisible, setEditBudgetVisible] = useState(false);
     const [addMealVisible, setAddMealVisible] = useState(false);
+    const [settingsVisible, setSettingsVisible] = useState(false);
     const [tempBudget, setTempBudget] = useState(dailyBudget.toString());
     const [scrollTargetY, setScrollTargetY] = useState(0);
+
+    // PWA Install Prompt Logic
+    const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+    const prevMealsLength = useRef(meals.length);
+
+    useEffect(() => {
+        // If meals count increased, it means user successfully logged a meal!
+        if (meals.length > prevMealsLength.current) {
+            console.log("Meal logged! Triggering install prompt.");
+            setShowInstallPrompt(true);
+        }
+        prevMealsLength.current = meals.length;
+    }, [meals.length]);
 
     useEffect(() => {
         setTempBudget(dailyBudget.toString());
@@ -48,9 +64,8 @@ export default function HomeScreen() {
 
     const getGreeting = () => {
         const hour = new Date().getHours();
-        if (hour < 12) return 'Good Morning';
-        if (hour < 18) return 'Good Afternoon';
-        return 'Good Evening';
+        const baseGreeting = hour < 12 ? 'Good Morning' : hour < 18 ? 'Good Afternoon' : 'Good Evening';
+        return user?.name ? `${baseGreeting}, ${user.name.split(' ')[0]}` : baseGreeting;
     };
 
     const handleSaveBudget = () => {
@@ -82,6 +97,21 @@ export default function HomeScreen() {
     // Filter meals by selected date
     const dailyMeals = meals.filter(meal => {
         const d1 = new Date(meal.timestamp);
+        const d2 = selectedDate;
+        const match = d1.getDate() === d2.getDate() &&
+            d1.getMonth() === d2.getMonth() &&
+            d1.getFullYear() === d2.getFullYear();
+
+        // Console log only occasionally or for specific debug
+        // console.log(`Filtering: Meal ${meal.name} (${d1.toISOString()}) vs Selected (${d2.toISOString()}) => ${match}`);
+        return match;
+    }).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()); // Sort desc
+
+    // Filter pending actions by date
+    const dailyPendingActions = pendingActions.filter(action => {
+        // Use the intended date if available (data.date), otherwise action timestamp
+        const actionDateStr = action.data?.date;
+        const d1 = actionDateStr ? new Date(actionDateStr) : new Date(action.timestamp);
         const d2 = selectedDate;
         return d1.getDate() === d2.getDate() &&
             d1.getMonth() === d2.getMonth() &&
@@ -131,10 +161,10 @@ export default function HomeScreen() {
         }
 
         // Reset if no pending actions
-        if (pendingActions.length === 0) {
+        if (dailyPendingActions.length === 0) {
             lastScrollActionId.current = null;
         }
-    }, [isFocused, pendingActions, scrollTargetY]);
+    }, [isFocused, pendingActions, dailyPendingActions, scrollTargetY]);
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         scrollY.value = event.nativeEvent.contentOffset.y;
@@ -201,6 +231,18 @@ export default function HomeScreen() {
         return () => clearTimeout(timer);
     }, [dailyMeals]);
 
+    // Loading State
+    if (!useMeal().isLoaded) {
+        return (
+            <SafeAreaView style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={COLORS.brand.primary} />
+                <Text style={{ marginTop: 16, fontFamily: FONTS.medium, color: COLORS.textSecondary }}>
+                    Syncing your data...
+                </Text>
+            </SafeAreaView>
+        );
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -227,8 +269,12 @@ export default function HomeScreen() {
                             <Text style={styles.spikeCountText}>{dailySpikes}</Text>
                             <Text style={styles.spikeLabel}>Spikes</Text>
                         </View>
-                        <TouchableOpacity onPress={logout} style={{ padding: 4 }}>
-                            <Text style={{ fontSize: 12, color: COLORS.textTertiary }}>Logout</Text>
+                        <TouchableOpacity
+                            onPress={() => setSettingsVisible(true)}
+                            style={{ padding: 8 }}
+                            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                        >
+                            <Settings size={24} color={COLORS.textSecondary} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -260,15 +306,15 @@ export default function HomeScreen() {
                     </View>
 
                     {/* PENDING ACTIONS SECTION */}
-                    {pendingActions.length > 0 && (
+                    {dailyPendingActions.length > 0 && (
                         <View style={styles.mealList}>
-                            {pendingActions.map((action) => (
+                            {dailyPendingActions.map((action) => (
                                 <PendingMealItem key={action.id} action={action} />
                             ))}
                         </View>
                     )}
 
-                    {dailyMeals.length === 0 && pendingActions.length === 0 ? (
+                    {dailyMeals.length === 0 && dailyPendingActions.length === 0 ? (
                         <TouchableOpacity
                             style={styles.emptyState}
                             onPress={() => setAddMealVisible(true)}
@@ -331,6 +377,9 @@ export default function HomeScreen() {
                 <Plus color="#FFF" size={32} />
             </TouchableOpacity>
 
+            {/* PWA Install Banner - Shows ONLY after successful scan/log */}
+            <InstallAppBanner triggerShow={showInstallPrompt} />
+
             {/* Edit Budget Modal */}
             <Modal
                 visible={editBudgetVisible}
@@ -372,6 +421,11 @@ export default function HomeScreen() {
                 visible={addMealVisible}
                 onClose={() => setAddMealVisible(false)}
                 onOptionSelect={handleMealOptionSelect}
+            />
+
+            <SettingsModal
+                visible={settingsVisible}
+                onClose={() => setSettingsVisible(false)}
             />
         </SafeAreaView>
     );

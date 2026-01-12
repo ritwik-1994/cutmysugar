@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
-import { View, Platform } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, Text, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,6 +13,7 @@ import {
 import AppNavigator from './src/navigation/AppNavigator';
 import { AuthProvider } from './src/context/AuthContext';
 import { MealProvider } from './src/context/MealContext';
+import { ErrorBoundary } from './src/components/ErrorBoundary';
 
 // Keep the splash screen visible while we fetch resources
 try {
@@ -39,21 +40,22 @@ export default function App() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
-    <SafeAreaProvider onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      <AuthProvider>
-        <MealProvider>
-          <StatusBar style="dark" />
-          <AppNavigator />
-        </MealProvider>
-      </AuthProvider>
-    </SafeAreaProvider>
+    <ErrorBoundary>
+      <SafeAreaProvider onLayout={onLayoutRootView} style={{ flex: 1 }}>
+        <AuthProvider>
+          <MealProvider>
+            <StatusBar style="dark" />
+            {!fontsLoaded ? (
+              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text>Loading Fonts...</Text>
+              </View>
+            ) : (
+              <AppNavigator />
+            )}
+          </MealProvider>
+        </AuthProvider>
+      </SafeAreaProvider>
+    </ErrorBoundary>
   );
 }
-
-
-

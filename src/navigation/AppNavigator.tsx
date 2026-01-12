@@ -36,7 +36,7 @@ const AppStack = () => {
                 animation: 'slide_from_right',
             }}
         >
-            {user ? (
+            {user && user.hasCompletedOnboarding ? (
                 // App Stack
                 <>
                     <Stack.Screen name="Home" component={HomeScreen} />
@@ -71,6 +71,9 @@ const AppStack = () => {
             ) : (
                 // Auth Stack (Onboarding)
                 <>
+                    {/* If we have a user but incomplete onboarding, we might want to skip Welcome? 
+                        For now, let's just show the full flow or maybe start at a specific point.
+                        But standard flow is safe. logic in Welcome screen can skip if name exists. */}
                     <Stack.Screen name="Welcome" component={WelcomeScreen} />
                     <Stack.Screen name="Problem" component={ProblemScreen} />
                     <Stack.Screen name="Solution" component={SolutionScreen} />

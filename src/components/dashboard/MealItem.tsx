@@ -4,6 +4,7 @@ import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../../styles/theme';
 import { STRINGS } from '../../constants/strings';
 import { Meal } from '../../context/MealContext';
 import { ChevronDown, ChevronUp, Lightbulb } from 'lucide-react-native';
+import { calculateGLRange } from '../../utils/glUtils';
 
 if (Platform.OS === 'android') {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -36,7 +37,11 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
                 {/* Thumbnail */}
                 <View style={styles.thumbnailContainer}>
                     {meal.imageUri ? (
-                        <Image source={{ uri: meal.imageUri }} style={styles.thumbnail} />
+                        <Image
+                            source={{ uri: meal.imageUri }}
+                            style={styles.thumbnail}
+                            onError={(e) => console.log('❌ Image Load Error:', meal.imageUri, e.nativeEvent.error)}
+                        />
                     ) : (
                         <View style={[styles.thumbnail, { backgroundColor: COLORS.surface, alignItems: 'center', justifyContent: 'center' }]}>
                             <Text>🍽️</Text>
@@ -72,7 +77,7 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
                                             COLORS.sugarScore.safeText
                                 }
                             ]}>
-                                {`+${Math.round(meal.gl)} ${STRINGS.METRICS.SUGAR_SCORE} (${glPercentage}%)`}
+                                {`+${calculateGLRange(meal.gl)} ${STRINGS.METRICS.SUGAR_SCORE} (${glPercentage}%)`}
                             </Text>
                         </View>
 

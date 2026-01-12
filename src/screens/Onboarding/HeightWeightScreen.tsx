@@ -1,119 +1,108 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import Slider from '@react-native-community/slider';
 import { COLORS, FONTS, SPACING, SIZES } from '../../styles/theme';
 import { Button } from '../../components/ui/Button';
+import { VerticalPicker } from '../../components/ui/VerticalPicker';
 import { NavigationProps } from '../../navigation/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HeightWeightScreen() {
     const navigation = useNavigation<NavigationProps>();
-    const [isMetric, setIsMetric] = useState(false); // Default to Imperial (Feet/Inches)
 
-    // Height State
-    const [heightCm, setHeightCm] = useState('170');
-    const [heightFt, setHeightFt] = useState('5');
-    const [heightIn, setHeightIn] = useState('7');
+    // Default Values
+    const [ft, setFt] = useState('5');
+    const [inch, setInch] = useState('7');
+    const [kg, setKg] = useState('70');
 
-    // Weight State
-    const [weightKg, setWeightKg] = useState('70');
+    // Ranges for Pickers
+    const feetRange = Array.from({ length: 6 }, (_, i) => (i + 3).toString()); // 3 to 8
+    const inchRange = Array.from({ length: 12 }, (_, i) => i.toString());      // 0 to 11
+    const kgRange = Array.from({ length: 171 }, (_, i) => (i + 30).toString()); // 30 to 200
 
-    const handleNext = () => {
-        // Save logic (parse strings to numbers)
-        navigation.navigate('Login');
+    const handleNext = async () => {
+        try {
+            // Conversion Logic (Strictly Ft/In -> Cm)
+            const heightCm = ((parseInt(ft) * 12) + parseInt(inch)) * 2.54;
+            const weightKg = parseInt(kg);
+
+            // Save standard units (CM / KG) to DB/Storage
+            await AsyncStorage.setItem('temp_height_cm', Math.round(heightCm).toString());
+            await AsyncStorage.setItem('temp_weight_kg', weightKg.toString());
+
+            // Marker that user has set this (avoid legacy defaults)
+            await AsyncStorage.setItem('user_onboarded_status', 'pending_login');
+
+            console.log(`Saved Height: ${Math.round(heightCm)}cm (${ft}'${inch}"), Weight: ${weightKg}kg`);
+        } catch (e) {
+            console.error("Failed to save height/weight", e);
+        }
+        navigation.navigate('Login', { isRegistering: true });
     };
 
     return (
         <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={{ flex: 1 }}
-            >
-                <ScrollView contentContainerStyle={styles.content}>
-                    <View style={styles.header}>
-                        <Text style={styles.title}>Body Details</Text>
-                        <Text style={styles.subtitle}>To calculate your metabolic baseline.</Text>
-                    </View>
+            <View style={styles.content}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>Your Body Metrics</Text>
+                    <Text style={styles.subtitle}>We use this to calculate your metabolic baseline.</Text>
+                </View>
 
-                    <View style={styles.unitToggleContainer}>
-                        <TouchableOpacity
-                            style={[styles.unitButton, !isMetric && styles.activeUnitButton]}
-                            onPress={() => setIsMetric(false)}
-                        >
-                            <Text style={[styles.unitText, !isMetric && styles.activeUnitText]}>Imperial (Ft/In)</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.unitButton, isMetric && styles.activeUnitButton]}
-                            onPress={() => setIsMetric(true)}
-                        >
-                            <Text style={[styles.unitText, isMetric && styles.activeUnitText]}>Metric (Cm/Kg)</Text>
-                        </TouchableOpacity>
-                    </View>
+                {/* Wrapper for the "Mini Tablet" UI Cards */}
+                <View style={styles.pickerSection}>
 
-                    <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Height</Text>
-                        {isMetric ? (
-                            <View style={styles.inputRow}>
-                                <TextInput
-                                    style={styles.input}
-                                    value={heightCm}
-                                    onChangeText={setHeightCm}
-                                    keyboardType="numeric"
-                                    placeholder="170"
-                                    placeholderTextColor={COLORS.textTertiary}
+                    {/* HEIGHT CARD */}
+                    <View style={styles.cardContainer}>
+                        <Text style={styles.cardLabel}>HEIGHT</Text>
+                        <View style={styles.row}>
+                            {/* Feet Picker */}
+                            <View style={styles.pickerWrapper}>
+                                <VerticalPicker
+                                    data={feetRange}
+                                    value={ft}
+                                    onValueChange={setFt}
+                                    label="ft"
+                                    height={220}
                                 />
-                                <Text style={styles.unitLabel}>cm</Text>
                             </View>
-                        ) : (
-                            <View style={styles.inputRow}>
-                                <TextInput
-                                    style={styles.input}
-                                    value={heightFt}
-                                    onChangeText={setHeightFt}
-                                    keyboardType="numeric"
-                                    placeholder="5"
-                                    placeholderTextColor={COLORS.textTertiary}
+                            {/* Inches Picker */}
+                            <View style={styles.pickerWrapper}>
+                                <VerticalPicker
+                                    data={inchRange}
+                                    value={inch}
+                                    onValueChange={setInch}
+                                    label="in"
+                                    height={220}
                                 />
-                                <Text style={styles.unitLabel}>ft</Text>
-                                <View style={{ width: SPACING.m }} />
-                                <TextInput
-                                    style={styles.input}
-                                    value={heightIn}
-                                    onChangeText={setHeightIn}
-                                    keyboardType="numeric"
-                                    placeholder="7"
-                                    placeholderTextColor={COLORS.textTertiary}
-                                />
-                                <Text style={styles.unitLabel}>in</Text>
                             </View>
-                        )}
-                    </View>
-
-                    <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Weight</Text>
-                        <View style={styles.inputRow}>
-                            <TextInput
-                                style={styles.input}
-                                value={weightKg}
-                                onChangeText={setWeightKg}
-                                keyboardType="numeric"
-                                placeholder="70"
-                                placeholderTextColor={COLORS.textTertiary}
-                            />
-                            <Text style={styles.unitLabel}>kg</Text>
                         </View>
                     </View>
 
-                    <View style={styles.footer}>
-                        <Button
-                            title="Next"
-                            onPress={handleNext}
-                            style={styles.button}
-                        />
+                    {/* WEIGHT CARD */}
+                    <View style={styles.cardContainer}>
+                        <Text style={styles.cardLabel}>WEIGHT</Text>
+                        <View style={styles.pickerWrapper}>
+                            <VerticalPicker
+                                data={kgRange}
+                                value={kg}
+                                onValueChange={setKg}
+                                label="kg"
+                                height={220}
+                            />
+                        </View>
                     </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
+
+                </View>
+
+                <View style={styles.footer}>
+                    <Button
+                        title="Continue"
+                        onPress={handleNext}
+                        style={styles.button}
+                    />
+                </View>
+            </View>
         </SafeAreaView>
     );
 }
@@ -124,7 +113,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.background,
     },
     content: {
-        flexGrow: 1,
+        flex: 1,
         padding: SPACING.l,
     },
     header: {
@@ -141,57 +130,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: COLORS.textSecondary,
     },
-    unitToggleContainer: {
-        flexDirection: 'row',
-        backgroundColor: COLORS.surface,
-        borderRadius: SIZES.borderRadius.m,
-        padding: 4,
-        marginBottom: SPACING.xl,
-    },
-    unitButton: {
+    pickerSection: {
         flex: 1,
-        paddingVertical: SPACING.s,
-        alignItems: 'center',
-        borderRadius: SIZES.borderRadius.s,
+        justifyContent: 'center',
+        gap: SPACING.xl,
     },
-    activeUnitButton: {
-        backgroundColor: COLORS.surfaceLight,
+    cardContainer: {
+        gap: SPACING.s,
     },
-    unitText: {
-        fontFamily: FONTS.medium,
+    cardLabel: {
+        fontFamily: FONTS.bodyBold, // Using bodyBold as subheading might be too large
+        fontSize: 14,
         color: COLORS.textSecondary,
+        letterSpacing: 1,
     },
-    activeUnitText: {
-        color: COLORS.text,
-    },
-    section: {
-        marginBottom: SPACING.xl,
-    },
-    sectionTitle: {
-        fontFamily: FONTS.subheading,
-        fontSize: 18,
-        color: COLORS.text,
-        marginBottom: SPACING.m,
-    },
-    inputRow: {
+    row: {
         flexDirection: 'row',
-        alignItems: 'center',
+        gap: SPACING.m,
     },
-    input: {
+    pickerWrapper: {
         flex: 1,
-        backgroundColor: COLORS.surface,
-        borderRadius: SIZES.borderRadius.m,
-        padding: SPACING.m,
-        fontSize: 24,
-        fontFamily: FONTS.heading,
-        color: COLORS.text,
-        textAlign: 'center',
-    },
-    unitLabel: {
-        fontFamily: FONTS.medium,
-        fontSize: 20,
-        color: COLORS.textSecondary,
-        marginLeft: SPACING.s,
     },
     footer: {
         marginTop: 'auto',

@@ -7,11 +7,8 @@ import { Button } from '../../components/ui/Button';
 import { NavigationProps } from '../../navigation/types';
 import { STRINGS } from '../../constants/strings';
 import { Rocket } from 'lucide-react-native';
-import { useAuth } from '../../context/AuthContext';
-
 export default function ReadyScreen() {
     const navigation = useNavigation<NavigationProps>();
-    const { login } = useAuth(); // We'll use login to bypass the old auth flow for now
 
     const handleStart = async () => {
         // Navigate to setup flow

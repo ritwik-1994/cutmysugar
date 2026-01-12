@@ -1,10 +1,13 @@
 import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
 import { geminiService, FoodAnalysisResult } from '../services/GeminiService';
+import { storageService } from '../services/StorageService';
+import { supabase } from '../lib/supabase';
+import { useAuth } from './AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface Meal {
-    id: string;
+    id: string; // Now UUID from Supabase
     name: string;
     gl: number;
     sugarSpeed: 'Slow' | 'Moderate' | 'Fast';
@@ -18,6 +21,9 @@ export interface Meal {
         unit: 'g' | 'spoon';
         typeId: string;
     };
+    // Supabase fields
+    user_id?: string;
+    created_at?: string;
 }
 
 export type ScanStatus = 'uploading' | 'analyzing' | 'separating' | 'calculating' | 'finalizing' | 'failed';
@@ -49,12 +55,14 @@ export type UserGoal = 'blood_sugar' | 'avoid_spikes' | 'energy' | 'pcos';
 
 interface MealContextType {
     userGoal: UserGoal | null;
+    dietaryPreference: string | null;
     dailyBudget: number;
     glConsumed: number;
     spikeCount: number;
     meals: Meal[];
+    isLoaded: boolean;
     pendingActions: PendingAction[];
-    startScan: (imageUri: string, base64: string, date?: string) => void; // Update signature
+    startScan: (imageUri: string, base64: string, date?: string) => void;
     startTextAnalysis: (name: string, description: string, context: string, sugarData?: any, date?: string) => void;
     startRefinement: (mealId: string, imageBase64: string | undefined, previousResult: FoodAnalysisResult, feedback: string) => void;
     logMeal: (meal: Omit<Meal, 'id' | 'timestamp'> & { timestamp?: Date }) => void;
@@ -66,125 +74,253 @@ interface MealContextType {
 const MealContext = createContext<MealContextType | undefined>(undefined);
 
 export const MealProvider = ({ children }: { children: ReactNode }) => {
+    const { user } = useAuth();
     const [userGoal, setUserGoal] = useState<UserGoal | null>(null);
+    const [dietaryPreference, setDietaryPreference] = useState<string | null>(null);
     const [dailyBudget, setDailyBudget] = useState(100);
     const [meals, setMeals] = useState<Meal[]>([]);
     const [pendingActions, setPendingActions] = useState<PendingAction[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    // Load data
+    // Initial Load from AsyncStorage (Fast) + Supabase (Sync)
     useEffect(() => {
-        const loadData = async () => {
-            console.log("🔄 MealContext: Loading data...");
+        const loadLocalSettings = async () => {
             try {
-                let storedMeals: string | null = null;
-                let storedBudget: string | null = null;
+                const localGoal = await AsyncStorage.getItem('user_goal');
+                const localDiet = await AsyncStorage.getItem('user_diet');
+                const localBudget = await AsyncStorage.getItem('daily_budget');
 
-                if (Platform.OS === 'web') {
-                    storedMeals = window.localStorage.getItem('meals_data');
-                    storedBudget = window.localStorage.getItem('user_budget');
-                } else {
-                    storedMeals = await AsyncStorage.getItem('meals_data');
-                    storedBudget = await AsyncStorage.getItem('user_budget');
-                }
-
-                if (storedMeals) {
-                    try {
-                        const parsedMeals = JSON.parse(storedMeals, (key, value) => {
-                            if (key === 'timestamp' && typeof value === 'string') {
-                                const d = new Date(value);
-                                return isNaN(d.getTime()) ? new Date() : d; // Safe date parsing
-                            }
-                            return value;
-                        });
-                        console.log(`✅ MealContext: Loaded ${parsedMeals.length} meals.`);
-                        setMeals(parsedMeals);
-                    } catch (parseError) {
-                        console.error("❌ MealContext: JSON Parse Error", parseError);
-                    }
-                } else {
-                    console.log("ℹ️ MealContext: No stored meals found.");
-                }
-
-                if (storedBudget) {
-                    setDailyBudget(parseInt(storedBudget));
-                }
+                if (localGoal) setUserGoal(localGoal as UserGoal);
+                if (localDiet) setDietaryPreference(localDiet);
+                if (localBudget) setDailyBudget(parseFloat(localBudget));
             } catch (e) {
-                console.error('❌ MealContext: Failed to load meal data', e);
-            } finally {
-                setIsLoaded(true);
+                console.log("Error loading local settings:", e);
             }
         };
-        loadData();
+        loadLocalSettings();
     }, []);
 
-    // Save data
+    // Sync from Supabase (when user changes)
     useEffect(() => {
-        if (!isLoaded) return;
+        if (!user || !user.id) {
+            setMeals([]);
+            return;
+        }
 
-        // Strip heavy images to prevent LocalStorage Quota Exceeded (5MB Limit)
-        const mealsToPersist = meals.map(m => {
-            const { imageBase64, ...rest } = m;
-            // Also check if URI is a massive data URL and strip it if needed
-            if (rest.imageUri?.startsWith('data:')) {
-                rest.imageUri = undefined;
-            }
-            return rest;
-        });
-
-        console.log(`💾 MealContext: Saving ${mealsToPersist.length} meals (text only) to storage.`);
-        const json = JSON.stringify(mealsToPersist);
-
-        if (Platform.OS === 'web') {
+        const loadData = async () => {
+            console.log("🔄 MealContext: Loading data from Supabase for user:", user.id);
             try {
-                window.localStorage.setItem('meals_data', json);
-            } catch (err) {
-                console.error("❌ MealContext: LocalStorage Quota Exceeded!", err);
-            }
-        } else {
-            AsyncStorage.setItem('meals_data', json).catch(e =>
-                console.error("❌ MealContext: Save Failed", e)
-            );
-        }
-    }, [meals, isLoaded]);
+                // 1. Load Settings from Profiles
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
 
-    useEffect(() => {
-        if (!isLoaded) return;
-        const budgetStr = dailyBudget.toString();
-        if (Platform.OS === 'web') {
-            window.localStorage.setItem('user_budget', budgetStr);
-        } else {
-            AsyncStorage.setItem('user_budget', budgetStr).catch(console.error);
-        }
-    }, [dailyBudget, isLoaded]);
+                if (profile) {
+                    const budget = profile.daily_budget || 100;
+                    setDailyBudget(budget);
+                    AsyncStorage.setItem('daily_budget', budget.toString());
+
+                    if (profile.primary_goal) {
+                        setUserGoal(profile.primary_goal as UserGoal);
+                        AsyncStorage.setItem('user_goal', profile.primary_goal);
+                    }
+                    if (profile.dietary_preference) {
+                        setDietaryPreference(profile.dietary_preference);
+                        AsyncStorage.setItem('user_diet', profile.dietary_preference);
+                    }
+                }
+
+                // 2. Load Meals
+                // ... (rest of loading logic)
+                console.log("DEBUG: Fetching meals for user:", user.id);
+                const { data: mealsData, error: mealsError } = await supabase
+                    .from('meals')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .order('timestamp', { ascending: false });
+
+                console.log("DEBUG: Fetch Result:", {
+                    count: mealsData?.length,
+                    error: mealsError,
+                    firstMeal: mealsData?.[0]
+                });
+
+                if (mealsError) {
+                    console.error("Error loading meals:", mealsError);
+                    Alert.alert("Sync Error", "Failed to load meals from the cloud. Please check your connection.");
+                } else if (mealsData) {
+                    console.log(`DEBUG: Successfully loaded ${mealsData.length} meals.`);
+                    const loadedMeals: Meal[] = mealsData.map(m => ({
+                        id: m.id,
+                        name: m.name,
+                        gl: m.gl,
+                        sugarSpeed: m.sugar_speed,
+                        energyStability: m.energy_stability,
+                        timestamp: new Date(m.timestamp),
+                        imageUri: m.image_uri, // This might be a cloud path or local URI depending on strategy
+                        analysisResult: m.analysis_result,
+                        // We don't have addedSugar in DB schema explicitly yet, it's inside analysisResult Usually. 
+                        // But TypeScript interface has it. Let's assume it's part of analysisResult or we need a column.
+                        // For now, map if inside analysisResult
+                        addedSugar: m.analysis_result?.addedSugar
+                    }));
+                    setMeals(loadedMeals);
+                }
+
+                setIsLoaded(true);
+            } catch (e) {
+                console.error("Failed to load user data:", e);
+                // Alert.alert("Sync Error", "Unexpected error loading data."); // reduce noise
+            }
+        };
+
+        loadData();
+    }, [user?.id]);
 
     // Derived state
     const glConsumed = meals.reduce((total, meal) => total + meal.gl, 0);
     const spikeCount = meals.filter(m => m.sugarSpeed === 'Fast').length;
 
-    const setGoal = (goal: UserGoal) => {
+    // --- Actions ---
+
+    const setGoal = async (goal: UserGoal) => {
         setUserGoal(goal);
+        let newBudget = 100;
         switch (goal) {
-            case 'blood_sugar': setDailyBudget(70); break;
-            case 'avoid_spikes': setDailyBudget(90); break;
-            case 'energy': setDailyBudget(110); break;
-            case 'pcos': setDailyBudget(75); break;
+            case 'blood_sugar': newBudget = 70; break;
+            case 'avoid_spikes': newBudget = 90; break;
+            case 'energy': newBudget = 110; break;
+            case 'pcos': newBudget = 75; break;
+        }
+        setDailyBudget(newBudget);
+
+        AsyncStorage.setItem('user_goal', goal);
+        AsyncStorage.setItem('daily_budget', newBudget.toString());
+
+        if (user) {
+            await supabase.from('profiles').update({
+                primary_goal: goal,
+                daily_budget: newBudget,
+                updated_at: new Date().toISOString()
+            }).eq('id', user.id);
         }
     };
 
-    const logMeal = (newMeal: Omit<Meal, 'id' | 'timestamp'> & { timestamp?: Date }) => {
-        const meal: Meal = {
+    const setDailyBudgetAction = async (budget: number) => {
+        setDailyBudget(budget);
+        if (user) {
+            await supabase.from('profiles').update({
+                daily_budget: budget,
+                updated_at: new Date().toISOString()
+            }).eq('id', user.id);
+        }
+    }
+
+    const logMeal = async (newMeal: Omit<Meal, 'id' | 'timestamp'> & { timestamp?: Date }) => {
+        if (!user) {
+            Alert.alert("Not Logged In", "You must be logged in to save meals.");
+            return;
+        }
+
+        console.log("LOGGING MEAL: Starting for user:", user.id); // DEBUG
+
+        // Optimistic UI Update - TEMPORARILY DISABLED FOR DEBUGGING
+        /*
+        const tempId = Math.random().toString(36).substr(2, 9);
+        const optimisticMeal: Meal = {
             ...newMeal,
-            id: Math.random().toString(36).substr(2, 9),
+            id: tempId,
             timestamp: newMeal.timestamp || new Date(),
+            user_id: user.id
         };
-        setMeals(prev => [meal, ...prev]);
+        setMeals(prev => [optimisticMeal, ...prev]);
+        */
+
+        // Persist to Supabase
+        try {
+            console.log("LOGGING MEAL: Sending insert request..."); // DEBUG
+            console.log("DEBUG: Meal Timestamp being saved:", (newMeal.timestamp || new Date()).toISOString());
+            const payload = {
+                user_id: user.id,
+                name: newMeal.name,
+                gl: newMeal.gl,
+                sugar_speed: newMeal.sugarSpeed,
+                energy_stability: newMeal.energyStability,
+                timestamp: (newMeal.timestamp || new Date()).toISOString(),
+                image_uri: newMeal.imageUri || null,
+                analysis_result: newMeal.analysisResult
+            };
+            console.log("Payload:", JSON.stringify(payload)); // DEBUG
+
+            const { data, error } = await supabase.from('meals').insert(payload).select().single();
+
+            if (error) {
+                console.error("Error logging meal:", error);
+                Alert.alert("Save Failed", `Could not save meal: ${error.message} (${error.code})`);
+            } else if (data) {
+                console.log("LOGGING MEAL: Success!", data); // DEBUG
+
+                // IMMEDIATE VERIFICATION
+                console.log("VERIFICATION: Checking if row exists in DB...");
+                const { data: verifyData, error: verifyError } = await supabase
+                    .from('meals')
+                    .select('*')
+                    .eq('id', data.id)
+                    .single();
+
+                if (verifyData) {
+                    console.log("VERIFICATION: Row found!", verifyData);
+                    // Manually update state with REAL data from DB
+                    const savedMeal: Meal = {
+                        id: data.id,
+                        name: data.name,
+                        gl: data.gl,
+                        sugarSpeed: data.sugar_speed,
+                        energyStability: data.energy_stability,
+                        timestamp: new Date(data.timestamp),
+                        imageUri: data.image_uri,
+                        analysisResult: data.analysis_result,
+                        addedSugar: data.analysis_result?.addedSugar,
+                        user_id: data.user_id
+                    };
+                    setMeals(prev => [savedMeal, ...prev]);
+                    Alert.alert("Success", "Meal saved and verified in cloud.");
+                } else {
+                    console.error("VERIFICATION: Row NOT found immediately after insert!", verifyError);
+                    Alert.alert("Ghost Save", "Server reported success, but data vanished. Check RLS policies.");
+                }
+            } else {
+                console.warn("LOGGING MEAL: No data returned but no error?");
+            }
+
+        } catch (e) {
+            console.error("Exception logging meal:", e);
+            Alert.alert("Save Error", "Network or server error.");
+        }
     };
 
-    const updateMeal = (id: string, updatedMeal: Partial<Meal>) => {
+    const updateMeal = async (id: string, updatedMeal: Partial<Meal>) => {
+        // Optimistic Update
         setMeals(prev => prev.map(meal =>
             meal.id === id ? { ...meal, ...updatedMeal } : meal
         ));
+
+        if (!user) return;
+
+        // Prepare DB payload
+        const updates: any = {};
+        if (updatedMeal.name) updates.name = updatedMeal.name;
+        if (updatedMeal.gl !== undefined) updates.gl = updatedMeal.gl;
+        if (updatedMeal.sugarSpeed) updates.sugar_speed = updatedMeal.sugarSpeed;
+        if (updatedMeal.energyStability) updates.energy_stability = updatedMeal.energyStability;
+        if (updatedMeal.analysisResult) updates.analysis_result = updatedMeal.analysisResult;
+
+        if (Object.keys(updates).length > 0) {
+            const { error } = await supabase.from('meals').update(updates).eq('id', id).eq('user_id', user.id);
+            if (error) console.error("Error updating meal:", error);
+        }
     };
 
     // --- Helpers ---
@@ -203,6 +339,12 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
 
     // --- Processors ---
 
+    // Helper to get current profile state for AI
+    const getUserProfile = () => ({
+        goal: userGoal || undefined,
+        diet: dietaryPreference || 'non-veg' // Default to non-veg if unknown to avoid strict blocking? Or 'veg' for safety? Defaulting 'non-veg' assumes user can filter, but 'veg' is safer. Let's stick to what we have.
+    });
+
     const processScan = async (action: PendingAction) => {
         const { id, imageBase64, imageUri, data } = action;
         if (!imageBase64) return;
@@ -214,22 +356,28 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             const t1 = setTimeout(() => { if (isMounted) updateActionStatus(id, 'separating', 50); }, 2500);
             const t2 = setTimeout(() => { if (isMounted) updateActionStatus(id, 'calculating', 75); }, 4500);
 
-            const result = await geminiService.analyzeFood(imageBase64);
+            // PASS USER PROFILE HERE
+            const result = await geminiService.analyzeFood(imageBase64, getUserProfile());
+
             clearTimeout(t1);
             clearTimeout(t2);
 
             if (!isMounted) return;
             updateActionStatus(id, 'finalizing', 100);
 
-            // Use provided date or fallback to now
+            let finalImageUri = imageUri;
+            if (imageUri) {
+                finalImageUri = await storageService.saveImage(imageUri);
+            }
+
             const timestamp = data?.date ? new Date(data.date) : new Date();
 
-            logMeal({
+            await logMeal({
                 name: result.foodName,
                 gl: result.glycemicLoad,
                 sugarSpeed: result.sugarSpeed,
                 energyStability: result.energyStability,
-                imageUri,
+                imageUri: finalImageUri,
                 imageBase64,
                 analysisResult: result,
                 timestamp: timestamp
@@ -253,7 +401,14 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             updateActionStatus(id, 'analyzing', 30);
             const t1 = setTimeout(() => { if (isMounted) updateActionStatus(id, 'calculating', 70); }, 2000);
 
-            const result = await geminiService.analyzeText(data.name || '', data.description, data.context);
+            // PASS USER PROFILE HERE
+            const result = await geminiService.analyzeText(
+                data.name || '',
+                data.description,
+                data.context,
+                getUserProfile()
+            );
+
             clearTimeout(t1);
 
             if (!isMounted) return;
@@ -265,10 +420,9 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
                 finalGL += (grams * 65) / 100;
             }
 
-            // Use provided date or fallback to now
             const timestamp = data.date ? new Date(data.date) : new Date();
 
-            logMeal({
+            await logMeal({
                 name: result.foodName,
                 gl: Math.round(finalGL),
                 sugarSpeed: result.sugarSpeed,
@@ -302,7 +456,14 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
         let isMounted = true;
         try {
             updateActionStatus(id, 'analyzing', 30);
-            const result = await geminiService.refineAnalysisWithFeedback(imageBase64, data.previousResult, data.userFeedback || '');
+
+            // PASS USER PROFILE HERE
+            const result = await geminiService.refineAnalysisWithFeedback(
+                imageBase64,
+                data.previousResult,
+                data.userFeedback || '',
+                getUserProfile()
+            );
 
             if (!isMounted) return;
             updateActionStatus(id, 'finalizing', 100);
@@ -366,10 +527,12 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
     return (
         <MealContext.Provider value={{
             userGoal,
+            dietaryPreference,
             dailyBudget,
             glConsumed,
             spikeCount,
             meals,
+            isLoaded,
             pendingActions,
             startScan,
             startTextAnalysis,
@@ -377,7 +540,7 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             logMeal,
             updateMeal,
             setGoal,
-            setDailyBudget
+            setDailyBudget: setDailyBudgetAction
         }}>
             {children}
         </MealContext.Provider>

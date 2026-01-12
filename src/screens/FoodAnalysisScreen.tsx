@@ -12,6 +12,7 @@ import { useMeal } from '../context/MealContext';
 import { geminiService, FoodAnalysisResult } from '../services/GeminiService';
 import { SUGAR_TYPES } from '../data/sugars';
 import { STRINGS } from '../constants/strings';
+import { calculateGLRange } from '../utils/glUtils';
 
 type FoodAnalysisRouteProp = RouteProp<RootStackParamList, 'FoodAnalysis'>;
 
@@ -248,7 +249,7 @@ export default function FoodAnalysisScreen() {
                         <Card style={styles.metricCard} variant="solid">
                             <Text style={styles.metricLabel}>{STRINGS.METRICS.SUGAR_SCORE}</Text>
                             <Text style={[styles.metricValue, { color: COLORS.brand.accent }]}>
-                                {Math.round(result.glycemicLoad)}
+                                {calculateGLRange(result.glycemicLoad)}
                             </Text>
                             <Text style={styles.metricUnit}>Points</Text>
                         </Card>

@@ -25,7 +25,19 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "name": "CutMySugar",
+      "shortName": "CutMySugar",
+      "lang": "en",
+      "startUrl": "/",
+      "themeColor": "#16a34a",
+      "backgroundColor": "#ffffff",
+      "display": "standalone",
+      "description": "Track your sugar intake and improve metabolic health.",
+      "orientation": "portrait",
+      "bumblebee": {
+        "devTools": false
+      }
     },
     "plugins": [
       "expo-web-browser",

@@ -49,6 +49,7 @@ const SYSTEM_PROMPT = `
 You are an expert nutritionist and endocrinologist specializing in Glycemic Index (GI) and Glycemic Load (GL) for the Indian population.
 
 Your task is to analyze food images and provide detailed glycemic data.
+It is risky to underestimate or overesimate the weight of the ingridients, so ensure you are looking into depth, volume and relative references to estimate the weight of the ingridients correctly. Incorrect measurements can be potentially fatal to users.
 
 **CRITICAL INSTRUCTIONS:**
 1.  **Identify the foods**: Be specific (e.g., ["Idli", "Sambar"]).
@@ -312,21 +313,51 @@ export class GeminiService {
         }
     }
 
-    async getRecommendationsForFood(foodName: string): Promise<string[]> {
-        // ⚠️ DO NOT EDIT PROMPT WITHOUT USER APPROVAL
+    async getRecommendationsForFood(foodName: string, userProfile?: { goal?: string, diet?: string }): Promise<string[]> {
+
+        let contextInstruction = "";
+
+        if (userProfile) {
+            const { goal, diet } = userProfile;
+            if (diet) {
+                if (diet === 'veg' || diet === 'vegetarian') {
+                    contextInstruction += "\n    * STRICT DIETARY RULE: User is VEGETARIAN. DO NOT suggest meat, fish, or eggs.";
+                } else if (diet === 'egg' || diet === 'eggetarian') {
+                    contextInstruction += "\n    * STRICT DIETARY RULE: User is EGGETARIAN. DO NOT suggest meat or fish. Eggs are OK.";
+                }
+            }
+            if (goal) {
+                if (goal.includes('pcos') || goal.includes('pcod')) {
+                    contextInstruction += "\n    * HEALTH GOAL: PCOS/PCOD. Focus on anti-inflammatory, low-insulin response foods.";
+                } else if (goal.includes('diabet')) {
+                    contextInstruction += "\n    * HEALTH GOAL: Diabetes Management. Focus on strict glucose control.";
+                }
+            }
+        }
+
         const PROMPT = `
-        You are an expert nutritionist advising a diabetic / PCOS user about: "${foodName}".
+        You are an expert nutritionist advising a user about: "${foodName}".
+        ${contextInstruction}
         
-        ** TASK: PROVIDE 2 GENIUS "GLUCOSE HACKS"(Indian Context) **
-    Give 2 specific, actionable, and culturally relevant tips to reduce the glucose spike from this SPECIFIC food.
+        ** TASK: PROVIDE 2 STRICTLY FORMATTED "GLUCOSE HACKS" (Indian Context) **
         
+        ** FORMAT RULE:**
+        Each string in the array MUST follow this EXACT format:
+        "Smart Swaps: [Advice within 50 chars]\nAlternatives: [Food item within 50 chars]"
+
         ** RULES:**
-    1. ** NO GENERIC ADVICE ** (e.g., Avoid "Eat less", "Avoid sugar").
-2. ** FOCUS ON PAIRING / SEQUENCING **: e.g., "Eat 4 almonds before this", "Add a tsp of Ghee to reduce GI", "Have a bowl of Dal first".
-        3. ** SMART SWAPS **: e.g., "Use Khapli Wheat instead", "Try Rava Idli".
-        4. ** Short & Punchy **: Max 10 - 12 words per tip.
-        
-        ** OUTPUT:** JSON Array of strings ONLY.Example: ["Dip Roti in Ghee to lower GI", "Start with a Cucumber Salad"]
+        1. ** NO BULLET POINTS ** (Do not use •, -, or * at the start).
+        2. ** BOLD KEYWORDS **: Make the main point **bold** instead of using bullets.
+        3. ** SMART SWAP **: A clever tweak (e.g., "**Add Ghee** to reduce GI").
+        4. ** ALTERNATIVE **: A replacement (e.g., "**Rava Idli**", "**Khapli Wheat**").
+        5. ** STRICT LENGTH LIMIT **: 50 characters max per line.
+
+        ** OUTPUT:** JSON Array of strings ONLY.
+        Example: 
+        [
+            "Smart Swaps: **Dip Roti in Ghee** to lower GI\\nAlternatives: **Multigrain Roti**",
+            "Smart Swaps: **Eat Cucumber salad** first\\nAlternatives: **Brown Rice**"
+        ]
     `;
 
         try {

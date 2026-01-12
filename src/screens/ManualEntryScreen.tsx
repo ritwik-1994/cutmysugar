@@ -11,6 +11,7 @@ import { NavigationProps, RootStackParamList } from '../navigation/types';
 import { STRINGS } from '../constants/strings';
 import { SUGAR_TYPES } from '../data/sugars';
 import { AlertTriangle } from 'lucide-react-native';
+import { calculateGLRange } from '../utils/glUtils';
 
 type FoodCategory = 'Green' | 'Yellow' | 'Red';
 type PortionSize = 'Small' | 'Medium' | 'Large';
@@ -23,7 +24,7 @@ type ManualEntryRouteProp = RouteProp<RootStackParamList, 'ManualEntry'>;
 export default function ManualEntryScreen() {
     const navigation = useNavigation<NavigationProps>();
     const route = useRoute<ManualEntryRouteProp>();
-    const { logMeal, startTextAnalysis } = useMeal();
+    const { logMeal, startTextAnalysis, userGoal, dietaryPreference } = useMeal();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -127,7 +128,7 @@ export default function ManualEntryScreen() {
             name: name.trim(),
             gl: Math.round(finalGL),
             sugarSpeed: finalAiResult ? finalAiResult.sugarSpeed : (spikeRisk === 'Fast Spike' ? 'Fast' : spikeRisk === 'Balanced' ? 'Moderate' : 'Slow'),
-            energyStability: finalGL > 20 ? 'Likely Crash' : finalGL > 10 ? 'Okay' : 'Steady',
+            energyStability: finalGL > 20 ? 'Crash' : finalGL > 10 ? 'Unsteady' : 'Stable',
             analysisResult: {
                 foodName: name.trim(),
                 glycemicIndex: finalAiResult ? finalAiResult.glycemicIndex : (category === 'Green' ? 30 : category === 'Yellow' ? 55 : 75),
@@ -144,7 +145,7 @@ export default function ManualEntryScreen() {
                 analysis: finalAiResult ? finalAiResult.analysis : `Manual entry based on ${category} category and ${portion} portion.${description ? `\nNote: ${description}` : ''}`,
                 recommendations: finalAiResult ? finalAiResult.recommendations : recommendations,
                 sugarSpeed: finalAiResult ? finalAiResult.sugarSpeed : (spikeRisk === 'Fast Spike' ? 'Fast' : spikeRisk === 'Balanced' ? 'Moderate' : 'Slow'),
-                energyStability: finalGL > 20 ? 'Likely Crash' : finalGL > 10 ? 'Okay' : 'Steady',
+                energyStability: finalGL > 20 ? 'Crash' : finalGL > 10 ? 'Unsteady' : 'Stable',
                 addedSugar: sugarData ? {
                     detected: true,
                     source: sugarData.typeId,
@@ -258,7 +259,13 @@ export default function ManualEntryScreen() {
         try {
             // Use description for better context if available
             const query = description.trim() ? `${name} (${description})` : name;
-            const recs = await geminiService.getRecommendationsForFood(query);
+
+            // PASS USER CONTEXT HERE
+            const recs = await geminiService.getRecommendationsForFood(query, {
+                goal: userGoal || undefined,
+                diet: dietaryPreference || undefined
+            });
+
             setRecommendations(recs);
         } catch (error) {
             setRecommendations(["Could not fetch advice. Try reducing portion size."]);
@@ -410,7 +417,7 @@ export default function ManualEntryScreen() {
                             <View style={styles.metricItem}>
                                 <Text style={styles.metricLabel}>{STRINGS.METRICS.SUGAR_SCORE}</Text>
                                 <Text style={[styles.metricValue, { color: COLORS.brand.primary }]}>
-                                    {gl}
+                                    {calculateGLRange(gl)}
                                 </Text>
                             </View>
                             <View style={styles.divider} />

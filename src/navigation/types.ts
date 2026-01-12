@@ -11,8 +11,8 @@ export type RootStackParamList = {
     ProteinMyth: undefined; // Keeping for now
     Preferences: undefined; // Keeping for now
     HeightWeight: undefined; // Keeping for now
-    Login: undefined;
-    PhoneNumber: undefined;
+    Login: { isRegistering?: boolean };
+    PhoneNumber: { isRegistering?: boolean };
     Home: undefined;
     ScanFood: { date?: string };
     SearchFood: { date?: string };

@@ -2,22 +2,29 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Platform, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { RootStackParamList, NavigationProps } from '../../navigation/types';
 import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../../styles/theme';
 import { Button } from '../../components/ui/Button';
-import { NavigationProps } from '../../navigation/types';
-import { Smartphone } from 'lucide-react-native';
+import { Smartphone, ArrowLeft } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
     console.log('Rendering LoginScreen');
     const navigation = useNavigation<NavigationProps>();
-    const { login, isLoading } = useAuth();
+    const route = useRoute<RouteProp<RootStackParamList, 'Login'>>();
+    console.log("LoginScreen: Route Params:", route.params);
+    // STRICT: Default to false (Login Mode) if parameter is missing/undefined.
+    const isRegistering = route.params?.isRegistering ?? false;
+    console.log("LoginScreen: Resolved isRegistering =", isRegistering);
 
+    const { signInWithGoogle, isLoading } = useAuth();
+    console.log(`LoginScreen: Rendered. isLoading=${isLoading}`);
     const [request, response, promptAsync] = Google.useAuthRequest({
         // androidClientId: "YOUR_ANDROID_CLIENT_ID",
         // iosClientId: "YOUR_IOS_CLIENT_ID",
@@ -27,33 +34,29 @@ export default function LoginScreen() {
     useEffect(() => {
         if (response?.type === 'success') {
             const { authentication } = response;
-            // In a real app, you'd use this token to sign in to Firebase
-            // const credential = GoogleAuthProvider.credential(authentication.accessToken);
-            // signInWithCredential(auth, credential);
-            login('google');
+            signInWithGoogle(authentication?.idToken);
         }
     }, [response]);
 
-    const handleGoogleLogin = () => {
+    const handleGoogleLogin = async () => {
         console.log('Google login pressed');
+
+        // Track Intent: Login vs Register
+        await AsyncStorage.setItem('auth_intent', isRegistering ? 'register' : 'login');
+
         if (Platform.OS === 'web') {
-            const confirm = window.confirm('Google Sign-In: This requires a Google Cloud Project and Client IDs. Simulate successful login?');
+            const confirm = window.confirm('Google Sign-In: This requires a Google Cloud Project and Client IDs. For now we will call the Supabase OAuth flow.');
             if (confirm) {
-                login('google');
+                await signInWithGoogle();
             }
             return;
         }
 
-        // promptAsync(); // This requires keys to work
-        // For now, we'll keep the simulated login so the user can test the flow
-        Alert.alert(
-            'Google Sign-In',
-            'This requires a Google Cloud Project and Client IDs. For now, we will simulate a successful login.',
-            [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Simulate Login', onPress: () => login('google') }
-            ]
-        );
+        try {
+            await signInWithGoogle();
+        } catch (e) {
+            Alert.alert('Login Failed', (e as Error).message);
+        }
     };
 
     const handlePhoneLogin = () => {
@@ -63,6 +66,27 @@ export default function LoginScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
+
+                {/* Back Button */}
+                <View style={{ alignSelf: 'flex-start', marginLeft: -SPACING.xs, marginBottom: SPACING.l }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={{
+                            width: 44,
+                            height: 44,
+                            borderRadius: 22,
+                            backgroundColor: COLORS.surface,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            ...SHADOWS.small,
+                            borderWidth: 1,
+                            borderColor: COLORS.surfaceLight
+                        }}
+                    >
+                        <ArrowLeft size={24} color={COLORS.text} />
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.header}>
                     <Image source={require('../../assets/logo.png')} style={styles.logo} resizeMode="contain" />
                     <Text style={styles.title}>Almost there.</Text>
@@ -71,21 +95,21 @@ export default function LoginScreen() {
 
                 <View style={styles.form}>
                     <Button
-                        title="Continue with Google"
-                        onPress={handleGoogleLogin}
-                        style={[styles.socialButton, { backgroundColor: '#FFFFFF' }]}
-                        textStyle={{ color: '#000000' }}
-                        icon={<Text style={styles.googleIcon}>G</Text>}
+                        title="Continue with Phone"
+                        onPress={() => navigation.navigate('PhoneNumber', { isRegistering })}
+                        style={styles.socialButton}
+                        icon={<Smartphone size={20} color={COLORS.white} />}
                         loading={isLoading}
                         disabled={isLoading}
                     />
 
                     <Button
-                        title="Continue with Phone"
-                        onPress={() => navigation.navigate('PhoneNumber')}
+                        title="Continue with Google"
+                        onPress={handleGoogleLogin}
                         variant="outline"
-                        style={styles.phoneButton}
-                        icon={<Smartphone size={20} color={COLORS.text} />}
+                        style={[styles.phoneButton, { backgroundColor: '#FFFFFF' }]}
+                        textStyle={{ color: '#000000' }}
+                        icon={<Text style={styles.googleIcon}>G</Text>}
                         loading={isLoading}
                         disabled={isLoading}
                     />
