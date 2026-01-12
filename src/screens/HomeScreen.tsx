@@ -38,6 +38,14 @@ export default function HomeScreen() {
     const navigation = useNavigation<NavigationProps>();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const { dailyBudget, setDailyBudget, meals, updateMeal, pendingActions } = useMeal();
+
+    useEffect(() => {
+        console.log(`HomeScreen Render: Total Meals=${meals.length}, Pending=${pendingActions.length}`);
+        if (meals.length > 0) {
+            console.log(`Latest Meal: ${meals[0].name} @ ${new Date(meals[0].timestamp).toLocaleString()}`);
+        }
+    }, [meals, pendingActions]);
+
     const { user, logout } = useAuth();
 
     const [editBudgetVisible, setEditBudgetVisible] = useState(false);
@@ -97,16 +105,21 @@ export default function HomeScreen() {
 
     // Filter meals by selected date
     const dailyMeals = meals.filter(meal => {
+        if (!meal.timestamp) return false;
+
         const d1 = new Date(meal.timestamp);
         const d2 = selectedDate;
-        const match = d1.getDate() === d2.getDate() &&
-            d1.getMonth() === d2.getMonth() &&
-            d1.getFullYear() === d2.getFullYear();
 
-        // Console log only occasionally or for specific debug
-        // console.log(`Filtering: Meal ${meal.name} (${d1.toISOString()}) vs Selected (${d2.toISOString()}) => ${match}`);
+        // Robust comparison using local date string
+        const match = d1.toDateString() === d2.toDateString();
+
+        // Debug first few meals to trace filtering issues
+        // if (meals.indexOf(meal) < 3) {
+        //    console.log(`[Filter] ${meal.name}: ${d1.toDateString()} vs ${d2.toDateString()} [${match ? 'KEEP' : 'DROP'}]`);
+        // }
+
         return match;
-    }).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()); // Sort desc
+    }).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     // Filter pending actions by date
     const dailyPendingActions = pendingActions.filter(action => {

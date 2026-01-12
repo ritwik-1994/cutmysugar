@@ -227,8 +227,7 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
 
         console.log("LOGGING MEAL: Starting for user:", user.id); // DEBUG
 
-        // Optimistic UI Update - TEMPORARILY DISABLED FOR DEBUGGING
-        /*
+        // Optimistic UI Update
         const tempId = Math.random().toString(36).substr(2, 9);
         const optimisticMeal: Meal = {
             ...newMeal,
@@ -237,7 +236,6 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             user_id: user.id
         };
         setMeals(prev => [optimisticMeal, ...prev]);
-        */
 
         // Persist to Supabase
         try {
@@ -286,7 +284,7 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
                         addedSugar: data.analysis_result?.addedSugar,
                         user_id: data.user_id
                     };
-                    setMeals(prev => [savedMeal, ...prev]);
+                    setMeals(prev => [savedMeal, ...prev.filter(m => m.id !== tempId)]);
                     Alert.alert("Success", "Meal saved and verified in cloud.");
                 } else {
                     console.error("VERIFICATION: Row NOT found immediately after insert!", verifyError);
