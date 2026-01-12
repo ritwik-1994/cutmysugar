@@ -37,6 +37,13 @@
       "orientation": "portrait",
       "bumblebee": {
         "devTools": false
+      },
+      "meta": {
+        "apple": {
+          "mobileWebAppCapable": "yes",
+          "mobileWebAppStatusBarStyle": "black-translucent",
+          "touchIcon": "apple-touch-icon.png"
+        }
       }
     },
     "plugins": [
