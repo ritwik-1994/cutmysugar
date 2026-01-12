@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
-import { Meal } from '../context/MealContext';
+
 
 const MEALS_KEY = 'meals_data';
 const BUDGET_KEY = 'user_budget';
@@ -12,25 +12,10 @@ export class StorageService {
 
     // --- Public API ---
 
-    async saveMeals(meals: Meal[]): Promise<void> {
-        // Deprecated: Meals are now saved to Supabase
-        // console.log("StorageService.saveMeals is deprecated");
-    }
+    // --- Public API ---
 
-    async loadMeals(): Promise<Meal[]> {
-        // Deprecated: Meals are loaded from Supabase
-        console.log("StorageService.loadMeals is deprecated");
-        return [];
-    }
+    // Deprecated methods removed for scalability audit
 
-    async saveBudget(budget: number): Promise<void> {
-        // Deprecated: Budget is saved to Supabase user_settings
-    }
-
-    async loadBudget(): Promise<number | null> {
-        // Deprecated
-        return null;
-    }
 
     /**
      * Move a temporary image (from camera/picker) to permanent storage (Native)
@@ -80,68 +65,8 @@ export class StorageService {
 
     // --- Private Helpers ---
 
-    private prepareMealsForStorage(meals: Meal[]): any[] {
-        return meals.map(m => {
-            // Shallow clone
-            const clone = { ...m };
-
-            if (Platform.OS === 'web') {
-                // WEB: Persist base64 (Data URI logic)
-                // If it's a blob url and we have base64, ensure we keep base64
-                // We don't strip anything.
-                return clone;
-            }
-
-            // NATIVE: Persist FileSystem Path
-            // 1. Strip Base64 to save space
-            delete clone.imageBase64;
-
-            // 2. Strip Data URIs from imageUri if they exist (should not on native)
-            if (clone.imageUri?.startsWith('data:')) {
-                clone.imageUri = undefined;
-            }
-
-            // 3. Normalize Path for Sandbox Rotation
-            const FS = FileSystem as any;
-            const rawDocDir = FS.documentDirectory;
-            const docDir = rawDocDir ? (rawDocDir.endsWith('/') ? rawDocDir : rawDocDir + '/') : null;
-
-            if (clone.imageUri && docDir && clone.imageUri.startsWith(docDir)) {
-                clone.imageUri = clone.imageUri.replace(docDir, '{{DOC_DIR}}');
-            }
-
-            return clone;
-        });
-    }
-
-    private hydrateMeals(meals: any[]): Meal[] {
-        // Native Doc Dir
-        let docDir: string | null = null;
-        if (Platform.OS !== 'web') {
-            const FS = FileSystem as any;
-            const raw = FS.documentDirectory;
-            docDir = raw ? (raw.endsWith('/') ? raw : raw + '/') : null;
-        }
-
-        return meals.map(m => {
-            if (!m) return null;
-            const meal = { ...m };
-
-            // NATIVE: Hydrate Path
-            if (Platform.OS !== 'web' && docDir && meal.imageUri && meal.imageUri.includes('{{DOC_DIR}}')) {
-                meal.imageUri = meal.imageUri.replace('{{DOC_DIR}}', docDir);
-            }
-
-            // WEB: Fallback from imageBase64 if imageUri is lost/blob
-            if (Platform.OS === 'web') {
-                if (!meal.imageUri && meal.imageBase64) {
-                    meal.imageUri = `data:image/jpeg;base64,${meal.imageBase64}`;
-                }
-            }
-
-            return meal;
-        }).filter(Boolean);
-    }
+    // --- Private Helpers ---
+    // Deprecated helpers removed.
 }
 
 export const storageService = new StorageService();

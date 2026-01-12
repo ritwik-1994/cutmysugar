@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import Svg, { Rect, Text as SvgText, Line, Path, Circle } from 'react-native-svg';
+import Svg, { Rect, Text as SvgText, Line, Path, Circle, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
 import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../../styles/theme';
 import { Meal } from '../../context/MealContext';
 import { Card } from '../ui/Card';
@@ -55,8 +55,10 @@ export const WeeklyProgressChart = ({ meals, dailyBudget }: WeeklyProgressChartP
     };
 
     const getBarColor = (value: number) => {
-        if (value > dailyBudget) return COLORS.sugarScore.criticalText; // Darker Red
-        return COLORS.sugarScore.safeText; // Darker Green for better visibility
+        if (value > dailyBudget) return '#BE123C'; // Red
+        if (value > dailyBudget * 0.75) return '#F97316'; // Orange
+        if (value > dailyBudget * 0.5) return '#FACC15'; // Yellow
+        return '#10B981'; // Green
     };
 
     const budgetY = getY(dailyBudget);
@@ -90,6 +92,23 @@ export const WeeklyProgressChart = ({ meals, dailyBudget }: WeeklyProgressChartP
             >
                 {chartWidth > 0 && (
                     <Svg width={chartWidth} height={chartHeight + 30}>
+                        {/* Gradient Definitions */}
+                        <Defs>
+                            <SvgLinearGradient id="weeklyChartGradient" x1="0" y1="1" x2="0" y2="0">
+                                <Stop offset="0" stopColor="#10B981" />
+                                <Stop offset={`${(dailyBudget * 0.5) / maxValue}`} stopColor="#10B981" />
+
+                                <Stop offset={`${(dailyBudget * 0.5) / maxValue}`} stopColor="#FACC15" />
+                                <Stop offset={`${(dailyBudget * 0.75) / maxValue}`} stopColor="#FACC15" />
+
+                                <Stop offset={`${(dailyBudget * 0.75) / maxValue}`} stopColor="#F97316" />
+                                <Stop offset={`${dailyBudget / maxValue}`} stopColor="#F97316" />
+
+                                <Stop offset={`${dailyBudget / maxValue}`} stopColor="#BE123C" />
+                                <Stop offset="1" stopColor="#BE123C" />
+                            </SvgLinearGradient>
+                        </Defs>
+
                         {/* Budget Line */}
                         <Line
                             x1="0"
@@ -114,32 +133,15 @@ export const WeeklyProgressChart = ({ meals, dailyBudget }: WeeklyProgressChartP
                             Daily Limit: {dailyBudget}
                         </SvgText>
 
-                        {/* The Line Segments */}
-                        {weeklyData.map((item, index) => {
-                            if (index === weeklyData.length - 1) return null;
-                            const nextItem = weeklyData[index + 1];
-
-                            const x1 = index * (barWidth + spacing) + barWidth / 2;
-                            const y1 = getY(item.value);
-                            const x2 = (index + 1) * (barWidth + spacing) + barWidth / 2;
-                            const y2 = getY(nextItem.value);
-
-                            // Line is red if the destination point is above budget
-                            const isRed = nextItem.value > dailyBudget;
-
-                            return (
-                                <Line
-                                    key={`line-${index}`}
-                                    x1={x1}
-                                    y1={y1}
-                                    x2={x2}
-                                    y2={y2}
-                                    stroke={isRed ? COLORS.sugarScore.criticalText : COLORS.brand.primary}
-                                    strokeWidth="5"
-                                    strokeLinecap="round"
-                                />
-                            );
-                        })}
+                        {/* Metallic Gradient Line Path */}
+                        <Path
+                            d={linePath}
+                            stroke="url(#weeklyChartGradient)"
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            fill="none"
+                        />
 
                         {/* Data Points */}
                         {weeklyData.map((item, index) => {

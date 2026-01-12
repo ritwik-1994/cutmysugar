@@ -65,12 +65,11 @@ Deno.serve(async (req) => {
         // 2. Construct Vertex AI Request
         const projectId = saKey.project_id
         const location = 'asia-south1'
-        const modelId = 'gemini-2.5-flash' // STRICT USER REQUEST
+        // STRICT USER REQUEST: gemini-2.5-flash, fallback to gemini-2.5-flash-lite
+        const PRIMARY_MODEL = 'gemini-2.5-flash';
+        const PBACKUP_MODEL = 'gemini-2.5-flash-lite';
 
-        // SWITCH TO NON-STREAMING ENDPOINT (generateContent) prevents partial chunks
-        const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${modelId}:generateContent`
-
-        const parts = []
+        const parts: any[] = []
         if (prompt) parts.push({ text: prompt })
         if (base64Image) {
             const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, '')
@@ -88,50 +87,72 @@ Deno.serve(async (req) => {
             parts.push({ text: textContext })
         }
 
-        // 3. Call Vertex AI API
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [{ role: 'user', parts: parts }],
-                generationConfig: {
-                    temperature: 0.0,
-                    maxOutputTokens: 16384, // INCREASED to ~16k per user request
-                    topP: 0.8,
-                    topK: 40
-                }
+        const callVertex = async (modelId: string) => {
+            // SWITCH TO NON-STREAMING ENDPOINT (generateContent) prevents partial chunks
+            const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${modelId}:generateContent`
+
+            console.log(`Attempting Model: ${modelId}`);
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{ role: 'user', parts: parts }],
+                    generationConfig: {
+                        temperature: 0.0,
+                        maxOutputTokens: 8192,
+                        topP: 0.95,
+                        responseMimeType: "application/json" // JSON Mode for deterministic parsing
+                    }
+                })
             })
-        })
 
-        if (!response.ok) {
-            // ... (Diagnostic Logic same as before) ...
-            const errorText = await response.text()
-
-            // --- DIAGNOSTIC PROBE: LIST LOCATIONS ---
-            console.log("Main call failed. Probing accessible locations...");
-            let locationDebug = "Probe failed";
-            try {
-                const locResp = await fetch(`https://aiplatform.googleapis.com/v1/projects/${projectId}/locations`, {
-                    headers: { 'Authorization': `Bearer ${accessToken}` }
-                });
-                if (locResp.ok) {
-                    const locData = await locResp.json();
-                    const locIds = locData.locations ? locData.locations.map((l: any) => l.locationId).join(", ") : "No locations found";
-                    locationDebug = `Accessible Regions: [${locIds}]`;
-                } else {
-                    locationDebug = `Probe Error: ${locResp.status} - ${await locResp.text()}`;
-                }
-            } catch (probeError) {
-                locationDebug = `Probe Exception: ${probeError.message}`;
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`Model ${modelId} failed (${response.status}): ${errText}`);
             }
 
-            throw new Error(`Vertex AI Failed (${response.status}). ${locationDebug} || Original Error: ${errorText}`)
+            return response.json();
         }
 
-        const data = await response.json()
+        let data;
+        let usedModel = PRIMARY_MODEL;
+
+        try {
+            data = await callVertex(PRIMARY_MODEL);
+        } catch (primaryError) {
+            console.warn(`Primary model ${PRIMARY_MODEL} failed. Retrying with backup ${PBACKUP_MODEL}. Error:`, primaryError);
+            try {
+                usedModel = PBACKUP_MODEL;
+                data = await callVertex(PBACKUP_MODEL);
+            } catch (backupError) {
+                // ... (Diagnostic Logic same as before) ...
+                // If both fail, throw critical error
+                console.error("Both models failed.");
+
+                // --- DIAGNOSTIC PROBE: LIST LOCATIONS ---
+                let locationDebug = "Probe failed";
+                try {
+                    const locResp = await fetch(`https://aiplatform.googleapis.com/v1/projects/${projectId}/locations`, {
+                        headers: { 'Authorization': `Bearer ${accessToken}` }
+                    });
+                    if (locResp.ok) {
+                        const locData = await locResp.json();
+                        const locIds = locData.locations ? locData.locations.map((l: any) => l.locationId).join(", ") : "No locations found";
+                        locationDebug = `Accessible Regions: [${locIds}]`;
+                    } else {
+                        locationDebug = `Probe Error: ${locResp.status} - ${await locResp.text()}`;
+                    }
+                } catch (probeError) {
+                    locationDebug = `Probe Exception: ${probeError.message}`;
+                }
+
+                throw new Error(`All Models Failed. Last Error: ${backupError.message}. ${locationDebug}`)
+            }
+        }
 
         // NEW PARSING LOGIC FOR generateContent (one object, not array)
         let fullText = ""

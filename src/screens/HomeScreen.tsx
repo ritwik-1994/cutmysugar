@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image, LayoutChangeEvent, NativeSyntheticEvent, NativeScrollEvent, ActivityIndicator } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { NavigationProps } from '../navigation/types';
@@ -324,12 +325,12 @@ export default function HomeScreen() {
                                 width: 50,
                                 height: 50,
                                 borderRadius: 25,
-                                backgroundColor: COLORS.brand.secondary,
+                                backgroundColor: COLORS.surfaceLight,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 marginBottom: SPACING.m
                             }}>
-                                <Utensils size={24} color={COLORS.brand.primary} />
+                                <Utensils size={24} color={COLORS.text} />
                             </View>
                             <Text style={styles.emptyStateText}>{STRINGS.HOME.EMPTY.TEXT}</Text>
                             <Text style={styles.emptyStateLink}>{STRINGS.HOME.EMPTY.SUBTEXT}</Text>
@@ -365,6 +366,7 @@ export default function HomeScreen() {
                 <TouchableOpacity
                     style={styles.scrollCuePill}
                     onPress={() => {
+                        // @ts-ignore
                         scrollRef.current?.scrollTo({ y: scrollTargetY, animated: true });
                     }}
                     activeOpacity={0.8}
@@ -380,7 +382,7 @@ export default function HomeScreen() {
                 activeOpacity={0.8}
                 onPress={() => setAddMealVisible(true)}
             >
-                <Plus color="#FFF" size={32} />
+                <Plus color="#FFFFFF" size={32} />
             </TouchableOpacity>
 
             {/* PWA Install Banner - Shows ONLY after successful scan/log */}
@@ -404,6 +406,7 @@ export default function HomeScreen() {
                             value={tempBudget}
                             onChangeText={setTempBudget}
                             placeholder="Enter limit"
+                            placeholderTextColor={COLORS.textTertiary}
                         />
 
                         <View style={styles.modalButtons}>
@@ -434,13 +437,16 @@ export default function HomeScreen() {
                 onClose={() => setSettingsVisible(false)}
             />
         </SafeAreaView>
+
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.background,
+    },
+    safeArea: {
+        flex: 1,
     },
     scrollContent: {
         paddingBottom: 100, // Space for FAB
@@ -470,12 +476,14 @@ const styles = StyleSheet.create({
     spikeCounter: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: COLORS.surface,
+        backgroundColor: COLORS.surfaceLight, // Rose 50
         paddingHorizontal: 12,
         paddingVertical: 8,
         borderRadius: 20,
         gap: 6,
         ...SHADOWS.light,
+        borderWidth: 1,
+        borderColor: COLORS.divider,
     },
     spikeCountText: {
         fontFamily: FONTS.heading,
@@ -581,7 +589,7 @@ const styles = StyleSheet.create({
         width: 64,
         height: 64,
         borderRadius: 32,
-        backgroundColor: COLORS.brand.primary,
+        backgroundColor: COLORS.brand.primary, // Blood Red
         justifyContent: 'center',
         alignItems: 'center',
         ...SHADOWS.medium,

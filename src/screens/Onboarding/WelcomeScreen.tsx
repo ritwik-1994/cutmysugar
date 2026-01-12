@@ -66,7 +66,7 @@ export default function WelcomeScreen() {
                 <View style={styles.header}>
                     <Image source={require('../../assets/logo.png')} style={styles.logo} resizeMode="contain" />
                     <Text style={styles.title}>
-                        {user ? "Almost there! \uD83C\uDF89" : "Hi there! \uD83D\uDC4B"}
+                        {user ? "Almost there! \uD83C\uDF89" : "Cutting sugar is easy with CutMySugar"}
                     </Text>
                     <Text style={styles.subtitle}>
                         {user ? "Let's finish setting up your profile." : "Let's get to know you. What should we call you?"}
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     subtitle: {
-        fontFamily: FONTS.body,
+        fontFamily: FONTS.medium,
         fontSize: 18,
         color: COLORS.textSecondary,
         textAlign: 'center',

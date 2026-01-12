@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { createContext, useState, useContext, ReactNode, useEffect, useMemo } from 'react';
 import { Alert } from 'react-native';
 import { geminiService, FoodAnalysisResult } from '../services/GeminiService';
 import { storageService } from '../services/StorageService';
@@ -139,7 +139,8 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
                     .from('meals')
                     .select('*')
                     .eq('user_id', user.id)
-                    .order('timestamp', { ascending: false });
+                    .order('timestamp', { ascending: false })
+                    .limit(100); // Scalability: Limit to recent 100 items
 
                 console.log("DEBUG: Fetch Result:", {
                     count: mealsData?.length,
@@ -179,9 +180,9 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
         loadData();
     }, [user?.id]);
 
-    // Derived state
-    const glConsumed = meals.reduce((total, meal) => total + meal.gl, 0);
-    const spikeCount = meals.filter(m => m.sugarSpeed === 'Fast').length;
+    // Derived state (Memoized for performance)
+    const glConsumed = useMemo(() => meals.reduce((total, meal) => total + meal.gl, 0), [meals]);
+    const spikeCount = useMemo(() => meals.filter(m => m.sugarSpeed === 'Fast').length, [meals]);
 
     // --- Actions ---
 
@@ -357,7 +358,7 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             const t2 = setTimeout(() => { if (isMounted) updateActionStatus(id, 'calculating', 75); }, 4500);
 
             // PASS USER PROFILE HERE
-            const result = await geminiService.analyzeFood(imageBase64, getUserProfile());
+            const result = await geminiService.analyzeFood(imageBase64, getUserProfile(), imageUri);
 
             clearTimeout(t1);
             clearTimeout(t2);

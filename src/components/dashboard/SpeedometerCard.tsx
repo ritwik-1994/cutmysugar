@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
-import Svg, { Path, Circle, Defs, LinearGradient, Stop, Text as SvgText } from 'react-native-svg';
+import Svg, { Path, Circle, Defs, LinearGradient as SvgLinearGradient, Stop, Text as SvgText } from 'react-native-svg';
+import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -10,10 +11,10 @@ import Animated, {
     withTiming,
     interpolateColor,
 } from 'react-native-reanimated';
-import { Zap, Activity } from 'lucide-react-native';
-import { Card } from '../ui/Card';
+import { Zap, Activity, TrendingUp, Droplet, Box } from 'lucide-react-native';
+import { ShimmerGradient } from '../ui/ShimmerGradient';
+
 import { COLORS, FONTS, SPACING, SHADOWS } from '../../styles/theme';
-import { STRINGS } from '../../constants/strings';
 
 // Animated components
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -26,7 +27,7 @@ const BASE_HEIGHT = 180;
 const CX = BASE_WIDTH / 2;
 const CY = 160;
 const RADIUS = 120;
-const STROKE_WIDTH = 24;
+const STROKE_WIDTH = 28; // Slightly thicker for premium feel
 
 const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
     const angleInRadians = (angleInDegrees) * Math.PI / 180.0;
@@ -133,7 +134,7 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
         const bgColor = interpolateColor(
             progress.value,
             [0.8, 1.0], // Max out at 1.0
-            [COLORS.text, COLORS.sugarScore.criticalText]
+            [COLORS.text, COLORS.danger]
         );
         return { backgroundColor: bgColor };
     });
@@ -149,201 +150,269 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
 
     // 5. Status Logic (Safe/Risky/Danger)
     let statColor = COLORS.sugarScore.safeText;
+    let statBg = COLORS.sugarScore.safe;
     let statText = "Safe";
 
     if (percentage > 100) {
         statColor = COLORS.sugarScore.criticalText;
-        statText = "Danger";
+        statBg = COLORS.sugarScore.danger;
+        statText = "Over Limit";
     } else if (percentage >= 50) {
-        statColor = '#F97316'; // Orange
-        statText = "Risky";
-    } else {
-        statText = "OK"; // < 50%
+        statColor = COLORS.sugarScore.warningText;
+        statBg = COLORS.sugarScore.warning;
+        statText = "Watch Out";
     }
 
-    // Dynamic Gradient Logic
+    // Dynamic Gradient Logic (Blood Range)
     const gradientColors = useMemo(() => {
-        if (percentage > 100) return ['#EF4444', '#991B1B']; // Deep Red
-        if (percentage >= 50) return ['#F97316', '#EA580C']; // Orange
-        return ['#22C55E', '#15803D']; // Green
-    }, [percentage]);
+        // Safe (Green) -> Warning (Amber) -> Danger (Blood Red)
+        return ['#10B981', '#F59E0B', '#BE123C'];
+    }, []);
 
     const gradId = useMemo(() => `speedometer-grad-${Math.random().toString(36).substr(2, 9)}`, []);
+    const bezelGradId = useMemo(() => `bezel-grad-${Math.random().toString(36).substr(2, 9)}`, []);
 
     return (
         <TouchableOpacity activeOpacity={0.95} onPress={onPress}>
-            <Card style={[styles.card, { overflow: 'hidden' }]} variant="solid">
+            <View style={styles.cardContainer}>
+                <LinearGradient
+                    colors={COLORS.metallic.roseGold as any} // Metallic Rose Gold
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.cardGradient}
+                >
+                    {/* Active Shimmer Overlay */}
+                    <ShimmerGradient
+                        colors={['transparent', 'rgba(255,255,255,0.8)', 'transparent']}
+                        duration={3000}
+                        style={{ opacity: 0.3 }}
+                    />
 
-                {/* Alert Background Overlay */}
-                <AnimatedView style={[StyleSheet.absoluteFill, animatedBgStyle]} pointerEvents="none" />
-
-                {/* Header */}
-                <View style={styles.headerRow}>
-                    <View>
-                        <Text style={styles.headerLabel}>DAILY LIMIT</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
-                            <Text style={styles.headerValue}>{consumed}</Text>
-                            <Text style={styles.headerSub}>/ {budget} {STRINGS.METRICS.SUGAR_SCORE}</Text>
-                        </View>
-                    </View>
-                    <View style={[styles.badge, { backgroundColor: statColor + '15' }]}>
-                        <Text style={[styles.badgeText, { color: statColor }]}>{statText}</Text>
-                    </View>
-                </View>
-
-                {/* Gauge Area */}
-                <View style={[styles.gaugeArea, { height: svgHeight + 10 }]}>
-
-                    {/* Coordinate Root */}
-                    <View style={{ width: svgWidth, height: svgHeight, position: 'relative' }}>
-
-                        {/* Gauge SVG */}
-                        <Svg width={svgWidth} height={svgHeight} viewBox={`0 0 ${BASE_WIDTH} ${BASE_HEIGHT}`} style={{ position: 'absolute', top: 0, left: 0 }}>
-                            <Defs>
-                                <LinearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
-                                    <Stop offset="0" stopColor={percentage > 100 ? gradientColors[0] : "#22C55E"} />
-                                    <Stop offset="0.5" stopColor={percentage > 100 ? gradientColors[0] : "#EAB308"} />
-                                    <Stop offset="1" stopColor={percentage > 100 ? gradientColors[1] : "#F97316"} />
-                                </LinearGradient>
-                            </Defs>
-
-                            {/* Background Track */}
-                            <Path d={ARC_MAIN} stroke={COLORS.background} strokeWidth={STROKE_WIDTH} strokeOpacity={0.5} fill="none" />
-                            {/* Active Track */}
-                            <Path d={ARC_MAIN} stroke={`url(#${gradId})`} strokeWidth={STROKE_WIDTH} fill="none" strokeLinecap="round" />
-
-                            {/* Decorations */}
-                            <Circle cx={CX - RADIUS - 18} cy={CY} r={4} fill={COLORS.textTertiary} opacity={0.5} />
-                            <Circle cx={CX + RADIUS + 18} cy={CY} r={4} fill={COLORS.textTertiary} opacity={0.5} />
-
-                            {/* Labels (SVG Text) */}
-                            {/* Labels (SVG Text) */}
-                            <SvgText x={CX - RADIUS - 25} y={CY + 8} fill="#000000" fontSize="12" fontWeight="900" textAnchor="middle">Safe</SvgText>
-                            <SvgText x={CX} y={CY - RADIUS + 50} fill="#000000" fontSize="14" fontWeight="900" textAnchor="middle">OK</SvgText>
-                            <SvgText x={CX + RADIUS + 25} y={CY + 8} fill="#000000" fontSize="12" fontWeight="900" textAnchor="middle">Risky</SvgText>
-                        </Svg>
-
-                        {/* Needle */}
-                        <AnimatedView style={[
-                            styles.needleContainer,
-                            {
-                                left: '50%', // Strictly center X
-                                top: CY * scale // Scaled Y position
-                            },
-                            animatedNeedleStyle
-                        ]}>
-                            <AnimatedView style={[styles.needleBody, animatedNeedleColorStyle]} />
-                            <View style={styles.needleHub} />
-                            <View style={styles.needleHubInner} />
-                        </AnimatedView>
-
-                        {/* Overload Icon */}
-                        {percentage > 100 && (
-                            <View style={{ position: 'absolute', bottom: 40 * scale, left: 0, right: 0, alignItems: 'center' }}>
-                                <Text style={{ fontSize: 28 * scale }}>⚠️</Text>
-                            </View>
-                        )}
-
-                    </View>
-                </View>
-
-                {/* Dashboard Footer */}
-                <View style={styles.dashboardFooter}>
-                    {/* Spikes */}
-                    <View style={styles.metricItem}>
-                        <View style={styles.metricIconBg}>
-                            <Zap size={20} color={COLORS.text} />
-                        </View>
+                    {/* Header */}
+                    <View style={styles.headerRow}>
                         <View>
-                            <Text style={styles.metricValue}>{spikes} Spikes</Text>
-                            <Text style={styles.metricLabel}>{spikes === 0 ? "Perfect" : spikes > 2 ? "High Risk" : "Moderate"}</Text>
+                            <Text style={styles.headerLabel}>DAILY GLUCOSE BUDGET</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
+                                <Text style={styles.headerValue}>{consumed}</Text>
+                                <Text style={styles.headerSub}>/ {budget} GL</Text>
+                            </View>
+                        </View>
+                        <View style={[styles.badge, { backgroundColor: statBg }]}>
+                            <Text style={[styles.badgeText, { color: statColor }]}>{statText}</Text>
                         </View>
                     </View>
 
-                    <View style={styles.divider} />
+                    {/* Gauge Area */}
+                    <View style={[styles.gaugeArea, { height: svgHeight + 10 }]}>
+                        {/* Glow Effect (Blood Glow) */}
+                        <View style={{
+                            position: 'absolute',
+                            width: 200, height: 200,
+                            borderRadius: 100,
+                            backgroundColor: percentage > 100 ? COLORS.danger : COLORS.brand.primary,
+                            opacity: 0.1,
+                            transform: [{ scale: 1.2 }],
+                            top: 20
+                        }} />
 
-                    {/* Stability */}
-                    <View style={styles.metricItem}>
-                        <View style={[styles.metricIconBg, { backgroundColor: '#E0F2FE' }]}>
-                            <Activity size={20} color={COLORS.text} />
-                        </View>
-                        <View style={{ flex: 1 }}>
-                            <Text style={styles.metricValue} numberOfLines={1} adjustsFontSizeToFit>{energyStability}</Text>
-                            <Text style={styles.metricLabel}>Energy Flow</Text>
+                        {/* Coordinate Root */}
+                        <View style={{ width: svgWidth, height: svgHeight, position: 'relative' }}>
+
+                            {/* Gauge SVG */}
+                            <Svg width={svgWidth} height={svgHeight} viewBox={`0 0 ${BASE_WIDTH} ${BASE_HEIGHT}`} style={{ position: 'absolute', top: 0, left: 0 }}>
+                                <Defs>
+                                    <SvgLinearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
+                                        <Stop offset="0" stopColor="#10B981" />
+                                        <Stop offset="0.5" stopColor="#FACC15" />
+                                        <Stop offset="0.75" stopColor="#F97316" />
+                                        <Stop offset="1" stopColor="#BE123C" />
+                                    </SvgLinearGradient>
+
+                                    {/* Gold Chrome Bezel Gradient */}
+                                    <SvgLinearGradient id={bezelGradId} x1="0" y1="0" x2="0" y2="1">
+                                        <Stop offset="0" stopColor="#FFF1F2" />
+                                        <Stop offset="0.25" stopColor="#FECDD3" />
+                                        <Stop offset="0.5" stopColor="#F43F5E" />
+                                        <Stop offset="0.75" stopColor="#FECDD3" />
+                                        <Stop offset="1" stopColor="#FFF1F2" />
+                                    </SvgLinearGradient>
+                                </Defs>
+
+                                {/* Metallic Bezel Ring */}
+                                <Path
+                                    d={ARC_MAIN}
+                                    stroke={`url(#${bezelGradId})`}
+                                    strokeWidth={STROKE_WIDTH + 6} // Thicker chrome rim
+                                    strokeLinecap="round"
+                                    fill="none"
+                                    opacity={0.8}
+                                />
+
+                                {/* Inner Shadow for depth */}
+                                <Path
+                                    d={ARC_MAIN}
+                                    stroke={COLORS.metallic.borderShadow}
+                                    strokeWidth={STROKE_WIDTH + 8}
+                                    strokeLinecap="round"
+                                    fill="none"
+                                    opacity={0.2}
+                                    y={2} // Offset Y
+                                />
+
+                                {/* Background Track */}
+                                <Path d={ARC_MAIN} stroke="#FECDD3" strokeWidth={STROKE_WIDTH} strokeLinecap="round" fill="none" opacity={0.3} />
+                                {/* Active Track */}
+                                <Path d={ARC_MAIN} stroke={`url(#${gradId})`} strokeWidth={STROKE_WIDTH} fill="none" strokeLinecap="round" />
+                                <Path d={ARC_MAIN} stroke={`url(#${gradId})`} strokeWidth={STROKE_WIDTH} fill="none" strokeLinecap="round" strokeDasharray={`${Math.PI * RADIUS}`} strokeDashoffset={`${Math.PI * RADIUS * (1 - displayRatio)}`} />
+
+                                {/* Labels */}
+                                <SvgText x={CX - RADIUS - 25} y={CY + 10} fill={COLORS.textSecondary} fontSize="12" fontWeight="600" textAnchor="middle">0%</SvgText>
+                                <SvgText x={CX + RADIUS + 25} y={CY + 10} fill={COLORS.textSecondary} fontSize="12" fontWeight="600" textAnchor="middle">100%</SvgText>
+                            </Svg>
+
+                            {/* Needle */}
+                            <AnimatedView style={[
+                                styles.needleContainer,
+                                {
+                                    left: '50%', // Strictly center X
+                                    top: CY * scale // Scaled Y position
+                                },
+                                animatedNeedleStyle
+                            ]}>
+                                <AnimatedView style={[styles.needleBody, animatedNeedleColorStyle]} />
+                                <View style={styles.needleHub} />
+                                <View style={styles.needleHubInner} />
+                            </AnimatedView>
+
+                            {/* Icons: Blood (Danger) or Sugar Cubes (Safe/Warn) */}
+                            {percentage > 100 ? (
+                                <View style={{ position: 'absolute', bottom: 40 * scale, left: 0, right: 0, alignItems: 'center' }}>
+                                    <Droplet size={28 * scale} color={COLORS.danger} fill={COLORS.danger} />
+                                </View>
+                            ) : (
+                                <View style={{ position: 'absolute', bottom: 40 * scale, left: 0, right: 0, flexDirection: 'row', justifyContent: 'center', gap: 4 }}>
+                                    {/* 1 Cube: Always shown if < 100% (Safe) */}
+                                    <Box size={20 * scale} color={COLORS.textTertiary} strokeWidth={2.5} />
+
+                                    {/* 2 Cubes: Shown if >= 50% (OK/Warning) */}
+                                    {percentage >= 50 && (
+                                        <Box size={20 * scale} color={COLORS.sugarScore.warningText} strokeWidth={2.5} />
+                                    )}
+
+                                    {/* 3 Cubes: Shown if >= 80% (Risky) */}
+                                    {percentage >= 80 && (
+                                        <Box size={20 * scale} color={COLORS.sugarScore.criticalText} strokeWidth={2.5} />
+                                    )}
+                                </View>
+                            )}
                         </View>
                     </View>
 
-                    <View style={styles.divider} />
-
-                    {/* Usage */}
-                    <View style={styles.metricItem}>
-                        <View style={[styles.metricIconBg, { backgroundColor: '#F3E8FF' }]}>
-                            <Text style={{ fontSize: 16 }}>📊</Text>
+                    {/* Dashboard Footer */}
+                    <View style={styles.dashboardFooter}>
+                        {/* Spikes */}
+                        <View style={styles.metricItem}>
+                            <View style={[styles.metricIconBg, { backgroundColor: COLORS.surfaceLight }]}>
+                                <Activity size={18} color={COLORS.text} />
+                            </View>
+                            <View>
+                                <Text style={styles.metricValue}>{spikes}</Text>
+                                <Text style={styles.metricLabel}>Spikes</Text>
+                            </View>
                         </View>
-                        <View style={{ flex: 1 }}>
-                            <Text style={styles.metricValue} numberOfLines={1} adjustsFontSizeToFit>{percentage}%</Text>
-                            <Text style={styles.metricLabel}>Used</Text>
+
+                        <View style={styles.divider} />
+
+                        {/* Stability */}
+                        <View style={styles.metricItem}>
+                            <View style={[styles.metricIconBg, { backgroundColor: COLORS.surfaceLight }]}>
+                                <Zap size={18} color={COLORS.text} />
+                            </View>
+                            <View>
+                                <Text style={styles.metricValue} numberOfLines={1} adjustsFontSizeToFit>{energyStability}</Text>
+                                <Text style={styles.metricLabel}>Energy</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.divider} />
+
+                        {/* Usage */}
+                        <View style={styles.metricItem}>
+                            <View style={[styles.metricIconBg, { backgroundColor: COLORS.surfaceLight }]}>
+                                <Droplet size={18} color={COLORS.text} />
+                            </View>
+                            <View>
+                                <Text style={styles.metricValue}>{percentage}%</Text>
+                                <Text style={styles.metricLabel}>Load</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
-
-            </Card>
+                </LinearGradient>
+            </View>
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
-    card: {
-        padding: SPACING.m,
+    cardContainer: {
         marginBottom: SPACING.l,
-        borderRadius: 28,
-        backgroundColor: COLORS.surface,
-        ...SHADOWS.medium,
+        borderRadius: 24,
+        ...SHADOWS.medium, // Premium soft shadow
+        backgroundColor: COLORS.surface, // Fallback
+    },
+    cardGradient: {
+        padding: SPACING.m,
+        borderRadius: 24,
+        borderWidth: 1,
+        borderColor: COLORS.surfaceLight, // Rose 700
     },
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        marginBottom: SPACING.xs
+        marginBottom: SPACING.s
     },
     headerLabel: {
         fontFamily: FONTS.medium,
-        fontSize: 12,
+        fontSize: 11,
         color: COLORS.textTertiary,
-        letterSpacing: 1,
-        marginBottom: 2
+        letterSpacing: 1.5,
+        marginBottom: 4,
+        textTransform: 'uppercase'
     },
     headerValue: {
         fontFamily: FONTS.heading,
-        fontSize: 34,
+        fontSize: 36,
         color: COLORS.text,
-        lineHeight: 40
+        letterSpacing: -1
     },
     headerSub: {
         fontFamily: FONTS.medium,
         fontSize: 16,
-        color: COLORS.textSecondary,
+        color: COLORS.textTertiary,
+        marginBottom: 6
     },
     badge: {
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 12,
+        paddingHorizontal: 10,
+        paddingVertical: 4,
+        borderRadius: 20,
         marginTop: 4
     },
     badgeText: {
         fontFamily: FONTS.bodyBold,
-        fontSize: 12,
+        fontSize: 11,
         letterSpacing: 0.5,
+        textTransform: 'uppercase'
     },
     gaugeArea: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 0,
+        marginTop: SPACING.s,
         position: 'relative'
     },
     needleContainer: {
         position: 'absolute',
-        width: 0, // Zero width to act as a pivot point
+        width: 0,
         height: 0,
         alignItems: 'center',
         justifyContent: 'center',
@@ -353,76 +422,74 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -4,
         left: 0,
-        width: 130, // Length
+        width: 125,
         height: 8,
-        backgroundColor: COLORS.text,
         borderRadius: 4,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
+        shadowOpacity: 0.2,
         shadowRadius: 4,
-        elevation: 8,
+        elevation: 5,
     },
     needleHub: {
         position: 'absolute',
-        width: 24,
-        height: 24,
-        borderRadius: 12,
-        backgroundColor: COLORS.background,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: COLORS.surface,
         borderWidth: 4,
         borderColor: COLORS.text,
-        top: -12,
-        left: -12
+        top: -10,
+        left: -10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
     },
     needleHubInner: {
         position: 'absolute',
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        backgroundColor: COLORS.brand.primary,
-        top: -4,
-        left: -4
+        width: 0,
+        height: 0,
+        // Removed inner hub for cleaner look
     },
     dashboardFooter: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: SPACING.s,
+        marginTop: SPACING.l,
         paddingTop: SPACING.m,
         borderTopWidth: 1,
         borderTopColor: COLORS.divider,
-        marginBottom: SPACING.xs
     },
     metricItem: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
-        justifyContent: 'flex-start'
+        justifyContent: 'center'
     },
     metricIconBg: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
-        backgroundColor: '#FEF3C7',
+        width: 36,
+        height: 36,
+        borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center',
     },
     metricValue: {
-        fontFamily: FONTS.heading,
-        fontSize: 14,
+        fontFamily: FONTS.subheading,
+        fontSize: 15,
         color: COLORS.text,
     },
     metricLabel: {
         fontFamily: FONTS.medium,
         fontSize: 10,
-        color: COLORS.textSecondary,
+        color: COLORS.textTertiary,
         textTransform: 'uppercase',
+        marginTop: 1
     },
     divider: {
         width: 1,
         height: 24,
         backgroundColor: COLORS.divider,
-        marginHorizontal: 8
     }
 });

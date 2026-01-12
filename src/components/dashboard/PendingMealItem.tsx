@@ -14,6 +14,8 @@ interface PendingMealItemProps {
     };
 }
 
+import { LinearGradient } from 'expo-linear-gradient';
+
 export const PendingMealItem: React.FC<PendingMealItemProps> = ({ action }) => {
     const [localProgress, setLocalProgress] = useState(0);
 
@@ -48,7 +50,10 @@ export const PendingMealItem: React.FC<PendingMealItemProps> = ({ action }) => {
     }, [action.status]); // Restart behavior if status resets, though usually it flows linear
 
     return (
-        <View style={styles.container}>
+        <LinearGradient
+            colors={COLORS.metallic.whiteGold as any}
+            style={styles.container}
+        >
             {/* Thumbnail Area with Loader */}
             <View style={styles.thumbnailContainer}>
                 {action.imageUri ? (
@@ -91,7 +96,7 @@ export const PendingMealItem: React.FC<PendingMealItemProps> = ({ action }) => {
                     <View style={[styles.progressBarFill, { width: `${localProgress}%` }]} />
                 </View>
             </View>
-        </View>
+        </LinearGradient>
     );
 };
 
@@ -151,9 +156,9 @@ const styles = StyleSheet.create({
         color: COLORS.brand.primary
     },
     statusText: {
-        fontFamily: FONTS.medium,
+        fontFamily: FONTS.subheading,
         fontSize: 12,
-        color: COLORS.textSecondary
+        color: COLORS.brand.secondary
     },
     progressBarTrack: {
         height: 4,

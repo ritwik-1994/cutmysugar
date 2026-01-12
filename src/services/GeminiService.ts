@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 
 export interface FoodAnalysisResult {
@@ -212,9 +213,34 @@ export class GeminiService {
         return `${len}-${start}-${mid}-${end}`;
     }
 
-    async analyzeFood(base64Image: string, userProfile?: { goal?: string, diet?: string }): Promise<FoodAnalysisResult> {
+    private async compressImage(uri: string): Promise<string> {
         try {
-            const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
+            const result = await ImageManipulator.manipulateAsync(
+                uri,
+                [{ resize: { width: 1024 } }], // Resize to max width 1024
+                { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG, base64: true }
+            );
+            return result.base64 || "";
+        } catch (error) {
+            console.warn("Image compression failed, using original", error);
+            return "";
+        }
+    }
+
+    async analyzeFood(base64Image: string, userProfile?: { goal?: string, diet?: string }, imageUri?: string): Promise<FoodAnalysisResult> {
+        try {
+            let finalBase64 = base64Image;
+
+            // OPTIMIZATION: If URI is provided, compress client-side to save bandwidth
+            if (imageUri) {
+                const compressed = await this.compressImage(imageUri);
+                if (compressed) {
+                    console.log("✅ Using Client-Side Compressed Image");
+                    finalBase64 = compressed;
+                }
+            }
+
+            const cleanBase64 = finalBase64.replace(/^data:image\/\w+;base64,/, '');
 
             // 1. CHECK CACHE (Deterministic Guard)
             const imageHash = this.generateImageHash(cleanBase64);

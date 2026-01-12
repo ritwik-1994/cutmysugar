@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle, ActivityIndicator, StyleProp } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, FONTS, SIZES, SHADOWS } from '../../styles/theme';
 
 interface ButtonProps {
@@ -27,6 +28,7 @@ export const Button = ({
     const isOutline = variant === 'outline';
     const isGhost = variant === 'ghost';
 
+    // Button Content Logic
     const content = (
         <>
             {loading ? (
@@ -56,30 +58,56 @@ export const Button = ({
             activeOpacity={0.7}
             style={[
                 styles.container,
-                isPrimary && styles.primary,
+                // Primary uses gradient, so remove bg color from style here if primary
+                isPrimary ? { padding: 0 } : styles.primary, // Clean wrapper for primary
                 isOutline && styles.outline,
                 isGhost && styles.ghost,
                 disabled && styles.disabled,
                 style,
             ]}
         >
-            {content}
+            {isPrimary ? (
+                <LinearGradient
+                    colors={(disabled ? [COLORS.textDisabled, COLORS.textDisabled] : COLORS.metallic.textGradient) as any}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 1 }} // Vertical shine
+                    style={[styles.gradientContainer, styles.primary]}
+                >
+                    {/* Glossy Overlay for "Gem" effect */}
+                    {/* Glossy Overlay for "Gem" effect - Hard Horizon */}
+                    <LinearGradient
+                        colors={['rgba(255,255,255,0.7)', 'rgba(255,255,255,0.1)', 'transparent']}
+                        locations={[0, 0.48, 0.48]}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 0, y: 1 }}
+                        style={StyleSheet.absoluteFill}
+                    />
+                    {content}
+                </LinearGradient>
+            ) : (
+                content
+            )}
         </TouchableOpacity>
     );
 };
-
-
 
 const styles = StyleSheet.create({
     container: {
         height: 56,
         borderRadius: SIZES.borderRadius.xl,
         overflow: 'hidden',
+        // Common layout
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    gradientContainer: {
+        width: '100%',
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
         gap: 8,
-        paddingHorizontal: 24,
     },
     primary: {
         backgroundColor: COLORS.primary,

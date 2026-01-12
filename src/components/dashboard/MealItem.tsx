@@ -167,31 +167,35 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.surface,
-        borderRadius: SIZES.borderRadius.m,
+        borderRadius: 24, // Matches Speedometer
+        borderWidth: 1,
+        borderColor: COLORS.divider, // Rose 700
         ...SHADOWS.light,
-        overflow: 'hidden', // Contain the expansion
-        marginBottom: 2 // Tiny margin for shadow visibility if needed
+        overflow: 'hidden',
+        marginBottom: 8 // Increased spacing
     },
     header: {
         flexDirection: 'row',
         padding: SPACING.m,
-        alignItems: 'flex-start',
+        alignItems: 'center', // Center vertically
     },
     thumbnailContainer: {
-        width: 48,
-        height: 48,
-        borderRadius: 8,
+        width: 56, // Slightly larger
+        height: 56,
+        borderRadius: 16, // Softer corners
         marginRight: SPACING.m,
         overflow: 'hidden',
+        backgroundColor: COLORS.surfaceLight,
     },
     thumbnail: {
         width: '100%',
         height: '100%',
     },
     mealName: {
-        fontFamily: FONTS.bodyBold,
-        fontSize: 16,
+        fontFamily: FONTS.heading, // Using heading font
+        fontSize: 17,
         color: COLORS.text,
+        marginBottom: 2,
     },
     mealTime: {
         fontFamily: FONTS.body,
@@ -236,30 +240,30 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 6,
-        backgroundColor: '#ECFDF5', // Emerald 50 (Very light green)
+        backgroundColor: COLORS.surfaceLight, // Rose 50
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: '#D1FAE5', // Emerald 100
+        borderColor: COLORS.divider, // Rose 200
     },
     tipPreviewButtonActive: {
-        backgroundColor: '#D1FAE5', // Emerald 100
-        borderColor: '#6EE7B7', // Emerald 300
+        backgroundColor: COLORS.surfaceLight,
+        borderColor: COLORS.brand.primary,
     },
     tipPreviewText: {
         flex: 1, // Take available space for truncation
         fontFamily: FONTS.medium,
         fontSize: 11,
-        color: COLORS.sugarScore.safeText,
+        color: COLORS.brand.secondary,
     },
     recommendationContainer: {
-        backgroundColor: '#F0FDF4', // Emerald 50 (Green tint)
+        backgroundColor: COLORS.surfaceLight, // Rose 50
         paddingHorizontal: SPACING.m,
         paddingBottom: SPACING.m,
         paddingTop: 0,
         borderTopWidth: 1,
-        borderTopColor: '#D1FAE5',
+        borderTopColor: COLORS.divider,
     },
     recommendationContent: {
         paddingTop: SPACING.s,
@@ -267,7 +271,7 @@ const styles = StyleSheet.create({
     recommendationTitle: {
         fontFamily: FONTS.medium,
         fontSize: 12,
-        color: COLORS.sugarScore.safeText,
+        color: COLORS.brand.secondary,
         marginBottom: 4,
     },
     recommendationText: {
