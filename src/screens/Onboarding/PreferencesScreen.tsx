@@ -3,9 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { COLORS, FONTS, SPACING, SIZES } from '../../styles/theme';
+import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../../styles/theme';
 import { Button } from '../../components/ui/Button';
 import { NavigationProps } from '../../navigation/types';
+import { ChevronDown } from 'lucide-react-native';
+import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
 
 import { useMeal, UserGoal } from '../../context/MealContext';
 import { useAuth } from '../../context/AuthContext';
@@ -30,8 +32,8 @@ export default function PreferencesScreen() {
     const [selectedDiet, setSelectedDiet] = useState<string | null>(null);
 
     const handleNext = async () => {
-        if (!selectedGoal) {
-            alert("Please select a goal");
+        if (!selectedGoal || !selectedDiet) {
+            alert("Please select both a goal and dietary preference");
             return;
         }
 
@@ -43,9 +45,7 @@ export default function PreferencesScreen() {
 
             // 2. Save to Temporary Storage (for post-login sync)
             await AsyncStorage.setItem('temp_goal', selectedGoal);
-            if (selectedDiet) {
-                await AsyncStorage.setItem('temp_diet_pref', selectedDiet);
-            }
+            await AsyncStorage.setItem('temp_diet_pref', selectedDiet);
 
             console.log("✅ Preferences stored in AsyncStorage for later sync.");
             navigation.navigate('HeightWeight');
@@ -57,14 +57,43 @@ export default function PreferencesScreen() {
     };
 
 
+    // Scroll Cue Animation
+    const scrollY = useSharedValue(0);
+    const bounce = useSharedValue(0);
+
+    React.useEffect(() => {
+        bounce.value = withRepeat(
+            withSequence(
+                withTiming(10, { duration: 1500 }),
+                withTiming(0, { duration: 1500 })
+            ),
+            -1,
+            true
+        );
+    }, []);
+
+    const animatedCueStyle = useAnimatedStyle(() => {
+        return {
+            opacity: scrollY.value > 20 ? 0 : 1,
+            transform: [{ translateY: bounce.value }]
+        };
+    });
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.content}>
+            <ScrollView
+                contentContainerStyle={styles.content}
+                onScroll={(e) => {
+                    scrollY.value = e.nativeEvent.contentOffset.y;
+                }}
+                scrollEventThrottle={16}
+            >
                 <View style={styles.header}>
                     <Text style={styles.title}>Your Goals</Text>
                     <Text style={styles.subtitle}>Help us personalize your budget.</Text>
                 </View>
+
+                {/* ... existing content ... */}
 
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Primary Goal</Text>
@@ -129,12 +158,20 @@ export default function PreferencesScreen() {
                 </View>
             </ScrollView>
 
+            {/* Scroll Hint Overlay */}
+            {!selectedDiet && (
+                <Animated.View style={[styles.scrollCue, animatedCueStyle]} pointerEvents="none">
+                    <Text style={styles.scrollCueText}>Scroll for Diet</Text>
+                    <ChevronDown size={20} color={COLORS.brand.primary} />
+                </Animated.View>
+            )}
+
             <View style={styles.footer}>
                 <Button
                     title="Continue"
                     onPress={handleNext}
                     style={styles.button}
-                    disabled={!selectedGoal}
+                    disabled={!selectedGoal || !selectedDiet}
                 />
             </View>
         </SafeAreaView >
@@ -217,4 +254,22 @@ const styles = StyleSheet.create({
         color: COLORS.textTertiary,
         marginTop: 2,
     },
+    scrollCue: {
+        position: 'absolute',
+        bottom: 100, // Above footer
+        alignSelf: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.surface,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 20,
+        ...SHADOWS.medium, // Make it pop
+        zIndex: 10
+    },
+    scrollCueText: {
+        fontFamily: FONTS.medium,
+        fontSize: 12,
+        color: COLORS.brand.primary,
+        marginBottom: 2
+    }
 });

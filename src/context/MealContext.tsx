@@ -430,6 +430,7 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
                 analysisResult: {
                     ...result,
                     glycemicLoad: Math.round(finalGL),
+                    userDescription: data.description, // Save the input text!
                     addedSugar: data.sugarData ? {
                         detected: true,
                         source: data.sugarData.typeId,

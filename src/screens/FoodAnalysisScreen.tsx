@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ActivityIndicator, ScrollView, Modal, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, ActivityIndicator, ScrollView, Modal, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Easing } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList, NavigationProps } from '../navigation/types';
@@ -180,18 +180,79 @@ export default function FoodAnalysisScreen() {
         navigation.navigate('Home');
     };
 
+    // Scanning Animation
+    const scanAnim = React.useRef(new Animated.Value(0)).current;
+
+    React.useEffect(() => {
+        if (analyzing) {
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(scanAnim, {
+                        toValue: 1,
+                        duration: 2000,
+                        easing: Easing.linear,
+                        useNativeDriver: true
+                    }),
+                    Animated.timing(scanAnim, {
+                        toValue: 0,
+                        duration: 2000,
+                        easing: Easing.linear,
+                        useNativeDriver: true
+                    })
+                ])
+            ).start();
+        }
+    }, [analyzing]);
+
+    const translateY = scanAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 300] // Scan range 300px (height of image area)
+    });
+
     if (analyzing) {
         return (
             <View style={styles.container}>
-                <Image source={{ uri: imageUri }} style={styles.backgroundImage} blurRadius={10} />
-                <View style={styles.overlay}>
-                    <CircularProgress
-                        size={160}
-                        progress={loadingProgress}
-                        strokeWidth={12}
-                    />
-                    <Text style={styles.analyzingText}>Analyzing Food...</Text>
-                    <Text style={styles.analyzingSubtext}>Identifying ingredients and calculating GL</Text>
+                <Image source={{ uri: imageUri }} style={styles.backgroundImage} blurRadius={15} />
+                <View style={[styles.overlay, { backgroundColor: 'rgba(0,0,0,0.6)' }]}>
+
+                    {/* Scanning Card Effect */}
+                    <View style={{ width: 280, height: 280, borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                        <Image source={{ uri: imageUri }} style={{ width: '100%', height: '100%', opacity: 0.8 }} resizeMode="cover" />
+
+                        {/* Scanning Line */}
+                        <Animated.View style={{
+                            position: 'absolute',
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            height: 2,
+                            backgroundColor: COLORS.brand.accent,
+                            shadowColor: COLORS.brand.accent,
+                            shadowOpacity: 1,
+                            shadowRadius: 10,
+                            elevation: 5,
+                            transform: [{ translateY }]
+                        }} />
+                        <Animated.View style={{
+                            position: 'absolute',
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            height: 60,
+                            backgroundColor: COLORS.brand.accent,
+                            opacity: 0.1,
+                            transform: [{ translateY }] // Trail
+                        }} />
+                    </View>
+
+                    <View style={{ marginTop: 40, alignItems: 'center' }}>
+                        <Text style={styles.analyzingText}>Analyzing Food...</Text>
+                        <Text style={styles.analyzingSubtext}>Identifying ingredients and calculating GL</Text>
+                        {/* Optional Linear Progress */}
+                        <View style={{ width: 200, height: 4, backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 2, marginTop: 20, overflow: 'hidden' }}>
+                            <View style={{ width: `${loadingProgress}%`, height: '100%', backgroundColor: COLORS.brand.accent }} />
+                        </View>
+                    </View>
                 </View>
             </View>
         );
@@ -260,6 +321,11 @@ export default function FoodAnalysisScreen() {
                             <CheckCircle size={20} color={COLORS.brand.accent} />
                             <Text style={styles.insightTitle}>Analysis</Text>
                         </View>
+                        {result.userDescription && (
+                            <Text style={[styles.insightText, { fontFamily: FONTS.medium, marginBottom: 8, color: COLORS.text }]}>
+                                "{result.userDescription}"
+                            </Text>
+                        )}
                         <Text style={styles.insightText}>
                             {result.analysis || "Analysis complete."}
                         </Text>

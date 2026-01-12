@@ -359,13 +359,19 @@ export default function HomeScreen() {
                 style={[
                     styles.scrollCueContainer,
                     animatedCueStyle,
-                    { pointerEvents: 'none' } // Let clicks pass through if it overlaps list slightly
+                    // Remove pointerEvents: 'none' to allow clicking
                 ]}
             >
-                <View style={styles.scrollCuePill}>
+                <TouchableOpacity
+                    style={styles.scrollCuePill}
+                    onPress={() => {
+                        scrollRef.current?.scrollTo({ y: scrollTargetY, animated: true });
+                    }}
+                    activeOpacity={0.8}
+                >
                     <Text style={styles.scrollCueText}>Today's Meals</Text>
                     <ChevronDown size={14} color={COLORS.textTertiary} />
-                </View>
+                </TouchableOpacity>
             </Animated.View>
 
             {/* 8. Primary Action Button (FAB) */}

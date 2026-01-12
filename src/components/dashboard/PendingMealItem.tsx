@@ -64,17 +64,8 @@ export const PendingMealItem: React.FC<PendingMealItemProps> = ({ action }) => {
                     </View>
                 )}
 
-                {/* Overlay with Circular Progress */}
                 <View style={styles.loaderOverlay}>
-                    {/* Darken background slightly to make loader pop */}
-                    <View style={styles.dimmer} />
-                    <CircularProgress
-                        size={48}
-                        strokeWidth={4}
-                        progress={localProgress}
-                        color={COLORS.brand.accent}
-                        showPercentage={true} // Percentage inside
-                    />
+                    {/* Add a subtle pulse or badge if needed, but keeping it clean */}
                 </View>
             </View>
 
@@ -83,6 +74,7 @@ export const PendingMealItem: React.FC<PendingMealItemProps> = ({ action }) => {
                     <Text style={[styles.title, { color: COLORS.brand.accent }]}>
                         {action.label}
                     </Text>
+                    <Text style={styles.percentageText}>{Math.round(localProgress)}%</Text>
                 </View>
 
                 {/* Status Text */}
@@ -93,6 +85,11 @@ export const PendingMealItem: React.FC<PendingMealItemProps> = ({ action }) => {
                                 action.status === 'finalizing' ? 'Almost done...' :
                                     action.status === 'failed' ? 'Analysis Failed' : 'Processing...'}
                 </Text>
+
+                {/* Linear Progress Bar */}
+                <View style={styles.progressBarTrack}>
+                    <View style={[styles.progressBarFill, { width: `${localProgress}%` }]} />
+                </View>
             </View>
         </View>
     );
@@ -101,32 +98,27 @@ export const PendingMealItem: React.FC<PendingMealItemProps> = ({ action }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'center', // Center vertically for better look with round loader
+        alignItems: 'center',
         backgroundColor: COLORS.surface,
         padding: SPACING.m,
         borderRadius: SIZES.borderRadius.m,
         ...SHADOWS.light,
         borderWidth: 1,
-        borderColor: COLORS.brand.accent,
-        opacity: 0.95
+        borderColor: COLORS.brand.accent, // Keeping accent border for "Active" feel
     },
     thumbnailContainer: {
-        width: 60, // Slightly larger to fit loader
-        height: 60,
-        borderRadius: 30, // Make it circular to match loader? Or keep sqaure? User asked for "loader surrounding it".
-        // If I make the container square but loader circular, it looks fine. 
-        // Let's try circular thumbnail for the pending state, it looks cleaner with circular progress.
+        width: 50,
+        height: 50,
+        borderRadius: 8,
         overflow: 'hidden',
         marginRight: SPACING.m,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: COLORS.background,
         position: 'relative'
     },
     thumbnailImage: {
         width: '100%',
         height: '100%',
-        opacity: 0.6 // Dim it to show loader better
+        opacity: 0.8
     },
     placeholderThumbnail: {
         width: '100%',
@@ -140,25 +132,39 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    dimmer: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(255,255,255,0.2)'
-    },
     infoContainer: {
         flex: 1,
-        gap: 4
+        gap: 6
     },
     headerRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     title: {
         fontFamily: FONTS.bodyBold,
-        fontSize: 16,
+        fontSize: 15,
+    },
+    percentageText: {
+        fontFamily: FONTS.medium,
+        fontSize: 12,
+        color: COLORS.brand.primary
     },
     statusText: {
         fontFamily: FONTS.medium,
-        fontSize: 13,
+        fontSize: 12,
         color: COLORS.textSecondary
+    },
+    progressBarTrack: {
+        height: 4,
+        backgroundColor: COLORS.background,
+        borderRadius: 2,
+        overflow: 'hidden',
+        marginTop: 2
+    },
+    progressBarFill: {
+        height: '100%',
+        backgroundColor: COLORS.brand.accent,
+        borderRadius: 2
     }
 });

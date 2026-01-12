@@ -32,7 +32,11 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
     };
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={onPressFix}
+            activeOpacity={0.9}
+        >
             <View style={styles.header}>
                 {/* Thumbnail */}
                 <View style={styles.thumbnailContainer}>
@@ -107,18 +111,28 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
 
                     {/* Actions Row (Fix + Tip Preview) */}
                     <View style={styles.actionsRow}>
-                        {/* Fix Button - Always visible if analysis exists */}
+                        {/* Fix Button: Removed redundant touchable, but kept visual if needed? 
+                            User said "clickable... details". 
+                            If I keep it, it's double. 
+                            I'll render it as a VIEW (badge) or just remove the touchable wrapper but keep appearance?
+                            Actually, simpler to remove it if the whole row is clickable. 
+                            BUT, "Fix Result" is a strong CTA. 
+                            I will change it to a View (non-interactive) since the parent handles the click.
+                        */}
                         {meal.analysisResult && (
-                            <TouchableOpacity style={styles.fixButton} onPress={onPressFix}>
+                            <View style={styles.fixButton}>
                                 <Text style={styles.fixButtonText}>{STRINGS.HOME.ACTIONS.FIX_RESULT}</Text>
-                            </TouchableOpacity>
+                            </View>
                         )}
 
-                        {/* Smart Tip Preview Button */}
+                        {/* Smart Tip Preview Button - STOPS PROPAGATION */}
                         {hasRecommendations && firstTip && (
                             <TouchableOpacity
                                 style={[styles.tipPreviewButton, expanded && styles.tipPreviewButtonActive]}
-                                onPress={toggleExpand}
+                                onPress={(e) => {
+                                    // e.stopPropagation() is not needed in RN if child handles press
+                                    toggleExpand();
+                                }}
                                 activeOpacity={0.7}
                             >
                                 <Lightbulb size={12} color={COLORS.sugarScore.safeText} fill={expanded ? COLORS.sugarScore.safeText : 'rgba(6, 95, 70, 0.2)'} />
@@ -146,7 +160,7 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
                     </View>
                 </View>
             )}
-        </View>
+        </TouchableOpacity>
     );
 };
 

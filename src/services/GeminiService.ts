@@ -41,6 +41,7 @@ export interface FoodAnalysisResult {
         confidence?: number;
     };
     addedSugarLikely?: boolean;
+    userDescription?: string; // Stored user input from text analysis
 }
 
 // ⚠️ CRITICAL: DO NOT EDIT THIS PROMPT WITHOUT EXPLICIT TEAM/USER APPROVAL
@@ -211,7 +212,7 @@ export class GeminiService {
         return `${len}-${start}-${mid}-${end}`;
     }
 
-    async analyzeFood(base64Image: string): Promise<FoodAnalysisResult> {
+    async analyzeFood(base64Image: string, userProfile?: { goal?: string, diet?: string }): Promise<FoodAnalysisResult> {
         try {
             const cleanBase64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
@@ -248,7 +249,7 @@ export class GeminiService {
         }
     }
 
-    async analyzeText(foodName: string, description?: string, context?: string): Promise<FoodAnalysisResult> {
+    async analyzeText(foodName: string, description?: string, context?: string, userProfile?: { goal?: string, diet?: string }): Promise<FoodAnalysisResult> {
         console.log(`Analyzing Text: ${foodName}...`);
         try {
             const { data, error } = await supabase.functions.invoke('analyze-food', {
@@ -268,7 +269,7 @@ export class GeminiService {
         }
     }
 
-    async refineAnalysisWithFeedback(base64Image: string | undefined, previousResult: FoodAnalysisResult, userFeedback: string): Promise<FoodAnalysisResult> {
+    async refineAnalysisWithFeedback(base64Image: string | undefined, previousResult: FoodAnalysisResult, userFeedback: string, userProfile?: { goal?: string, diet?: string }): Promise<FoodAnalysisResult> {
         // ⚠️ DO NOT EDIT PROMPT WITHOUT USER APPROVAL
         const refinementContext = `
     ** CONTEXT:**

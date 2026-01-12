@@ -42,11 +42,18 @@ export const InstallAppBanner = ({ triggerShow }: { triggerShow: boolean }) => {
 
     // Effect: Show when Trigger is True
     useEffect(() => {
-        if (triggerShow && !isStandalone) {
+        // Perform a fresh check when triggered to be absolutely sure
+        const checkStandalone = () => {
+            const isStandaloneMode = (window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches;
+            setIsStandalone(isStandaloneMode);
+            return isStandaloneMode;
+        };
+
+        if (triggerShow && !checkStandalone()) {
             // Show banner regardless of event (fallback to manual instructions)
             setIsVisible(true);
         }
-    }, [triggerShow, isStandalone]);
+    }, [triggerShow]);
 
     const handleInstallClick = async () => {
         if (isIOS) {
