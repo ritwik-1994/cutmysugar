@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, ScrollView, TouchableOpacity, Linking, Platform, Share } from 'react-native';
+import { View, Text, StyleSheet, Modal, ScrollView, TouchableOpacity, Linking, Platform, Share, Switch } from 'react-native';
 import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../../styles/theme';
 import { Button } from '../ui/Button';
-import { X, Mail, MessageCircle, LogOut, FileText, ChevronRight, Share2 } from 'lucide-react-native';
+import { X, Mail, MessageCircle, LogOut, FileText, ChevronRight, Share2, Globe } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface SettingsModalProps {
     visible: boolean;
@@ -12,6 +13,7 @@ interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ visible, onClose }) => {
     const { logout, user } = useAuth();
+    const { language, toggleLanguage } = useLanguage();
     const [policyVisible, setPolicyVisible] = useState(false);
 
     const handleWhatsAppSupport = () => {
@@ -139,6 +141,27 @@ For privacy concerns, contact support@cutmysugar.com.
                             <LogOut size={20} color={COLORS.sugarScore.criticalText} />
                             <Text style={styles.logoutText}>Log Out</Text>
                         </TouchableOpacity>
+
+
+                        {/* Language */}
+                        <View style={styles.section}>
+                            <Text style={styles.sectionTitle}>Language / भाषा</Text>
+                            <View style={styles.menuItem}>
+                                <View style={[styles.iconBox, { backgroundColor: '#FFF7ED' }]}>
+                                    <Globe size={20} color="#EA580C" />
+                                </View>
+                                <View style={styles.menuText}>
+                                    <Text style={styles.menuTitle}>Hindi / हिंदी</Text>
+                                    <Text style={styles.menuSub}>Translate entire app</Text>
+                                </View>
+                                <Switch
+                                    value={language === 'hi'}
+                                    onValueChange={toggleLanguage}
+                                    trackColor={{ false: COLORS.divider, true: COLORS.brand.primary }}
+                                    thumbColor={'#FFF'}
+                                />
+                            </View>
+                        </View>
 
                         <Text style={styles.version}>Version 1.0.0 (MVP)</Text>
 

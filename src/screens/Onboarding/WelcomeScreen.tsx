@@ -6,10 +6,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS, FONTS, SPACING, SIZES } from '../../styles/theme';
 import { Button } from '../../components/ui/Button';
 import { NavigationProps } from '../../navigation/types';
-import { STRINGS } from '../../constants/strings';
+import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
 
 export default function WelcomeScreen() {
+    const { strings } = useLanguage();
     const { user } = useAuth();
     const navigation = useNavigation<NavigationProps>();
     const [name, setName] = useState('');
@@ -31,7 +32,7 @@ export default function WelcomeScreen() {
                 AsyncStorage.removeItem('auth_error');
 
                 // Show UI Feedback Inline
-                setInlineError("Account Not Found. Please Sign Up.");
+                setInlineError(strings.ONBOARDING.WELCOME.ERRORS.ACCOUNT_NOT_FOUND);
 
                 // Auto-hide after 5 seconds
                 setTimeout(() => setInlineError(null), 5000);
@@ -46,11 +47,11 @@ export default function WelcomeScreen() {
                 if (val) setName(val);
             });
         }
-    }, [user]);
+    }, [user, strings]);
 
     const handleContinue = async () => {
         if (!name.trim()) {
-            Alert.alert('Required', 'Please enter your name to continue.');
+            Alert.alert('Required', strings.ONBOARDING.WELCOME.ERRORS.REQUIRED);
             return;
         }
         await AsyncStorage.setItem('temp_user_name', name.trim());
@@ -66,10 +67,10 @@ export default function WelcomeScreen() {
                 <View style={styles.header}>
                     <Image source={require('../../assets/logo.png')} style={styles.logo} resizeMode="contain" />
                     <Text style={styles.title}>
-                        {user ? "Almost there! \uD83C\uDF89" : "Cutting sugar is easy with CutMySugar"}
+                        {user ? strings.ONBOARDING.WELCOME.TITLE_USER : strings.ONBOARDING.WELCOME.TITLE_GUEST}
                     </Text>
                     <Text style={styles.subtitle}>
-                        {user ? "Let's finish setting up your profile." : "Let's get to know you. What should we call you?"}
+                        {user ? strings.ONBOARDING.WELCOME.SUBTITLE_USER : strings.ONBOARDING.WELCOME.SUBTITLE_GUEST}
                     </Text>
 
                     {/* Inline Error Message */}
@@ -84,7 +85,7 @@ export default function WelcomeScreen() {
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.input}
-                            placeholder="Enter your name"
+                            placeholder={strings.ONBOARDING.WELCOME.PLACEHOLDER}
                             placeholderTextColor={COLORS.textTertiary}
                             value={name}
                             onChangeText={setName}
@@ -95,14 +96,14 @@ export default function WelcomeScreen() {
 
                 <View style={styles.footer}>
                     <Button
-                        title={STRINGS.ONBOARDING.WELCOME.CTA}
+                        title={strings.ONBOARDING.WELCOME.CTA}
                         onPress={handleContinue}
                         style={styles.button}
                         disabled={!name.trim()}
                     />
 
                     <Button
-                        title="I already have an account"
+                        title={strings.ONBOARDING.WELCOME.CTA_EXISTING}
                         onPress={() => {
                             console.log("WelcomeScreen: Navigating to Login with isRegistering=false");
                             navigation.navigate('Login', { isRegistering: false });

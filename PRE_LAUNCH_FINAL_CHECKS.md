@@ -22,6 +22,8 @@ Use this checklist before sharing the link with your first 500 users.
 - [ ] **Login**: Test login flow on the **production URL** (not localhost).
 - [ ] **PWA Install**: Test "Add to Home Screen" on an actual iPhone and Android device.
 - [ ] **Offline Mode**: Verify the app doesn't crash if opened without internet (it should show cached data or a network error).
+- [ ] **Browser Translation**: Test the "Hindi/English" toggle. Ensure page reloads and content translates.
+- [ ] **Phone Number Sync**: (Admin Check) Verify that a new user's phone number appears in the `profiles` table in Supabase.
 
 ## 5. 📧 Support
 - [ ] **Test Support Link**: Click "Chat on WhatsApp" and ensure it opens the correct chat.

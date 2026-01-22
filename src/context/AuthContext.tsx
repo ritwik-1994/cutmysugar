@@ -112,6 +112,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 id: authUser.id,
                 email: authUser.email,
                 full_name: authUser.user_metadata?.full_name || authUser.user_metadata?.name || 'New User',
+                phone: authUser.phone,
                 daily_budget: 100, // Default
                 created_at: new Date().toISOString()
             };
@@ -230,6 +231,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const payload = {
             id: authUser.id,
             email: authUser.email,
+            phone: authUser.phone,
             full_name: fullName,
             primary_goal: finalGoal || null,
             daily_budget: finalBudget,
@@ -329,9 +331,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const signInWithGoogle = async (idToken?: string) => {
         setIsLoading(true); // Manually set loading for better UX
         try {
+            // DYNAMIC REDIRECT: Critical for Web vs Mobile Production
+            const redirectUrl = Platform.OS === 'web'
+                ? (typeof window !== 'undefined' ? window.location.origin : undefined)
+                : 'cutmysugar://auth/callback';
+
+            console.log("OAuth Redirect URL:", redirectUrl);
+
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
-                options: { redirectTo: 'cutmysugar://auth/callback' }
+                options: {
+                    redirectTo: redirectUrl,
+                    queryParams: {
+                        access_type: 'offline', // Request refresh token
+                        prompt: 'consent',
+                    }
+                }
             });
             if (error) throw error;
         } catch (e) {

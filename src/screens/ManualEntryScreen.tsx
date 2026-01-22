@@ -8,7 +8,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { useMeal } from '../context/MealContext';
 import { NavigationProps, RootStackParamList } from '../navigation/types';
-import { STRINGS } from '../constants/strings';
+import { useLanguage } from '../context/LanguageContext';
 import { SUGAR_TYPES } from '../data/sugars';
 import { AlertTriangle } from 'lucide-react-native';
 import { calculateGLRange } from '../utils/glUtils';
@@ -22,6 +22,7 @@ import { ActivityIndicator, Modal } from 'react-native';
 type ManualEntryRouteProp = RouteProp<RootStackParamList, 'ManualEntry'>;
 
 export default function ManualEntryScreen() {
+    const { strings } = useLanguage();
     const navigation = useNavigation<NavigationProps>();
     const route = useRoute<ManualEntryRouteProp>();
     const { logMeal, startTextAnalysis, userGoal, dietaryPreference } = useMeal();
@@ -282,7 +283,7 @@ export default function ManualEntryScreen() {
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                     <ArrowLeft size={24} color={COLORS.text} />
                 </TouchableOpacity>
-                <Text style={styles.title}>{STRINGS.LOGGING.MANUAL.TITLE}</Text>
+                <Text style={styles.title}>{strings.LOGGING.MANUAL.TITLE}</Text>
                 <View style={{ width: 40 }} />
             </View>
 
@@ -409,28 +410,28 @@ export default function ManualEntryScreen() {
                     {/* Live Preview Card */}
                     <Card style={styles.previewCard} variant="solid">
                         <View style={styles.previewHeader}>
-                            <Text style={styles.previewTitle}>{STRINGS.LOGGING.MANUAL.IMPACT_ESTIMATE}</Text>
+                            <Text style={styles.previewTitle}>{strings.LOGGING.MANUAL.IMPACT_ESTIMATE}</Text>
                             <Text style={styles.previewSub}>~{estimatedCarbs}g Carbs</Text>
                         </View>
 
                         <View style={styles.metricsRow}>
                             <View style={styles.metricItem}>
-                                <Text style={styles.metricLabel}>{STRINGS.METRICS.SUGAR_SCORE}</Text>
+                                <Text style={styles.metricLabel}>{strings.METRICS.SUGAR_SCORE}</Text>
                                 <Text style={[styles.metricValue, { color: COLORS.brand.primary }]}>
                                     {calculateGLRange(gl)}
                                 </Text>
                             </View>
                             <View style={styles.divider} />
                             <View style={styles.metricItem}>
-                                <Text style={styles.metricLabel}>{STRINGS.METRICS.SPIKE_ALERT}</Text>
+                                <Text style={styles.metricLabel}>{strings.METRICS.SPIKE_ALERT}</Text>
                                 <Text style={[styles.metricValue, {
                                     fontSize: 18,
                                     color: spikeRisk === 'Steady' ? COLORS.sugarScore.safeText :
                                         spikeRisk === 'Balanced' ? COLORS.sugarScore.warningText :
                                             COLORS.sugarScore.criticalText
                                 }]}>
-                                    {spikeRisk === 'Fast Spike' ? STRINGS.METRICS.SUGAR_RUSH.FAST :
-                                        spikeRisk === 'Balanced' ? STRINGS.METRICS.SUGAR_RUSH.MODERATE : STRINGS.METRICS.SUGAR_RUSH.SLOW}
+                                    {spikeRisk === 'Fast Spike' ? strings.METRICS.SUGAR_RUSH.FAST :
+                                        spikeRisk === 'Balanced' ? strings.METRICS.SUGAR_RUSH.MODERATE : strings.METRICS.SUGAR_RUSH.SLOW}
                                 </Text>
                             </View>
                         </View>
@@ -462,7 +463,7 @@ export default function ManualEntryScreen() {
 
                 <View style={styles.footer}>
                     <Button
-                        title={isAnalyzing ? "Analyzing..." : STRINGS.HOME.ACTIONS.LOG_MEAL}
+                        title={isAnalyzing ? "Analyzing..." : strings.HOME.ACTIONS.LOG_MEAL}
                         onPress={handleSave}
                         disabled={!name || isAnalyzing}
                         icon={isAnalyzing ? <ActivityIndicator color="#FFF" size="small" /> : <Check size={20} color="#FFF" />}

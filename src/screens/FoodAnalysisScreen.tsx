@@ -11,12 +11,13 @@ import { CircularProgress } from '../components/ui/CircularProgress';
 import { useMeal } from '../context/MealContext';
 import { geminiService, FoodAnalysisResult } from '../services/GeminiService';
 import { SUGAR_TYPES } from '../data/sugars';
-import { STRINGS } from '../constants/strings';
+import { useLanguage } from '../context/LanguageContext';
 import { calculateGLRange } from '../utils/glUtils';
 
 type FoodAnalysisRouteProp = RouteProp<RootStackParamList, 'FoodAnalysis'>;
 
 export default function FoodAnalysisScreen() {
+    const { strings } = useLanguage();
     const navigation = useNavigation<NavigationProps>();
     const route = useRoute<FoodAnalysisRouteProp>();
     const { imageUri, base64: imageBase64, date } = route.params;
@@ -293,22 +294,22 @@ export default function FoodAnalysisScreen() {
 
                     <View style={styles.metricsGrid}>
                         <Card style={styles.metricCard} variant="solid">
-                            <Text style={styles.metricLabel}>{STRINGS.METRICS.SPIKE_ALERT}</Text>
+                            <Text style={styles.metricLabel}>{strings.METRICS.SPIKE_ALERT}</Text>
                             <Text style={[styles.metricValue, {
                                 color: result.glycemicLoad > 20 ? COLORS.sugarScore.criticalText :
                                     result.glycemicLoad > 10 ? COLORS.sugarScore.warningText : COLORS.sugarScore.safeText
                             }]}>
-                                {result.glycemicLoad > 20 ? STRINGS.METRICS.SUGAR_RUSH.FAST :
-                                    (result.glycemicLoad > 10 ? STRINGS.METRICS.SUGAR_RUSH.MODERATE :
-                                        (result.sugarSpeed === 'Fast' && result.glycemicLoad <= 10 ? STRINGS.METRICS.SUGAR_RUSH.SLOW : // Correction for hallucinations
-                                            result.sugarSpeed === 'Fast' ? STRINGS.METRICS.SUGAR_RUSH.FAST :
-                                                result.sugarSpeed === 'Moderate' ? STRINGS.METRICS.SUGAR_RUSH.MODERATE : STRINGS.METRICS.SUGAR_RUSH.SLOW))}
+                                {result.glycemicLoad > 20 ? strings.METRICS.SUGAR_RUSH.FAST :
+                                    (result.glycemicLoad > 10 ? strings.METRICS.SUGAR_RUSH.MODERATE :
+                                        (result.sugarSpeed === 'Fast' && result.glycemicLoad <= 10 ? strings.METRICS.SUGAR_RUSH.SLOW : // Correction for hallucinations
+                                            result.sugarSpeed === 'Fast' ? strings.METRICS.SUGAR_RUSH.FAST :
+                                                result.sugarSpeed === 'Moderate' ? strings.METRICS.SUGAR_RUSH.MODERATE : strings.METRICS.SUGAR_RUSH.SLOW))}
                             </Text>
                             <Text style={styles.metricUnit}>Impact</Text>
                         </Card>
 
                         <Card style={styles.metricCard} variant="solid">
-                            <Text style={styles.metricLabel}>{STRINGS.METRICS.SUGAR_SCORE}</Text>
+                            <Text style={styles.metricLabel}>{strings.METRICS.SUGAR_SCORE}</Text>
                             <Text style={[styles.metricValue, { color: COLORS.brand.accent }]}>
                                 {calculateGLRange(result.glycemicLoad)}
                             </Text>
@@ -380,9 +381,9 @@ export default function FoodAnalysisScreen() {
 
             <View style={styles.footer}>
                 <View style={styles.footerButtons}>
-                    <Button title={STRINGS.HOME.ACTIONS.LOG_MEAL} onPress={handleLogMeal} style={{ flex: 1 }} />
+                    <Button title={strings.HOME.ACTIONS.LOG_MEAL} onPress={handleLogMeal} style={{ flex: 1 }} />
                     <Button
-                        title={STRINGS.HOME.ACTIONS.FIX_RESULT}
+                        title={strings.HOME.ACTIONS.FIX_RESULT}
                         variant="outline"
                         onPress={() => setFixModalVisible(true)}
                         style={{ flex: 1 }}
@@ -394,7 +395,7 @@ export default function FoodAnalysisScreen() {
                     onPress={() => navigation.goBack()}
                     style={{ marginTop: SPACING.s }}
                 />
-                <Text style={styles.medicalDisclaimer}>{STRINGS.DISCLAIMER_SHORT}</Text>
+                <Text style={styles.medicalDisclaimer}>{strings.DISCLAIMER_SHORT}</Text>
             </View>
 
             <Modal

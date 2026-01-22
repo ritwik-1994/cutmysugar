@@ -69,6 +69,7 @@ interface MealContextType {
     updateMeal: (id: string, updatedMeal: Partial<Meal>) => void;
     setGoal: (goal: UserGoal) => void;
     setDailyBudget: (budget: number) => void;
+    deleteMeal: (id: string) => void;
 }
 
 const MealContext = createContext<MealContextType | undefined>(undefined);
@@ -476,6 +477,20 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
                     energyStability: result.energyStability,
                     analysisResult: result
                 });
+
+                // AUDIT LOGGING
+                if (user) {
+                    supabase.from('meal_edits').insert({
+                        user_id: user.id,
+                        meal_id: data.mealId,
+                        original_analysis: data.previousResult,
+                        new_analysis: result,
+                        user_feedback: data.userFeedback
+                    }).then(({ error }) => {
+                        if (error) console.error("⚠️ Failed to log meal edit:", error);
+                        else console.log("✅ Meal edit logged for auditing.");
+                    });
+                }
             }
             removeAction(id);
         } catch (error) {
@@ -540,7 +555,26 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             logMeal,
             updateMeal,
             setGoal,
-            setDailyBudget: setDailyBudgetAction
+            setDailyBudget: setDailyBudgetAction,
+            deleteMeal: async (id: string) => {
+                if (!user) return;
+
+                // Optimistic Delete
+                const prevMeals = [...meals];
+                setMeals(prev => prev.filter(m => m.id !== id));
+
+                try {
+                    const { error } = await supabase.from('meals').delete().eq('id', id).eq('user_id', user.id);
+                    if (error) {
+                        console.error("Error deleting meal:", error);
+                        Alert.alert("Delete Failed", "Could not delete meal from cloud.");
+                        setMeals(prevMeals); // Rollback
+                    }
+                } catch (e) {
+                    console.error("Exception deleting meal:", e);
+                    setMeals(prevMeals); // Rollback
+                }
+            }
         }}>
             {children}
         </MealContext.Provider>

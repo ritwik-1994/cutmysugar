@@ -7,6 +7,16 @@ export const STRINGS = {
             TITLE: 'CutMySugar',
             SUBTITLE: 'Eat what you love, just smarter. Master your metabolism in 30 seconds a day.',
             CTA: "Let's Start",
+            TITLE_USER: "Almost there! 🎉",
+            TITLE_GUEST: "Cutting sugar is easy with CutMySugar",
+            SUBTITLE_USER: "Let's finish setting up your profile.",
+            SUBTITLE_GUEST: "Let's get to know you. What should we call you?",
+            PLACEHOLDER: "Enter your name",
+            CTA_EXISTING: "I already have an account",
+            ERRORS: {
+                REQUIRED: "Please enter your name to continue.",
+                ACCOUNT_NOT_FOUND: "Account Not Found. Please Sign Up.",
+            },
         },
         PROBLEM: {
             TITLE: 'It’s Not About Calories',
@@ -34,6 +44,13 @@ export const STRINGS = {
             TITLE: 'All Set!',
             SUBTITLE: 'Your Daily Sugar Limit is set to 100. Let\'s see how your next meal scores.',
             CTA: 'Scan My First Meal',
+        },
+        LOGIN: {
+            TITLE: "Almost there.",
+            SUBTITLE: "Create an account to save your data.",
+            CONTINUE_PHONE: "Continue with Phone",
+            CONTINUE_GOOGLE: "Continue with Google",
+            TERMS: "By continuing, you agree to our Terms & Privacy Policy.",
         },
     },
 
@@ -74,6 +91,17 @@ export const STRINGS = {
             STEADY: 'Stable',
         },
         SPIKE_ALERT: 'Spike Alert',
+        SPEEDOMETER: {
+            TITLE: "DAILY GLUCOSE BUDGET",
+            SPIKES: "Spikes",
+            ENERGY: "Energy",
+            LOAD: "Load",
+            STATUS: {
+                SAFE: "Safe",
+                WARNING: "Watch Out",
+                OVER_LIMIT: "Over Limit",
+            },
+        },
     },
 
     LOGGING: {

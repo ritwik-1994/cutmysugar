@@ -11,9 +11,13 @@ import {
   Outfit_700Bold,
 } from '@expo-google-fonts/outfit';
 import AppNavigator from './src/navigation/AppNavigator';
+
 import { AuthProvider } from './src/context/AuthContext';
 import { MealProvider } from './src/context/MealContext';
+import { LanguageProvider } from './src/context/LanguageContext';
 import { ErrorBoundary } from './src/components/ErrorBoundary';
+import { BrowserTranslationProvider } from './src/context/BrowserTranslationContext';
+import { BrowserTranslationToggle } from './src/components/ui/BrowserTranslationToggle';
 
 // Keep the splash screen visible while we fetch resources
 try {
@@ -44,16 +48,24 @@ export default function App() {
     <ErrorBoundary>
       <SafeAreaProvider onLayout={onLayoutRootView} style={{ flex: 1 }}>
         <AuthProvider>
-          <MealProvider>
-            <StatusBar style="dark" />
-            {!fontsLoaded ? (
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Loading Fonts...</Text>
-              </View>
-            ) : (
-              <AppNavigator />
-            )}
-          </MealProvider>
+
+
+          {/* Inside the return JSX, after <LanguageProvider> */}
+          <LanguageProvider>
+            <BrowserTranslationProvider>
+              <BrowserTranslationToggle />
+              <MealProvider>
+                <StatusBar style="dark" />
+                {!fontsLoaded ? (
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text>Loading Fonts...</Text>
+                  </View>
+                ) : (
+                  <AppNavigator />
+                )}
+              </MealProvider>
+            </BrowserTranslationProvider>
+          </LanguageProvider>
         </AuthProvider>
       </SafeAreaProvider>
     </ErrorBoundary>

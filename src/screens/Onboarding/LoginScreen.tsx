@@ -6,6 +6,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList, NavigationProps } from '../../navigation/types';
 import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../../styles/theme';
 import { Button } from '../../components/ui/Button';
+import { useLanguage } from '../../context/LanguageContext';
 import { Smartphone, ArrowLeft } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import * as WebBrowser from 'expo-web-browser';
@@ -15,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+    const { strings } = useLanguage();
     console.log('Rendering LoginScreen');
     const navigation = useNavigation<NavigationProps>();
     const route = useRoute<RouteProp<RootStackParamList, 'Login'>>();
@@ -89,13 +91,13 @@ export default function LoginScreen() {
 
                 <View style={styles.header}>
                     <Image source={require('../../assets/logo.png')} style={styles.logo} resizeMode="contain" />
-                    <Text style={styles.title}>Almost there.</Text>
-                    <Text style={styles.subtitle}>Create an account to save your data.</Text>
+                    <Text style={styles.title}>{strings.ONBOARDING.LOGIN.TITLE}</Text>
+                    <Text style={styles.subtitle}>{strings.ONBOARDING.LOGIN.SUBTITLE}</Text>
                 </View>
 
                 <View style={styles.form}>
                     <Button
-                        title="Continue with Phone"
+                        title={strings.ONBOARDING.LOGIN.CONTINUE_PHONE}
                         onPress={() => navigation.navigate('PhoneNumber', { isRegistering })}
                         style={styles.socialButton}
                         icon={<Smartphone size={20} color={COLORS.white} />}
@@ -104,7 +106,7 @@ export default function LoginScreen() {
                     />
 
                     <Button
-                        title="Continue with Google"
+                        title={strings.ONBOARDING.LOGIN.CONTINUE_GOOGLE}
                         onPress={handleGoogleLogin}
                         variant="outline"
                         style={[styles.phoneButton, { backgroundColor: '#FFFFFF' }]}
@@ -117,7 +119,7 @@ export default function LoginScreen() {
 
                 <View style={styles.footer}>
                     <Text style={styles.terms}>
-                        By continuing, you agree to our Terms & Privacy Policy.
+                        {strings.ONBOARDING.LOGIN.TERMS}
                     </Text>
                 </View>
             </View>

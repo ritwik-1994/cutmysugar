@@ -15,6 +15,7 @@ import { Zap, Activity, TrendingUp, Droplet, Box } from 'lucide-react-native';
 import { ShimmerGradient } from '../ui/ShimmerGradient';
 
 import { COLORS, FONTS, SPACING, SHADOWS } from '../../styles/theme';
+import { useLanguage } from '../../context/LanguageContext';
 
 // Animated components
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -59,6 +60,7 @@ interface SpeedometerCardProps {
 }
 
 export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onPress }: SpeedometerCardProps) => {
+    const { strings } = useLanguage();
     const { width: windowWidth } = useWindowDimensions();
 
     // 2. Animation State (Ratio 0 -> 1+)
@@ -151,16 +153,16 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
     // 5. Status Logic (Safe/Risky/Danger)
     let statColor = COLORS.sugarScore.safeText;
     let statBg = COLORS.sugarScore.safe;
-    let statText = "Safe";
+    let statText = strings.METRICS.SPEEDOMETER.STATUS.SAFE;
 
     if (percentage > 100) {
         statColor = COLORS.sugarScore.criticalText;
         statBg = COLORS.sugarScore.danger;
-        statText = "Over Limit";
+        statText = strings.METRICS.SPEEDOMETER.STATUS.OVER_LIMIT;
     } else if (percentage >= 50) {
         statColor = COLORS.sugarScore.warningText;
         statBg = COLORS.sugarScore.warning;
-        statText = "Watch Out";
+        statText = strings.METRICS.SPEEDOMETER.STATUS.WARNING;
     }
 
     // Dynamic Gradient Logic (Blood Range)
@@ -191,9 +193,9 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                     {/* Header */}
                     <View style={styles.headerRow}>
                         <View>
-                            <Text style={styles.headerLabel}>DAILY GLUCOSE BUDGET</Text>
+                            <Text style={styles.headerLabel}>{strings.METRICS.SPEEDOMETER.TITLE}</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
-                                <Text style={styles.headerValue}>{consumed}</Text>
+                                <Text style={styles.headerValue}>{Number(consumed.toFixed(2))}</Text>
                                 <Text style={styles.headerSub}>/ {budget} GL</Text>
                             </View>
                         </View>
@@ -317,7 +319,7 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                             </View>
                             <View>
                                 <Text style={styles.metricValue}>{spikes}</Text>
-                                <Text style={styles.metricLabel}>Spikes</Text>
+                                <Text style={styles.metricLabel}>{strings.METRICS.SPEEDOMETER.SPIKES}</Text>
                             </View>
                         </View>
 
@@ -330,7 +332,7 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                             </View>
                             <View>
                                 <Text style={styles.metricValue} numberOfLines={1} adjustsFontSizeToFit>{energyStability}</Text>
-                                <Text style={styles.metricLabel}>Energy</Text>
+                                <Text style={styles.metricLabel}>{strings.METRICS.SPEEDOMETER.ENERGY}</Text>
                             </View>
                         </View>
 
@@ -343,7 +345,7 @@ export const SpeedometerCard = ({ budget, consumed, spikes, energyStability, onP
                             </View>
                             <View>
                                 <Text style={styles.metricValue}>{percentage}%</Text>
-                                <Text style={styles.metricLabel}>Load</Text>
+                                <Text style={styles.metricLabel}>{strings.METRICS.SPEEDOMETER.LOAD}</Text>
                             </View>
                         </View>
                     </View>

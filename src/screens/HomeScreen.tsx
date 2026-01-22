@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image, LayoutChangeEvent, NativeSyntheticEvent, NativeScrollEvent, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, Alert, Image, LayoutChangeEvent, NativeSyntheticEvent, NativeScrollEvent, ActivityIndicator, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
@@ -9,8 +9,8 @@ import { useAuth } from '../context/AuthContext';
 import { useMeal } from '../context/MealContext';
 import { Plus, Zap, Utensils, ChevronDown, Settings } from 'lucide-react-native';
 import { Button } from '../components/ui/Button';
-import { STRINGS } from '../constants/strings';
 import { geminiService } from '../services/GeminiService';
+import { useLanguage } from '../context/LanguageContext';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -33,11 +33,31 @@ import { WeeklyProgressChart } from '../components/dashboard/WeeklyProgressChart
 import { MealItem } from '../components/dashboard/MealItem';
 import { PendingMealItem } from '../components/dashboard/PendingMealItem';
 import { InstallAppBanner } from '../components/InstallAppBanner';
+import { ConfirmationModal } from '../components/ui/ConfirmationModal';
 
 export default function HomeScreen() {
     const navigation = useNavigation<NavigationProps>();
+    const { strings } = useLanguage();
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const { dailyBudget, setDailyBudget, meals, updateMeal, pendingActions } = useMeal();
+    const { dailyBudget, setDailyBudget, meals, updateMeal, deleteMeal, pendingActions } = useMeal();
+
+    // Delete Modal State
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+    const [mealToDelete, setMealToDelete] = useState<string | null>(null);
+
+    const handleDeleteMeal = (mealId: string) => {
+        setMealToDelete(mealId);
+        setDeleteModalVisible(true);
+    };
+
+    const confirmDelete = () => {
+        if (mealToDelete) {
+            console.log("User confirmed delete (Custom Modal)");
+            deleteMeal(mealToDelete);
+            setMealToDelete(null);
+        }
+        setDeleteModalVisible(false);
+    };
 
     useEffect(() => {
         console.log(`HomeScreen Render: Total Meals=${meals.length}, Pending=${pendingActions.length}`);
@@ -136,14 +156,14 @@ export default function HomeScreen() {
     const dailySpikes = dailyMeals.filter(m => m.sugarSpeed === 'Fast').length;
     const maxMealGL = dailyMeals.reduce((max, meal) => Math.max(max, meal.gl), 0);
 
-    let stabilityStatus = STRINGS.METRICS.ENERGY_FLOW.STEADY;
+    let stabilityStatus = strings.METRICS.ENERGY_FLOW.STEADY;
     let stabilityColor = COLORS.brand.accent;
 
     if (dailyGL > dailyBudget * 1.2 || maxMealGL > 30 || dailySpikes > 2) {
-        stabilityStatus = STRINGS.METRICS.ENERGY_FLOW.CRASH;
+        stabilityStatus = strings.METRICS.ENERGY_FLOW.CRASH;
         stabilityColor = COLORS.sugarScore.criticalText;
     } else if (dailyGL > dailyBudget || maxMealGL > 20 || dailySpikes >= 1) {
-        stabilityStatus = STRINGS.METRICS.ENERGY_FLOW.UNSTABLE;
+        stabilityStatus = strings.METRICS.ENERGY_FLOW.UNSTABLE;
         stabilityColor = COLORS.sugarScore.warningText;
     }
 
@@ -271,7 +291,7 @@ export default function HomeScreen() {
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                         <Image source={require('../assets/logo.png')} style={styles.headerLogo} resizeMode="contain" />
                         <View>
-                            <Text style={styles.appName}>{STRINGS.APP_NAME}</Text>
+                            <Text style={styles.appName}>{strings.APP_NAME}</Text>
                             <Text style={styles.greeting}>{getGreeting()}</Text>
                         </View>
                     </View>
@@ -345,8 +365,8 @@ export default function HomeScreen() {
                             }}>
                                 <Utensils size={24} color={COLORS.text} />
                             </View>
-                            <Text style={styles.emptyStateText}>{STRINGS.HOME.EMPTY.TEXT}</Text>
-                            <Text style={styles.emptyStateLink}>{STRINGS.HOME.EMPTY.SUBTEXT}</Text>
+                            <Text style={styles.emptyStateText}>{strings.HOME.EMPTY.TEXT}</Text>
+                            <Text style={styles.emptyStateLink}>{strings.HOME.EMPTY.SUBTEXT}</Text>
                         </TouchableOpacity>
                     ) : (
                         <View style={styles.mealList}>
@@ -361,6 +381,7 @@ export default function HomeScreen() {
                                         mealId: meal.id,
                                         existingResult: meal.analysisResult
                                     })}
+                                    onDelete={() => handleDeleteMeal(meal.id)}
                                 />
                             ))}
                         </View>
@@ -410,7 +431,7 @@ export default function HomeScreen() {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Edit {STRINGS.METRICS.SUGAR_LIMIT}</Text>
+                        <Text style={styles.modalTitle}>Edit {strings.METRICS.SUGAR_LIMIT}</Text>
                         <Text style={styles.modalSubtitle}>Adjust your daily limit (60 - 140)</Text>
 
                         <TextInput
@@ -448,6 +469,16 @@ export default function HomeScreen() {
             <SettingsModal
                 visible={settingsVisible}
                 onClose={() => setSettingsVisible(false)}
+            />
+
+            <ConfirmationModal
+                visible={deleteModalVisible}
+                onClose={() => setDeleteModalVisible(false)}
+                onConfirm={confirmDelete}
+                title="Delete Meal"
+                message="Are you sure you want to delete this meal? This action cannot be undone."
+                confirmText="Delete"
+                variant="danger"
             />
         </SafeAreaView>
 
