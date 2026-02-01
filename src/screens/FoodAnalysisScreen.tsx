@@ -13,6 +13,7 @@ import { geminiService, FoodAnalysisResult } from '../services/GeminiService';
 import { SUGAR_TYPES } from '../data/sugars';
 import { useLanguage } from '../context/LanguageContext';
 import { calculateGLRange } from '../utils/glUtils';
+import { usePushNotifications } from '../hooks/usePushNotifications';
 
 type FoodAnalysisRouteProp = RouteProp<RootStackParamList, 'FoodAnalysis'>;
 
@@ -59,6 +60,7 @@ export default function FoodAnalysisScreen() {
     const [addedSugarData, setAddedSugarData] = useState<{ amount: number; unit: 'g' | 'spoon'; typeId: string } | undefined>(undefined);
 
     const { logMeal, updateMeal, startRefinement } = useMeal();
+    const { trackMealLog } = usePushNotifications();
 
     useEffect(() => {
         if (!existingResult && imageBase64) {
@@ -138,14 +140,19 @@ export default function FoodAnalysisScreen() {
                 imageBase64: imageBase64,
                 analysisResult: result,
                 addedSugar: addedSugarData,
-                timestamp: date ? new Date(date) : new Date(),
             };
 
             if (mealId) {
+                // FIXED: Only update timestamp if explicitly passed (preserve original date otherwise)
+                if (date) {
+                    mealData.timestamp = new Date(date);
+                }
                 updateMeal(mealId, mealData);
             } else {
+                mealData.timestamp = date ? new Date(date) : new Date();
                 logMeal(mealData);
             }
+            trackMealLog();
             navigation.navigate('Home');
         }
     };
@@ -381,7 +388,11 @@ export default function FoodAnalysisScreen() {
 
             <View style={styles.footer}>
                 <View style={styles.footerButtons}>
-                    <Button title={strings.HOME.ACTIONS.LOG_MEAL} onPress={handleLogMeal} style={{ flex: 1 }} />
+                    <Button
+                        title={mealId ? "Update Meal" : strings.HOME.ACTIONS.LOG_MEAL}
+                        onPress={handleLogMeal}
+                        style={{ flex: 1 }}
+                    />
                     <Button
                         title={strings.HOME.ACTIONS.FIX_RESULT}
                         variant="outline"
@@ -389,12 +400,31 @@ export default function FoodAnalysisScreen() {
                         style={{ flex: 1 }}
                     />
                 </View>
-                <Button
-                    title="Retake Photo"
-                    variant="ghost"
-                    onPress={() => navigation.goBack()}
-                    style={{ marginTop: SPACING.s }}
-                />
+                <View style={{ flexDirection: 'row', gap: SPACING.m, marginTop: SPACING.s }}>
+                    <Button
+                        title="Retake Photo"
+                        variant="ghost"
+                        onPress={() => {
+                            if (mealId) {
+                                navigation.navigate('ScanFood', {
+                                    date: date || new Date().toISOString(),
+                                    mealId: mealId // Pass existing ID
+                                });
+                            } else {
+                                navigation.goBack();
+                            }
+                        }}
+                        style={{ flex: 1 }}
+                    />
+                    {mealId && (
+                        <Button
+                            title="Back"
+                            variant="ghost"
+                            onPress={() => navigation.goBack()}
+                            style={{ flex: 1 }}
+                        />
+                    )}
+                </View>
                 <Text style={styles.medicalDisclaimer}>{strings.DISCLAIMER_SHORT}</Text>
             </View>
 
@@ -580,7 +610,8 @@ const styles = StyleSheet.create({
     foodImage: {
         width: '100%',
         height: 300,
-        resizeMode: 'cover',
+        resizeMode: 'contain',
+        backgroundColor: '#000', // Photo viewer feel
     },
     resultsContainer: {
         padding: SPACING.l,

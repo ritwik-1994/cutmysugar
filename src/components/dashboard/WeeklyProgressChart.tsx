@@ -79,7 +79,7 @@ export const WeeklyProgressChart = ({ meals, dailyBudget }: WeeklyProgressChartP
     return (
         <Card style={styles.container} variant="solid">
             <View style={styles.header}>
-                <Text style={styles.title}>Daily Sugar Intake</Text>
+                <Text style={styles.title}>Weekly Sugar Intake</Text>
                 <Text style={styles.subtitle}>Last 7 Days (Sugar Score)</Text>
             </View>
 

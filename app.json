@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CutMySugar",
-    "slug": "CutMySugar",
+    "name": "CutMySugar App",
+    "slug": "cutmysugar",
     "scheme": "cutmysugar",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,16 +13,22 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.ritwik1994.cutmysugar"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ritwik1994.cutmysugar"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -44,11 +50,27 @@
           "mobileWebAppStatusBarStyle": "black-translucent",
           "touchIcon": "apple-touch-icon.png"
         }
+      },
+      "manifest": {
+        "gcm_sender_id": "103953800507"
       }
     },
     "plugins": [
       "expo-web-browser",
-      "expo-asset"
-    ]
+      "expo-asset",
+      "expo-notifications",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan food labels."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "10e00d69-095f-4aa0-a185-e5bd40c8ed8d"
+      }
+    },
+    "owner": "ritwik1994s-organization"
   }
 }

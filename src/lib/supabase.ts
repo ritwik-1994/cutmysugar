@@ -7,7 +7,8 @@ import { Platform } from 'react-native';
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {
     autoRefreshToken: true,
-    persistSession: false, // MANUAL PERSISTENCE: We handle this in AuthContext
+    persistSession: true,
     detectSessionInUrl: false,
+    storage: AsyncStorage,
   },
 });

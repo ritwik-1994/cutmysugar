@@ -11,8 +11,8 @@ export default function ReadyScreen() {
     const navigation = useNavigation<NavigationProps>();
 
     const handleStart = async () => {
-        // Navigate to setup flow
-        navigation.navigate('Preferences');
+        // Navigate to Login to save data and authenticate
+        navigation.navigate('Login', { isRegistering: true });
     };
 
     return (
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         marginBottom: SPACING.xl,
-        padding: SPACING.l,
+        // padding: SPACING.l, // Removing padding so image fills the circle
         backgroundColor: COLORS.surface,
-        borderRadius: 100,
+        borderRadius: 150,
         ...Platform.select({
             ios: {
                 shadowColor: '#000',
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
         }),
     },
     logo: {
-        width: 80,
-        height: 80,
+        width: 250,
+        height: 250,
     },
     title: {
         fontFamily: FONTS.heading,

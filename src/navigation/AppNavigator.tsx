@@ -7,13 +7,9 @@ import { useAuth } from '../context/AuthContext';
 
 // Screens
 import WelcomeScreen from '../screens/Onboarding/WelcomeScreen';
-import ProblemScreen from '../screens/Onboarding/ProblemScreen';
-import SolutionScreen from '../screens/Onboarding/SolutionScreen';
-import DisclaimerScreen from '../screens/Onboarding/DisclaimerScreen';
+import OnboardingWizard from '../screens/Onboarding/OnboardingWizard';
 import PermissionsScreen from '../screens/Onboarding/PermissionsScreen';
 import ReadyScreen from '../screens/Onboarding/ReadyScreen';
-import PreferencesScreen from '../screens/Onboarding/PreferencesScreen';
-import HeightWeightScreen from '../screens/Onboarding/HeightWeightScreen';
 import LoginScreen from '../screens/Onboarding/LoginScreen';
 import PhoneNumberScreen from '../screens/Onboarding/PhoneNumberScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -25,8 +21,12 @@ import ManualEntryScreen from '../screens/ManualEntryScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+import { usePushNotifications } from '../hooks/usePushNotifications';
+
 const AppStack = () => {
     const { user } = useAuth();
+    usePushNotifications(); // Initialize Push Notifications logic
+
 
     return (
         <Stack.Navigator
@@ -74,13 +74,11 @@ const AppStack = () => {
                     {/* If we have a user but incomplete onboarding, we might want to skip Welcome? 
                         For now, let's just show the full flow or maybe start at a specific point.
                         But standard flow is safe. logic in Welcome screen can skip if name exists. */}
-                    <Stack.Screen name="Welcome" component={WelcomeScreen} />
-                    <Stack.Screen name="Problem" component={ProblemScreen} />
-                    <Stack.Screen name="Solution" component={SolutionScreen} />
-                    <Stack.Screen name="Disclaimer" component={DisclaimerScreen} />
+                    {/* Consolidated Onboarding Flow (Starts directly) */}
+                    <Stack.Screen name="Welcome" component={OnboardingWizard} />
+
+                    {/* Authentication Step separated from Wizard if needed, but Wizard leads to Permissions/Login */}
                     <Stack.Screen name="Permissions" component={PermissionsScreen} />
-                    <Stack.Screen name="Preferences" component={PreferencesScreen} />
-                    <Stack.Screen name="HeightWeight" component={HeightWeightScreen} />
                     <Stack.Screen name="Login" component={LoginScreen} />
                     <Stack.Screen name="PhoneNumber" component={PhoneNumberScreen} />
                     <Stack.Screen name="Ready" component={ReadyScreen} />

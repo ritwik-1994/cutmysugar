@@ -13,13 +13,31 @@ export default function PermissionsScreen() {
     const navigation = useNavigation<NavigationProps>();
     const [permission, requestPermission] = useCameraPermissions();
 
+    console.log('[PermissionsScreen] Render. Permission Status:', permission?.status, 'Granted:', permission?.granted, 'CanAskAgain:', permission?.canAskAgain);
+
     const handlePermission = async () => {
+        console.log('[PermissionsScreen] handlePermission called');
         if (permission?.granted) {
-            navigation.navigate('Ready');
+            console.log('[PermissionsScreen] Permission already granted, navigating to Login');
+            navigation.navigate('Login', { isRegistering: true });
         } else {
-            const result = await requestPermission();
-            if (result.granted) {
-                navigation.navigate('Ready');
+            console.log('[PermissionsScreen] Requesting permission...');
+            try {
+                const result = await requestPermission();
+                console.log('[PermissionsScreen] Request result:', result);
+                if (result.granted) {
+                    console.log('[PermissionsScreen] Permission granted after request, navigating to Login');
+                    navigation.navigate('Login', { isRegistering: true });
+                } else {
+                    console.log('[PermissionsScreen] Permission denied or dismissed');
+
+                    // Optional: Alert the user if they denied it
+                    if (!result.canAskAgain) {
+                        alert('Camera permission is required. Please enable it in your device settings.');
+                    }
+                }
+            } catch (e) {
+                console.error('[PermissionsScreen] Error requesting permission:', e);
             }
         }
     };

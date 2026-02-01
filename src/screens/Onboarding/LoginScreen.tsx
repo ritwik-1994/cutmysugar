@@ -80,7 +80,7 @@ export default function LoginScreen() {
                             backgroundColor: COLORS.surface,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            ...SHADOWS.small,
+                            ...SHADOWS.light,
                             borderWidth: 1,
                             borderColor: COLORS.surfaceLight
                         }}
@@ -100,7 +100,7 @@ export default function LoginScreen() {
                         title={strings.ONBOARDING.LOGIN.CONTINUE_PHONE}
                         onPress={() => navigation.navigate('PhoneNumber', { isRegistering })}
                         style={styles.socialButton}
-                        icon={<Smartphone size={20} color={COLORS.white} />}
+                        icon={<Smartphone size={20} color="#FFFFFF" />}
                         loading={isLoading}
                         disabled={isLoading}
                     />
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        width: 80,
-        height: 80,
+        width: 250,
+        height: 250,
         marginBottom: SPACING.m,
     },
     title: {

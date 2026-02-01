@@ -47,7 +47,7 @@ export interface PendingAction {
         previousResult?: FoodAnalysisResult;
         userFeedback?: string;
         sugarData?: { amount: number; unit: 'g' | 'spoon'; typeId: string };
-        date?: string; // Add date field
+        date?: string;
     };
 }
 
@@ -62,7 +62,7 @@ interface MealContextType {
     meals: Meal[];
     isLoaded: boolean;
     pendingActions: PendingAction[];
-    startScan: (imageUri: string, base64: string, date?: string) => void;
+    startScan: (imageUri: string, base64: string, date?: string, context?: string, mealId?: string) => void;
     startTextAnalysis: (name: string, description: string, context: string, sugarData?: any, date?: string) => void;
     startRefinement: (mealId: string, imageBase64: string | undefined, previousResult: FoodAnalysisResult, feedback: string) => void;
     logMeal: (meal: Omit<Meal, 'id' | 'timestamp'> & { timestamp?: Date }) => void;
@@ -111,75 +111,89 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
         const loadData = async () => {
             console.log("🔄 MealContext: Loading data from Supabase for user:", user.id);
             try {
-                // 1. Load Settings from Profiles
-                const { data: profile } = await supabase
-                    .from('profiles')
-                    .select('*')
-                    .eq('id', user.id)
-                    .single();
-
-                if (profile) {
-                    const budget = profile.daily_budget || 100;
+                // 1. Load Settings from Auth User (Instant)
+                // OPTIMIZATION: Removed redundant profile fetch. AuthContext already provides this!
+                if (user) {
+                    const budget = user.daily_budget || 100;
                     setDailyBudget(budget);
-                    AsyncStorage.setItem('daily_budget', budget.toString());
-
-                    if (profile.primary_goal) {
-                        setUserGoal(profile.primary_goal as UserGoal);
-                        AsyncStorage.setItem('user_goal', profile.primary_goal);
-                    }
-                    if (profile.dietary_preference) {
-                        setDietaryPreference(profile.dietary_preference);
-                        AsyncStorage.setItem('user_diet', profile.dietary_preference);
-                    }
+                    if (user.primary_goal) setUserGoal(user.primary_goal as UserGoal);
+                    if (user.dietary_preference) setDietaryPreference(user.dietary_preference);
                 }
 
-                // 2. Load Meals
-                // ... (rest of loading logic)
-                console.log("DEBUG: Fetching meals for user:", user.id);
-                const { data: mealsData, error: mealsError } = await supabase
+                // 2. Progressive Sync Strategy
+                // STAGE 1: Fast Load (Recent 20 items -> ~3-5 days)
+                console.log("DEBUG: Fetching RECENT meals for user:", user.id);
+                const { data: recentMeals, error: recentError } = await supabase
                     .from('meals')
                     .select('*')
                     .eq('user_id', user.id)
                     .order('timestamp', { ascending: false })
-                    .limit(100); // Scalability: Limit to recent 100 items
+                    .limit(20);
 
-                console.log("DEBUG: Fetch Result:", {
-                    count: mealsData?.length,
-                    error: mealsError,
-                    firstMeal: mealsData?.[0]
-                });
-
-                if (mealsError) {
-                    console.error("Error loading meals:", mealsError);
-                    Alert.alert("Sync Error", "Failed to load meals from the cloud. Please check your connection.");
-                } else if (mealsData) {
-                    console.log(`DEBUG: Successfully loaded ${mealsData.length} meals.`);
-                    const loadedMeals: Meal[] = mealsData.map(m => ({
-                        id: m.id,
-                        name: m.name,
-                        gl: m.gl,
-                        sugarSpeed: m.sugar_speed,
-                        energyStability: m.energy_stability,
-                        timestamp: new Date(m.timestamp),
-                        imageUri: m.image_uri, // This might be a cloud path or local URI depending on strategy
-                        analysisResult: m.analysis_result,
-                        // We don't have addedSugar in DB schema explicitly yet, it's inside analysisResult Usually. 
-                        // But TypeScript interface has it. Let's assume it's part of analysisResult or we need a column.
-                        // For now, map if inside analysisResult
-                        addedSugar: m.analysis_result?.addedSugar
-                    }));
-                    setMeals(loadedMeals);
+                if (recentError) {
+                    console.error("Error loading recent meals:", recentError);
+                    setIsLoaded(true); // Fail safely, unblock UI
+                    return;
                 }
 
-                setIsLoaded(true);
+                if (recentMeals) {
+                    console.log(`DEBUG: Loaded ${recentMeals.length} recent meals. Unblocking UI.`);
+                    // Map and set initial state
+                    const initialMeals: Meal[] = recentMeals.map(mapDBMealToState);
+                    setMeals(initialMeals);
+                    setIsLoaded(true); // 🚀 UNBLOCK UI IMMEDIATELY
+
+                    // STAGE 2: Background Load (History)
+                    if (recentMeals.length === 20) {
+                        // Only fetch history if we hit the limit (implies more data exists)
+                        setTimeout(async () => {
+                            console.log("DEBUG: Starting Background History Fetch...");
+                            const { data: historyMeals, error: historyError } = await supabase
+                                .from('meals')
+                                .select('*')
+                                .eq('user_id', user.id)
+                                .order('timestamp', { ascending: false })
+                                .range(20, 199); // Load next 180 items (Total 200 cap for now)
+
+                            if (historyMeals && historyMeals.length > 0) {
+                                console.log(`DEBUG: Loaded ${historyMeals.length} history meals.`);
+                                const olderMeals: Meal[] = historyMeals.map(mapDBMealToState);
+
+                                setMeals(current => {
+                                    // Deduplicate just in case (though range shouldn't overlap)
+                                    const existingIds = new Set(current.map(m => m.id));
+                                    const uniqueOlder = olderMeals.filter(m => !existingIds.has(m.id));
+                                    return [...current, ...uniqueOlder].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+                                });
+                            }
+                        }, 500); // Small delay to let UI render first
+                    }
+                } else {
+                    setIsLoaded(true); // No meals, unblock
+                }
+
             } catch (e) {
                 console.error("Failed to load user data:", e);
-                // Alert.alert("Sync Error", "Unexpected error loading data."); // reduce noise
+                setIsLoaded(true); // CRITICAL FIX: Ensure app loads even if sync fails (Offline Mode)
             }
         };
 
         loadData();
     }, [user?.id]);
+
+    // Helper: Map Supabase Row to App Meal
+    const mapDBMealToState = (m: any): Meal => ({
+        id: m.id,
+        name: m.name,
+        gl: m.gl,
+        sugarSpeed: m.sugar_speed,
+        energyStability: m.energy_stability,
+        timestamp: new Date(m.timestamp),
+        imageUri: m.image_uri,
+        analysisResult: m.analysis_result,
+        addedSugar: m.analysis_result?.addedSugar,
+        user_id: m.user_id
+    });
 
     // Derived state (Memoized for performance)
     const glConsumed = useMemo(() => meals.reduce((total, meal) => total + meal.gl, 0), [meals]);
@@ -356,8 +370,8 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             const t1 = setTimeout(() => { if (isMounted) updateActionStatus(id, 'separating', 50); }, 2500);
             const t2 = setTimeout(() => { if (isMounted) updateActionStatus(id, 'calculating', 75); }, 4500);
 
-            // PASS USER PROFILE HERE
-            const result = await geminiService.analyzeFood(imageBase64, getUserProfile(), imageUri);
+            // PASS USER PROFILE & CONTEXT HERE
+            const result = await geminiService.analyzeFood(imageBase64, getUserProfile(), imageUri, data?.context);
 
             clearTimeout(t1);
             clearTimeout(t2);
@@ -372,7 +386,7 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
 
             const timestamp = data?.date ? new Date(data.date) : new Date();
 
-            await logMeal({
+            const mealData = {
                 name: result.foodName,
                 gl: result.glycemicLoad,
                 sugarSpeed: result.sugarSpeed,
@@ -381,7 +395,15 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
                 imageBase64,
                 analysisResult: result,
                 timestamp: timestamp
-            });
+            };
+
+            if (data?.mealId) {
+                // UPDATE Existing Meal (Retake case)
+                await updateMeal(data.mealId, mealData);
+            } else {
+                // CREATE New Meal
+                await logMeal(mealData);
+            }
             removeAction(id);
         } catch (error) {
             console.error('Scan Failed:', error);
@@ -391,6 +413,8 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
             }
         }
     };
+
+    // ... (rest of code)
 
     const processTextAnalysis = async (action: PendingAction) => {
         const { id, data } = action;
@@ -504,13 +528,13 @@ export const MealProvider = ({ children }: { children: ReactNode }) => {
 
     // --- Action Starters ---
 
-    const startScan = (imageUri: string, base64: string, date?: string) => {
+    const startScan = (imageUri: string, base64: string, date?: string, context?: string, mealId?: string) => {
         const id = Math.random().toString(36).substr(2, 9);
         const action: PendingAction = {
             id, type: 'scan', label: 'Scanning Food...',
             imageUri, imageBase64: base64,
             status: 'uploading', progress: 10, timestamp: new Date(),
-            data: { date }
+            data: { date, context, mealId } // Pass mealId to data
         };
         setPendingActions(prev => [action, ...prev]);
         processScan(action);

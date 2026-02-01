@@ -134,7 +134,7 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
                             >
                                 <Lightbulb size={12} color={COLORS.sugarScore.safeText} fill={expanded ? COLORS.sugarScore.safeText : 'rgba(6, 95, 70, 0.2)'} />
                                 <Text style={styles.tipPreviewText} numberOfLines={1}>
-                                    {expanded ? "Hide Tips" : firstTip}
+                                    {expanded ? "Hide Tips" : "Smart Tips"}
                                 </Text>
                                 {expanded ?
                                     <ChevronUp size={12} color={COLORS.sugarScore.safeText} /> :
@@ -177,128 +177,130 @@ export const MealItem: React.FC<MealItemProps> = ({ meal, dailyBudget, onPressFi
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.surface,
-        borderRadius: 24, // Matches Speedometer
+        borderRadius: 20,
+        marginBottom: 12,
         borderWidth: 1,
-        borderColor: COLORS.divider, // Rose 700
+        borderColor: COLORS.surfaceLight, // Subtle border
         ...SHADOWS.light,
         overflow: 'hidden',
-        marginBottom: 8 // Increased spacing
     },
     header: {
         flexDirection: 'row',
-        padding: SPACING.m,
-        alignItems: 'center', // Center vertically
+        padding: 16,
+        alignItems: 'center',
     },
     thumbnailContainer: {
-        width: 56, // Slightly larger
-        height: 56,
-        borderRadius: 16, // Softer corners
-        marginRight: SPACING.m,
+        width: 64, // Larger thumbnail
+        height: 64,
+        borderRadius: 16,
+        marginRight: 16,
+        backgroundColor: '#F8FAFC',
         overflow: 'hidden',
-        backgroundColor: COLORS.surfaceLight,
+        borderWidth: 1,
+        borderColor: COLORS.divider,
     },
     thumbnail: {
         width: '100%',
         height: '100%',
     },
     mealName: {
-        fontFamily: FONTS.heading, // Using heading font
-        fontSize: 17,
+        fontFamily: FONTS.heading,
+        fontSize: 18, // Larger
         color: COLORS.text,
-        marginBottom: 2,
+        marginBottom: 4,
     },
     mealTime: {
-        fontFamily: FONTS.body,
-        fontSize: 12,
+        fontFamily: FONTS.medium,
+        fontSize: 13,
         color: COLORS.textTertiary,
     },
     badgesRow: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        gap: 6,
+        gap: 8,
         marginBottom: 8,
+        marginTop: 4,
     },
     badge: {
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        borderRadius: 12,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 100, // Pill shape
     },
     badgeText: {
-        fontFamily: FONTS.medium,
+        fontFamily: FONTS.bodyBold,
         fontSize: 10,
+        textTransform: 'uppercase', // Premium feel
+        letterSpacing: 0.5,
     },
     actionsRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 8,
-        marginTop: 4,
+        gap: 10,
+        marginTop: 6,
     },
     fixButton: {
-        paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
         borderRadius: 12,
+        backgroundColor: COLORS.surfaceLight,
         borderWidth: 1,
-        borderColor: COLORS.divider,
+        borderColor: COLORS.brand.accent,
     },
     fixButtonText: {
-        fontFamily: FONTS.medium,
+        fontFamily: FONTS.bodyBold,
         fontSize: 11,
-        color: COLORS.textSecondary,
+        color: COLORS.brand.accent,
     },
     tipPreviewButton: {
-        flex: 1, // Allow it to perform layout responsibly
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 6,
-        backgroundColor: COLORS.surfaceLight, // Rose 50
-        paddingHorizontal: 10,
-        paddingVertical: 5,
+        backgroundColor: '#F0FDF4', // Green tint
+        paddingHorizontal: 12,
+        paddingVertical: 6,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: COLORS.divider, // Rose 200
+        borderColor: '#BBF7D0',
     },
     tipPreviewButtonActive: {
-        backgroundColor: COLORS.surfaceLight,
-        borderColor: COLORS.brand.primary,
+        backgroundColor: '#DCFCE7',
     },
     tipPreviewText: {
-        flex: 1, // Take available space for truncation
-        fontFamily: FONTS.medium,
-        fontSize: 11,
-        color: COLORS.brand.secondary,
-    },
-    deleteButton: {
-        padding: 5, // Match vertical padding of other buttons approx
-        borderRadius: 12,
-        borderWidth: 1,
-        borderColor: COLORS.divider,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 32, // Square-ish
-        height: 28  // Match roughly with text buttons height
-    },
-    recommendationContainer: {
-        backgroundColor: COLORS.sugarScore.safe, // Mint Green
-        paddingHorizontal: SPACING.m,
-        paddingBottom: SPACING.m,
-        paddingTop: 0,
-        borderTopWidth: 1,
-        borderTopColor: COLORS.sugarScore.safeBorder,
-    },
-    recommendationContent: {
-        paddingTop: SPACING.s,
-    },
-    recommendationTitle: {
+        flex: 1,
         fontFamily: FONTS.medium,
         fontSize: 12,
-        color: COLORS.sugarScore.safeText,
+        color: '#15803D', // Green 700
+    },
+    deleteButton: {
+        width: 32,
+        height: 32,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+        backgroundColor: COLORS.surfaceLight,
+    },
+    recommendationContainer: {
+        backgroundColor: '#F0FDF4', // Match safe zone
+        padding: 16,
+        borderTopWidth: 1,
+        borderTopColor: '#BBF7D0',
+    },
+    recommendationContent: {
+        gap: 4,
+    },
+    recommendationTitle: {
+        fontFamily: FONTS.bodyBold,
+        fontSize: 12,
+        color: '#15803D',
         marginBottom: 4,
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
     },
     recommendationText: {
         fontFamily: FONTS.body,
-        fontSize: 13,
-        color: COLORS.sugarScore.safeText,
-        lineHeight: 18,
-        marginBottom: 2,
+        fontSize: 14,
+        color: '#166534', // Green 800
+        lineHeight: 20,
     }
 });

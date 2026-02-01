@@ -2,15 +2,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
     Welcome: undefined;
-    Problem: undefined;
-    Solution: undefined;
-    Disclaimer: undefined;
+    OnboardingWizard: undefined;
+    Disclaimer: undefined; // Keeping as separate or part of wizard? Wizard has it.
     Permissions: undefined;
     Ready: undefined;
-    TwoSignals: undefined; // Keeping for now
-    ProteinMyth: undefined; // Keeping for now
-    Preferences: undefined; // Keeping for now
-    HeightWeight: undefined; // Keeping for now
     Login: { isRegistering?: boolean };
     PhoneNumber: { isRegistering?: boolean };
     Home: undefined;

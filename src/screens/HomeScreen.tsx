@@ -288,11 +288,11 @@ export default function HomeScreen() {
             >
                 {/* 2. Header Area */}
                 <View style={styles.header}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, gap: 4 }}>
                         <Image source={require('../assets/logo.png')} style={styles.headerLogo} resizeMode="contain" />
-                        <View>
-                            <Text style={styles.appName}>{strings.APP_NAME}</Text>
-                            <Text style={styles.greeting}>{getGreeting()}</Text>
+                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                            {/* <Text style={styles.appName}>{strings.APP_NAME}</Text> */}
+                            <Text style={styles.greeting} numberOfLines={1}>{getGreeting()}</Text>
                         </View>
                     </View>
 
@@ -301,14 +301,38 @@ export default function HomeScreen() {
                         <View style={styles.spikeCounter}>
                             <Zap size={16} color={COLORS.brand.accent} fill={COLORS.brand.accent} />
                             <Text style={styles.spikeCountText}>{dailySpikes}</Text>
-                            <Text style={styles.spikeLabel}>Spikes</Text>
                         </View>
                         <TouchableOpacity
                             onPress={() => setSettingsVisible(true)}
-                            style={{ padding: 8 }}
                             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                         >
-                            <Settings size={24} color={COLORS.textSecondary} />
+                            <View style={{
+                                width: 44,
+                                height: 44,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                ...SHADOWS.light,
+                                backgroundColor: COLORS.surface,
+                                borderRadius: 22,
+                            }}>
+                                {/* Gear Icon as background/frame */}
+                                <Settings
+                                    size={44}
+                                    color={COLORS.textTertiary}
+                                    strokeWidth={1.5}
+                                    style={{ position: 'absolute' }}
+                                />
+
+                                {/* User Initial */}
+                                <Text style={{
+                                    fontFamily: FONTS.heading,
+                                    fontSize: 18,
+                                    color: COLORS.textSecondary,
+                                    marginTop: Platform.OS === 'android' ? -2 : 0 // Fine tune vertical alignment if needed
+                                }}>
+                                    {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                                </Text>
+                            </View>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -488,6 +512,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: COLORS.background, // Ensure clean background
     },
     safeArea: {
         flex: 1,
@@ -500,44 +525,42 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: SPACING.l,
-        paddingVertical: SPACING.m,
+        paddingVertical: SPACING.s, // Reduced padding
         marginBottom: SPACING.s,
     },
     appName: {
         fontFamily: FONTS.heading,
-        fontSize: 24,
+        fontSize: 22, // Reduced from 28
         color: COLORS.brand.primary,
+        letterSpacing: -0.5,
     },
     greeting: {
-        fontFamily: FONTS.body,
-        fontSize: 14,
-        color: COLORS.textSecondary,
+        fontFamily: FONTS.medium,
+        fontSize: 13, // Reduced from 15
+        color: COLORS.textTertiary,
+        marginTop: -2,
     },
     headerLogo: {
-        width: 60,
-        height: 60,
+        width: 150,
+        height: 150,
+        marginLeft: -30, // Pull closer to left edge to save space
     },
     spikeCounter: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: COLORS.surfaceLight, // Rose 50
-        paddingHorizontal: 12,
-        paddingVertical: 8,
-        borderRadius: 20,
+        backgroundColor: COLORS.surface,
+        paddingHorizontal: 10, // Compact padding
+        paddingVertical: 6,
+        borderRadius: 100,
         gap: 6,
         ...SHADOWS.light,
         borderWidth: 1,
-        borderColor: COLORS.divider,
+        borderColor: COLORS.surfaceLight,
     },
     spikeCountText: {
         fontFamily: FONTS.heading,
-        fontSize: 16,
+        fontSize: 16, // Slightly smaller
         color: COLORS.text,
-    },
-    spikeLabel: {
-        fontFamily: FONTS.body,
-        fontSize: 12,
-        color: COLORS.textSecondary,
     },
     mainContent: {
         paddingHorizontal: SPACING.l,
@@ -552,37 +575,42 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontFamily: FONTS.heading,
-        fontSize: 18,
+        fontSize: 20,
         color: COLORS.text,
         marginBottom: SPACING.m,
+        marginTop: SPACING.l,
     },
     emptyState: {
         backgroundColor: COLORS.surface,
-        borderRadius: SIZES.borderRadius.l,
-        padding: SPACING.xl,
+        borderRadius: 24,
+        padding: 40,
         alignItems: 'center',
         justifyContent: 'center',
         borderStyle: 'dashed',
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: COLORS.divider,
+        marginTop: SPACING.m,
     },
     emptyStateText: {
-        fontFamily: FONTS.body,
-        fontSize: 16,
-        color: COLORS.textSecondary,
-        marginBottom: SPACING.s,
+        fontFamily: FONTS.subheading,
+        fontSize: 18,
+        color: COLORS.text,
+        marginBottom: 8,
+        marginTop: 16,
     },
     emptyStateLink: {
-        fontFamily: FONTS.medium,
-        fontSize: 14,
-        color: COLORS.brand.accent,
+        fontFamily: FONTS.body,
+        fontSize: 15,
+        color: COLORS.textSecondary,
+        textAlign: 'center',
+        maxWidth: 240,
     },
     mealList: {
-        gap: SPACING.m,
+        gap: 16, // More breathing room
     },
     mealItem: {
         flexDirection: 'row',
-        alignItems: 'flex-start', // Align to top
+        alignItems: 'flex-start',
         backgroundColor: COLORS.surface,
         padding: SPACING.m,
         borderRadius: SIZES.borderRadius.m,
@@ -628,18 +656,19 @@ const styles = StyleSheet.create({
     },
     fab: {
         position: 'absolute',
-        bottom: SPACING.xl,
-        right: SPACING.l,
+        bottom: 32,
+        right: 24,
         width: 64,
         height: 64,
         borderRadius: 32,
-        backgroundColor: COLORS.brand.primary, // Blood Red
+        backgroundColor: COLORS.brand.primary,
         justifyContent: 'center',
         alignItems: 'center',
         ...SHADOWS.medium,
-        shadowColor: COLORS.brand.primary,
+        shadowColor: COLORS.brand.primary, // Color glow
         shadowOpacity: 0.4,
-        shadowRadius: 10,
+        shadowRadius: 12,
+        elevation: 8,
     },
     fixButton: {
         backgroundColor: COLORS.surface,
@@ -713,11 +742,11 @@ const styles = StyleSheet.create({
         gap: 6,
         ...SHADOWS.medium,
         borderWidth: 1,
-        borderColor: COLORS.divider
+        borderColor: COLORS.divider,
     },
     scrollCueText: {
         fontFamily: FONTS.medium,
         fontSize: 12,
-        color: COLORS.textSecondary
+        color: COLORS.textSecondary,
     }
 });

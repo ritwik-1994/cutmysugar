@@ -14,22 +14,30 @@ export interface User {
     phone?: string;
     name?: string;
     hasCompletedOnboarding?: boolean;
+    // Extended Profile Fields
+    height?: number;
+    weight?: number;
+    age?: number;
+    gender?: string;
+    primary_goal?: string;
+    dietary_preference?: string;
+    daily_budget?: number;
 }
 
 interface AuthContextType {
     user: User | null;
     session: Session | null;
-    isLoading: boolean; // Global loading state (for splashing/initial auth)
+    isLoading: boolean;
     signInWithGoogle: (idToken?: string) => Promise<void>;
     signInWithPhone: (phone: string, isWhatsApp?: boolean) => Promise<{ error: any }>;
     signInWithMockPhone: (phone: string, isRegistering?: boolean) => Promise<{ session: Session | null; error: any }>;
     verifyOtp: (phone: string, token: string) => Promise<{ error: any; session?: Session | null }>;
     logout: () => Promise<void>;
+    updateProfile: (updates: Partial<User>) => Promise<{ error: any }>;
 }
 
 // --- Helpers ---
 
-// Timeout wrapper to prevent async operations from hanging indefinitely
 // Timeout wrapper to prevent async operations from hanging indefinitely
 const withTimeout = <T,>(promise: Promise<T>, ms: number = 3000, errorMsg: string = "Operation timed out"): Promise<T> => {
     return Promise.race([
@@ -44,7 +52,14 @@ const mapSessionToUser = (u: SupabaseUser, profile?: any): User => ({
     email: u.email,
     phone: u.phone,
     name: profile?.full_name || u.user_metadata?.full_name || u.user_metadata?.name,
-    hasCompletedOnboarding: false // Default, updated during profile sync
+    hasCompletedOnboarding: false, // Default, updated during profile sync
+    height: profile?.height,
+    weight: profile?.weight,
+    age: profile?.age,
+    gender: profile?.gender,
+    primary_goal: profile?.primary_goal,
+    dietary_preference: profile?.dietary_preference,
+    daily_budget: profile?.daily_budget,
 });
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -56,23 +71,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     // --- Core Logic: Handle Session Changes Linearly ---
     const handleSessionChange = async (newSession: Session | null, event: string) => {
-        // MANUAL PERSISTENCE: Save or Clear Session
-        if (newSession) {
-            try {
-                // We only need access_token and refresh_token
-                const sessionSubset = {
-                    access_token: newSession.access_token,
-                    refresh_token: newSession.refresh_token,
-                };
-                await AsyncStorage.setItem('manual_auth_session', JSON.stringify(sessionSubset));
-            } catch (e) {
-                console.error("Manual Persistence Save Failed:", e);
-            }
-        } else {
-            // Only clear if explicitly signed out or session is null
-            await AsyncStorage.removeItem('manual_auth_session');
-        }
-
         if (!newSession) {
             setSession(null);
             setUser(null);
@@ -138,19 +136,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         const authIntent = await AsyncStorage.getItem('auth_intent');
         const cachedOnboardingStatus = await AsyncStorage.getItem('user_onboarded_status');
-        const isCachedValid = cachedOnboardingStatus === 'true';
+
+        // B. Handle "Register" flow / Temp Data Sync
+        const tempGoal = await AsyncStorage.getItem('temp_goal');
 
         // RULE: If NO VALID profile exists, and intent is NOT 'register', REJECT.
+        // FIX: Also check if tempGoal exists (implies partially completed onboarding)
         const isStrictCheck = event !== 'INITIAL_SESSION';
 
-        if (isStrictCheck && !hasValidProfile && authIntent !== 'register') {
+        if (isStrictCheck && !hasValidProfile && authIntent !== 'register' && !tempGoal) {
             await AsyncStorage.setItem('auth_error', 'USER_NOT_FOUND_GOOGLE'); // UI Prompt
             await logout(); // FORCE FULL CLEANUP
             throw new Error("Strict Login Rejection");
         }
-
-        // B. Handle "Register" flow / Temp Data Sync
-        const tempGoal = await AsyncStorage.getItem('temp_goal');
 
         if (authIntent === 'register' || tempGoal) {
             await syncTempDataToProfile(authUser, existingProfile);
@@ -190,6 +188,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const tempDisclaimer = await AsyncStorage.getItem('temp_medical_disclaimer');
         const tempHeight = await AsyncStorage.getItem('temp_height_cm');
         const tempWeight = await AsyncStorage.getItem('temp_weight_kg');
+        const tempAge = await AsyncStorage.getItem('temp_age');
+        const tempGender = await AsyncStorage.getItem('temp_gender');
 
         // PRESERVE EXISTING DATA (The "Safe Merge")
         // Logic: If the user IS already onboarded (has a goal), we respect their existing data.
@@ -239,6 +239,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             medical_disclaimer_accepted: existingProfile?.medical_disclaimer_accepted || (tempDisclaimer === 'true'),
             height: existingProfile?.height || (tempHeight ? parseFloat(tempHeight) : null),
             weight: existingProfile?.weight || (tempWeight ? parseFloat(tempWeight) : null),
+            age: existingProfile?.age || (tempAge ? parseInt(tempAge) : null),
+            gender: existingProfile?.gender || tempGender || null,
             updated_at: new Date().toISOString(),
         };
 
@@ -246,7 +248,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (error) console.error("Auth Flow: Profile Upsert Failed. Details:", JSON.stringify(error, null, 2));
         else {
             console.log("Auth Flow: Profile Upsert Success");
-            await AsyncStorage.multiRemove(['temp_user_name', 'temp_goal', 'temp_diet_pref', 'temp_medical_disclaimer', 'temp_height_cm', 'temp_weight_kg']);
+            await AsyncStorage.multiRemove(['temp_user_name', 'temp_goal', 'temp_diet_pref', 'temp_medical_disclaimer', 'temp_height_cm', 'temp_weight_kg', 'temp_age', 'temp_gender']);
         }
     };
 
@@ -256,34 +258,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         let mounted = true;
 
         const initializeAuth = async () => {
-            // 1. Manual Session Load
-            try {
-                const savedSessionJSON = await AsyncStorage.getItem('manual_auth_session');
-                if (savedSessionJSON) {
-                    const savedSession = JSON.parse(savedSessionJSON);
-                    if (savedSession && savedSession.access_token && savedSession.refresh_token) {
-                        const { error } = await supabase.auth.setSession({
-                            access_token: savedSession.access_token,
-                            refresh_token: savedSession.refresh_token,
-                        });
-                        if (error) {
-                            console.warn("Manual Session Restore Failed:", error.message);
-                            await AsyncStorage.removeItem('manual_auth_session');
-                        } else if (mounted) {
-                            console.log("Manual Session Restored Successfully.");
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error("Manual Session Load Error:", e);
-            }
-
-            // 2. Initial Session Check (Fallback/Validation)
+            // Initial Session Check (Fallback/Validation)
             const { data, error } = await supabase.auth.getSession();
             if (!mounted) return;
             if (error) console.warn("Auth Init Error:", error.message);
             // Manually trigger handler for initial session
-            handleSessionChange(data.session, 'INITIAL_SESSION');
+            if (data.session) {
+                handleSessionChange(data.session, 'INITIAL_SESSION');
+            } else {
+                setIsLoading(false);
+            }
         };
 
         initializeAuth();
@@ -430,8 +414,55 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
+    const updateProfile = async (updates: Partial<User>) => {
+        if (!user || !session?.user.id) return { error: "No user logged in" };
+
+        // Optimistic UI update
+        const updatedUser = { ...user, ...updates };
+        setUser(updatedUser);
+
+        try {
+            // Map User updates to Supabase columns
+            const payload: any = {};
+            if (updates.name) payload.full_name = updates.name;
+            if (updates.email) payload.email = updates.email;
+            if (updates.phone) payload.phone = updates.phone;
+            // For other fields (height, weight, goal, diet) we need to extend the User type or handle them separately if not in User interface yet.
+            // Based on context, User interface only has basic fields.
+            // Let's assume we pass a payload that matches the profile table directly for this specific method 
+            // OR we update the User interface to include these fields. 
+
+            // Allow passing arbitrary profile fields for now via casting or extending the type locally in the method signature if needed.
+            // But better: Let's assume 'updates' contains the keys we want to save.
+
+            const profilePayload: any = { updated_at: new Date().toISOString() };
+
+            // Map known UI keys to DB keys
+            if (updates.name) profilePayload.full_name = updates.name;
+            if ('height' in updates) profilePayload.height = updates.height;
+            if ('weight' in updates) profilePayload.weight = updates.weight;
+            if ('age' in updates) profilePayload.age = updates.age;
+            if ('gender' in updates) profilePayload.gender = updates.gender;
+            if ('primary_goal' in updates) profilePayload.primary_goal = (updates as any).primary_goal;
+            if ('dietary_preference' in updates) profilePayload.dietary_preference = (updates as any).dietary_preference;
+            if ('daily_budget' in updates) profilePayload.daily_budget = (updates as any).daily_budget;
+
+            const { error } = await supabase
+                .from('profiles')
+                .update(profilePayload)
+                .eq('id', session.user.id);
+
+            if (error) throw error;
+            return { error: null };
+        } catch (error: any) {
+            console.error("Update Profile Error:", error);
+            // Revert optimistic update if needed? For now we just log.
+            return { error };
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ user, session, isLoading, signInWithGoogle, signInWithPhone, signInWithMockPhone, verifyOtp, logout }}>
+        <AuthContext.Provider value={{ user, session, isLoading, signInWithGoogle, signInWithPhone, signInWithMockPhone, verifyOtp, logout, updateProfile }}>
             {children}
         </AuthContext.Provider>
     );

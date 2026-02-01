@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, ScrollView, TouchableOpacity, Linking, Platform, Share, Switch } from 'react-native';
 import { COLORS, FONTS, SPACING, SIZES, SHADOWS } from '../../styles/theme';
 import { Button } from '../ui/Button';
-import { X, Mail, MessageCircle, LogOut, FileText, ChevronRight, Share2, Globe } from 'lucide-react-native';
+import { X, Mail, MessageCircle, LogOut, FileText, ChevronRight, Share2, Globe, PenLine, Bell } from 'lucide-react-native';
+import { EditProfileModal } from './EditProfileModal';
 import { useAuth } from '../../context/AuthContext';
-import { useLanguage } from '../../context/LanguageContext';
+// import { useLanguage } from '../../context/LanguageContext';
+import { scheduleDailyReminders, sendLocalNotification } from '../../services/notificationService';
+import { usePushNotifications } from '../../hooks/usePushNotifications';
+import Constants from 'expo-constants';
+import * as Clipboard from 'expo-clipboard';
 
 interface SettingsModalProps {
     visible: boolean;
@@ -13,18 +18,21 @@ interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ visible, onClose }) => {
     const { logout, user } = useAuth();
-    const { language, toggleLanguage } = useLanguage();
+    // const { language, toggleLanguage } = useLanguage();
     const [policyVisible, setPolicyVisible] = useState(false);
+    const [editProfileVisible, setEditProfileVisible] = useState(false);
+    const { expoPushToken, register } = usePushNotifications();
 
     const handleWhatsAppSupport = () => {
-        // Replace with actual business number
-        Linking.openURL('https://wa.me/917728086673?text=Hi, I need help with CutMySugar');
+        // WhatsApp Group Invite Link
+        Linking.openURL('https://chat.whatsapp.com/KRuRROOY8n78EeTaCBL3St');
     };
 
     const handleShare = async () => {
         try {
             await Share.share({
-                message: 'I\'m executing better energy and focus with CutMySugar! ⚡️ Track your sugar spikes here: https://cutmysugar.app',
+                message: 'I\'m executing better energy and focus with CutMySugar! ⚡️ Track your sugar spikes here: https://cutmysugar.vercel.app',
+                title: 'Join me on CutMySugar!',
             });
         } catch (error) {
             console.error(error);
@@ -72,7 +80,17 @@ For privacy concerns, contact support@cutmysugar.com.
 
                         {/* User Info */}
                         <View style={styles.section}>
-                            <Text style={styles.sectionTitle}>Account</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={styles.sectionTitle}>Account</Text>
+                                <TouchableOpacity
+                                    onPress={() => setEditProfileVisible(true)}
+                                    style={{ flexDirection: 'row', alignItems: 'center', marginBottom: SPACING.m }}
+                                >
+                                    <Text style={{ color: COLORS.brand.primary, fontFamily: FONTS.medium, marginRight: 4 }}>Edit</Text>
+                                    <PenLine size={14} color={COLORS.brand.primary} />
+                                </TouchableOpacity>
+                            </View>
+
                             <View style={styles.row}>
                                 <Text style={styles.label}>Phone</Text>
                                 <Text style={styles.value}>{user?.phone || 'Unknown'}</Text>
@@ -83,7 +101,26 @@ For privacy concerns, contact support@cutmysugar.com.
                                     <Text style={styles.value}>{user.name}</Text>
                                 </View>
                             )}
+                            {/* Quick Glance at details */}
+                            {(user?.height || user?.weight) && (
+                                <View style={styles.row}>
+                                    <Text style={styles.label}>Stats</Text>
+                                    <Text style={styles.value}>
+                                        {user.height ? `${user.height}cm` : ''}
+                                        {user.height && user.weight ? ' • ' : ''}
+                                        {user.weight ? `${user.weight}kg` : ''}
+                                    </Text>
+                                </View>
+                            )}
                         </View>
+
+                        {/* Edit Profile Modal */}
+                        <EditProfileModal
+                            visible={editProfileVisible}
+                            onClose={() => setEditProfileVisible(false)}
+                        />
+
+
 
                         {/* Share */}
                         <View style={styles.section}>
@@ -112,8 +149,8 @@ For privacy concerns, contact support@cutmysugar.com.
                                     <MessageCircle size={20} color="#166534" />
                                 </View>
                                 <View style={styles.menuText}>
-                                    <Text style={styles.menuTitle}>Chat on WhatsApp</Text>
-                                    <Text style={styles.menuSub}>Fastest response</Text>
+                                    <Text style={styles.menuTitle}>Join Support Group</Text>
+                                    <Text style={styles.menuSub}>Ask the team & community</Text>
                                 </View>
                                 <ChevronRight size={20} color={COLORS.textTertiary} />
                             </TouchableOpacity>
@@ -141,36 +178,12 @@ For privacy concerns, contact support@cutmysugar.com.
                             <LogOut size={20} color={COLORS.sugarScore.criticalText} />
                             <Text style={styles.logoutText}>Log Out</Text>
                         </TouchableOpacity>
-
-
-                        {/* Language */}
-                        <View style={styles.section}>
-                            <Text style={styles.sectionTitle}>Language / भाषा</Text>
-                            <View style={styles.menuItem}>
-                                <View style={[styles.iconBox, { backgroundColor: '#FFF7ED' }]}>
-                                    <Globe size={20} color="#EA580C" />
-                                </View>
-                                <View style={styles.menuText}>
-                                    <Text style={styles.menuTitle}>Hindi / हिंदी</Text>
-                                    <Text style={styles.menuSub}>Translate entire app</Text>
-                                </View>
-                                <Switch
-                                    value={language === 'hi'}
-                                    onValueChange={toggleLanguage}
-                                    trackColor={{ false: COLORS.divider, true: COLORS.brand.primary }}
-                                    thumbColor={'#FFF'}
-                                />
-                            </View>
-                        </View>
-
-                        <Text style={styles.version}>Version 1.0.0 (MVP)</Text>
-
                     </ScrollView>
                 </View>
-            </View>
+            </View >
 
             {/* Privacy Policy Modal */}
-            <Modal
+            < Modal
                 visible={policyVisible}
                 animationType="slide"
                 presentationStyle="pageSheet"
@@ -187,8 +200,8 @@ For privacy concerns, contact support@cutmysugar.com.
                         <Text style={styles.policyText}>{PRIVACY_POLICY}</Text>
                     </ScrollView>
                 </View>
-            </Modal>
-        </Modal>
+            </Modal >
+        </Modal >
     );
 };
 

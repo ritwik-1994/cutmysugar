@@ -55,7 +55,7 @@ export default function WelcomeScreen() {
             return;
         }
         await AsyncStorage.setItem('temp_user_name', name.trim());
-        navigation.navigate('Problem');
+        navigation.navigate('OnboardingWizard');
     };
 
     return (
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        width: 100,
-        height: 100,
+        width: 250,
+        height: 250,
         marginBottom: SPACING.l,
     },
     title: {

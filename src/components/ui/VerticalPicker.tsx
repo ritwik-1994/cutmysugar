@@ -107,13 +107,17 @@ export const VerticalPicker = ({
                     const isSelected = index === selectedIndex;
                     return (
                         <View style={[styles.item, { height: itemHeight }]}>
-                            <Text style={[
-                                styles.itemText,
-                                isSelected ? styles.selectedText : styles.unselectedText
-                            ]}>
-                                {item}
-                                {isSelected && label && <Text style={styles.unitVideo}> {label}</Text>}
-                            </Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+                                <Text style={[
+                                    styles.itemText,
+                                    isSelected ? styles.selectedText : styles.unselectedText
+                                ]}>
+                                    {item}
+                                </Text>
+                                {isSelected && label && (
+                                    <Text style={[styles.unitVideo, { marginLeft: 4 }]}>{label}</Text>
+                                )}
+                            </View>
                         </View>
                     );
                 }}

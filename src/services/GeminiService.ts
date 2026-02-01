@@ -73,9 +73,9 @@ It is risky to underestimate or overesimate the weight of the ingridients, so en
     *   **Unsteady**: GL 10-20.
     *   **Stable**: GL < 10.
 7.  **Added Sugar**: Explicitly check. 'addedSugarLikely' true for desserts/juices.
-8.  **Recommendations**: Indian context, accessible, affordable.
-    *   If High GL: Suggest specific valid swap (e.g., Oats Idli vs Rava Idli).
-    *   If Low GL: Small tweak.
+8.  **Recommendations**: Indian context. **STRICTLY UNDER 15 WORDS.**
+    *   Style: Actionable. Can include pairing examples.
+    *   Example: "**Pair with Paneer/Curd** to reduce spike.", "**Swap for Rava Idli**".
 
 
 **CORE PRINCIPLE: DIABETIC SAFETY FIRST.**
@@ -164,7 +164,7 @@ Your task is to analyze the **described food** and provide detailed glycemic dat
     *   **Unsteady**: GL 10-20.
     *   **Stable**: GL < 10.
 7.  **Added Sugar**: Explicitly check based on common recipes.
-8.  **Recommendations**: Indian context, accessible, affordable.
+8.  **Recommendations**: Indian context. **STRICTLY UNDER 15 WORDS.** Actionable + Pairing.
 
 **CORE PRINCIPLE: DIABETIC SAFETY FIRST.**
 *   **Under-estimating** sugar/carbs is dangerous. **Over-estimating** is safer.
@@ -227,7 +227,7 @@ export class GeminiService {
         }
     }
 
-    async analyzeFood(base64Image: string, userProfile?: { goal?: string, diet?: string }, imageUri?: string): Promise<FoodAnalysisResult> {
+    async analyzeFood(base64Image: string, userProfile?: { goal?: string, diet?: string }, imageUri?: string, context?: string): Promise<FoodAnalysisResult> {
         try {
             let finalBase64 = base64Image;
 
@@ -253,6 +253,7 @@ export class GeminiService {
             const { data, error } = await supabase.functions.invoke('analyze-food', {
                 body: {
                     base64Image: cleanBase64,
+                    context, // Pass context to Edge Function
                     prompt: SYSTEM_PROMPT
                 }
             });
@@ -366,25 +367,26 @@ export class GeminiService {
         You are an expert nutritionist advising a user about: "${foodName}".
         ${contextInstruction}
         
-        ** TASK: PROVIDE 2 STRICTLY FORMATTED "GLUCOSE HACKS" (Indian Context) **
+        ** TASK: PROVIDE 2 IMPACTFUL "GLUCOSE HACKS" (Indian Context) **
         
         ** FORMAT RULE:**
-        Each string in the array MUST follow this EXACT format:
-        "Smart Swaps: [Advice within 50 chars]\nAlternatives: [Food item within 50 chars]"
-
+        Return a JSON Array of strings. Each string must be a **single direct command**.
+        
         ** RULES:**
-        1. ** NO BULLET POINTS ** (Do not use •, -, or * at the start).
-        2. ** BOLD KEYWORDS **: Make the main point **bold** instead of using bullets.
-        3. ** SMART SWAP **: A clever tweak (e.g., "**Add Ghee** to reduce GI").
-        4. ** ALTERNATIVE **: A replacement (e.g., "**Rava Idli**", "**Khapli Wheat**").
-        5. ** STRICT LENGTH LIMIT **: 50 characters max per line.
+        1. ** LENGTH LIMIT **: STRICTLY Max 5 words / 25 chars per string.
+        2. ** STYLE **: Precise AF. No fluff. Direct command.
+        3. ** BOLDING **: **Bold** the key action.
+        4. ** CONTENT **: Focus on fiber, fat, or sequencing hacks.
+        
+        ** EXAMPLES:**
+        [
+            "**Dip in Ghee** to lower spike.",
+            "**Eat Salad First** before scanning.",
+            "**Walk 10m** after eating.",
+            "**Add Paneer** for protein buffer."
+        ]
 
         ** OUTPUT:** JSON Array of strings ONLY.
-        Example: 
-        [
-            "Smart Swaps: **Dip Roti in Ghee** to lower GI\\nAlternatives: **Multigrain Roti**",
-            "Smart Swaps: **Eat Cucumber salad** first\\nAlternatives: **Brown Rice**"
-        ]
     `;
 
         try {

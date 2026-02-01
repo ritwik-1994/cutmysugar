@@ -18,6 +18,7 @@ type PortionSize = 'Small' | 'Medium' | 'Large';
 
 import { geminiService } from '../services/GeminiService';
 import { ActivityIndicator, Modal } from 'react-native';
+import { usePushNotifications } from '../hooks/usePushNotifications';
 
 type ManualEntryRouteProp = RouteProp<RootStackParamList, 'ManualEntry'>;
 
@@ -26,6 +27,7 @@ export default function ManualEntryScreen() {
     const navigation = useNavigation<NavigationProps>();
     const route = useRoute<ManualEntryRouteProp>();
     const { logMeal, startTextAnalysis, userGoal, dietaryPreference } = useMeal();
+    const { trackMealLog } = usePushNotifications();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <title>Raw Push Test - Advanced</title>
+</head>
+
+<body>
+    <h1>Push Notification Debugger (Advanced)</h1>
+    <div>
+        <strong>Status:</strong> <span id="status">Ready</span>
+    </div>
+    <div style="margin-top: 10px;">
+        <button onclick="register()">1. Register SW</button>
+        <button onclick="unsubscribe()">2. FORCE UNSUBSCRIBE (Crucial)</button>
+        <button onclick="subscribe()">3. Subscribe (New Key)</button>
+    </div>
+    <pre id="log" style="background: #f0f0f0; padding: 10px; margin-top: 20px; text-wrap: wrap;"></pre>
+
+    <script>
+        const VAPID_KEY = 'BChqiccwpMXM9EXzXHdEeZB77tdHYlDAYlt-j-8S9QyAUA0mUFRGvbQQk20eIembrB0ezWyxmRO15eRBKwHUx5k';
+
+        function log(msg) {
+            const el = document.getElementById('log');
+            el.innerHTML += msg + '\n';
+            console.log(msg);
+        }
+
+        // Check environment immediately
+        log('Environment Check:');
+        log('Secure Context: ' + window.isSecureContext);
+        log('Hostname: ' + window.location.hostname);
+        log('Protocol: ' + window.location.protocol);
+
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                .replace(/-/g, '+')
+                .replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+
+        async function register() {
+            try {
+                log('Registering SW...');
+                const reg = await navigator.serviceWorker.register('/expo-service-worker.js');
+                log('SW Registered: ' + reg.scope);
+                return reg;
+            } catch (e) {
+                log('SW Error: ' + e);
+            }
+        }
+
+        async function unsubscribe() {
+            try {
+                const reg = await navigator.serviceWorker.ready;
+                const sub = await reg.pushManager.getSubscription();
+                if (sub) {
+                    log('Found existing subscription. Unsubscribing...');
+                    await sub.unsubscribe();
+                    log('SUCCESS: Unsubscribed.');
+                } else {
+                    log('No existing subscription found to unsubscribe.');
+                }
+            } catch (e) {
+                log('Unsubscribe Error: ' + e);
+            }
+        }
+
+        async function subscribe() {
+            try {
+                log('Getting Registration...');
+                const reg = await navigator.serviceWorker.ready;
+
+                // Double check existing
+                const existingSub = await reg.pushManager.getSubscription();
+                if (existingSub) {
+                    log('WARNING: Still have a subscription! ' + JSON.stringify(existingSub));
+                }
+
+                log('Subscribing with NEW key...');
+                const convertedKey = urlBase64ToUint8Array(VAPID_KEY);
+
+                const sub = await reg.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: convertedKey
+                });
+
+                log('VICTORY! Endpoint:');
+                log(JSON.stringify(sub));
+            } catch (e) {
+                log('SUBSCRIBE ERROR: ' + e.name + ': ' + e.message);
+                console.error(e);
+            }
+        }
+    </script>
+</body>
+
+</html>

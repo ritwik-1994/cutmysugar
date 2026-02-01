@@ -146,7 +146,7 @@ export const InstallAppBanner = ({ triggerShow }: { triggerShow: boolean }) => {
                                 </View>
                                 <View style={styles.step}>
                                     <Text style={styles.stepNum}>💡</Text>
-                                    <Text style={styles.stepText}>If missing, tap the browser Menu (⋮) and look for "Install App" or "More Tools -> Create Shortcut".</Text>
+                                    <Text style={styles.stepText}>If missing, tap the browser Menu (⋮) and look for "Install App" or "More Tools -&gt; Create Shortcut".</Text>
                                 </View>
                             </>
                         )}

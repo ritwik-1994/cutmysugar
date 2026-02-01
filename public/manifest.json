@@ -1,0 +1,25 @@
+{
+    "short_name": "CutMySugar",
+    "name": "CutMySugar App",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "/ling.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        },
+        {
+            "src": "/ling.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/ling.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
